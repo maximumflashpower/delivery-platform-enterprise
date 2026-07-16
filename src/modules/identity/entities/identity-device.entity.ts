@@ -5,10 +5,10 @@ import { IdentityUser } from './identity-user.entity';
 @Entity('identity_devices')
 export class IdentityDevice extends BaseEntity {
   @ManyToOne(() => IdentityUser, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'userId' })
   user: IdentityUser;
 
-  @Column({ name: 'user_id', type: 'uuid' })
+  @Column({ type: 'uuid' })
   userId: string;
 
   @Column({ type: 'varchar', length: 255 })

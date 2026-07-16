@@ -10,14 +10,14 @@ export class Ride extends BaseEntity {
   rideId: string;
 
   @ManyToOne(() => IdentityUser, { onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'passenger_id' })
+  @JoinColumn({ name: 'passengerId' })
   passenger?: IdentityUser;
 
   @Column({ type: 'uuid', nullable: true })
   passengerId?: string;
 
   @ManyToOne(() => IdentityUser, { onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'driver_id' })
+  @JoinColumn({ name: 'driverId' })
   driver?: IdentityUser;
 
   @Column({ type: 'uuid', nullable: true })

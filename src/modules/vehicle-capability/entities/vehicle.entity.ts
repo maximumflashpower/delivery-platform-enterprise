@@ -10,7 +10,7 @@ export class Vehicle extends BaseEntity {
   plateNumber: string;
 
   @ManyToOne(() => IdentityUser, { onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'owner_id' })
+  @JoinColumn({ name: 'ownerId' })
   owner?: IdentityUser;
 
   @Column({ type: 'uuid', nullable: true })

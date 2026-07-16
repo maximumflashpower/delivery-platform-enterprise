@@ -7,7 +7,7 @@ import { CredentialStatus } from '../enums/credential-status.enum';
 @Entity('credentials')
 export class Credential extends BaseEntity {
   @OneToOne(() => IdentityUser, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'userId' })
   user: IdentityUser;
 
   @Column({ type: 'uuid' })

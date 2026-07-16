@@ -6,7 +6,7 @@ import { VerificationLevel } from '../enums/verification-level.enum';
 @Entity('trust_verification_badges')
 export class VerificationBadge extends BaseEntity {
   @ManyToOne(() => IdentityUser, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'userId' })
   user: IdentityUser;
 
   @Column({ type: 'uuid' })

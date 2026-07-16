@@ -10,7 +10,7 @@ export class Payout extends BaseEntity {
   payoutId: string;
 
   @ManyToOne(() => IdentityUser, { onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'userId' })
   user?: IdentityUser;
 
   @Column({ type: 'uuid', nullable: true })

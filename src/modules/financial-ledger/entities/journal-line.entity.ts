@@ -7,7 +7,7 @@ import { JournalEntry } from './journal-entry.entity';
 @Index(['entryId'])
 export class JournalLine extends BaseEntity {
   @ManyToOne(() => JournalEntry, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'entry_id' })
+  @JoinColumn({ name: 'entryId' })
   entry: JournalEntry;
 
   @Column({ type: 'uuid' })

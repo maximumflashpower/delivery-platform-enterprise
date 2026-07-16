@@ -6,10 +6,10 @@ import { RecoveryMethod } from '../enums/recovery-method.enum';
 @Entity('identity_recovery_codes')
 export class IdentityRecoveryCode extends BaseEntity {
   @ManyToOne(() => IdentityUser, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'userId' })
   user: IdentityUser;
 
-  @Column({ name: 'user_id', type: 'uuid' })
+  @Column({ type: 'uuid' })
   userId: string;
 
   @Column({ type: 'varchar', length: 100 })

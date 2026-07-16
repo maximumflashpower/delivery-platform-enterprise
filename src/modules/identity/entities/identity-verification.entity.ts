@@ -7,10 +7,10 @@ import { IdentityProvider } from '../enums/identity-provider.enum';
 @Entity('identity_verifications')
 export class IdentityVerification extends BaseEntity {
   @ManyToOne(() => IdentityUser, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'userId' })
   user: IdentityUser;
 
-  @Column({ name: 'user_id', type: 'uuid' })
+  @Column({ type: 'uuid' })
   userId: string;
 
   @Column({ type: 'varchar', length: 50 })

@@ -6,7 +6,7 @@ import { TrustScoreTrend } from '../enums/trust-score-trend.enum';
 @Entity('trust_scores')
 export class TrustScore extends BaseEntity {
   @ManyToOne(() => IdentityUser, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'userId' })
   user: IdentityUser;
 
   @Column({ type: 'uuid' })

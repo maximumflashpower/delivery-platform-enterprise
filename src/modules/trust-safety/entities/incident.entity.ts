@@ -6,14 +6,14 @@ import { IncidentSeverity } from '../enums/incident-severity.enum';
 @Entity('trust_incidents')
 export class Incident extends BaseEntity {
   @ManyToOne(() => IdentityUser, { onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'reported_user_id' })
+  @JoinColumn({ name: 'reportedUserId' })
   reportedUser?: IdentityUser;
 
   @Column({ type: 'uuid', nullable: true })
   reportedUserId?: string;
 
   @ManyToOne(() => IdentityUser, { onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'reporter_id' })
+  @JoinColumn({ name: 'reporterId' })
   reporter?: IdentityUser;
 
   @Column({ type: 'uuid', nullable: true })

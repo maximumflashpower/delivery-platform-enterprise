@@ -6,14 +6,14 @@ import { Role } from './role.entity';
 @Entity('identity_user_roles')
 export class UserRole extends BaseEntity {
   @ManyToOne(() => IdentityUser, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'userId' })
   user: IdentityUser;
 
   @Column({ type: 'uuid' })
   userId: string;
 
   @ManyToOne(() => Role, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'role_id' })
+  @JoinColumn({ name: 'roleId' })
   role: Role;
 
   @Column({ type: 'uuid' })

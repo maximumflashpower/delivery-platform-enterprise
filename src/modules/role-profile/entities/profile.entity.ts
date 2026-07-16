@@ -7,7 +7,7 @@ import { ProfileStatus } from '../enums/profile-status.enum';
 @Entity('user_profiles')
 export class Profile extends BaseEntity {
   @ManyToOne(() => IdentityUser, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'userId' })
   user: IdentityUser;
 
   @Column({ type: 'uuid' })
