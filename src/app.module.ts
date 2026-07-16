@@ -31,7 +31,7 @@ import { GovernanceModule } from './modules/governance/governance.module';
 // Domain Modules
 import { DriverOperatorModule } from './modules/driver-operator/driver-operator.module';
 import { DeliveryCourierModule } from './modules/delivery-courier/delivery-courier.module';
-import { MerchantB2BModule } from './modules/merchant-b2b/merchant-b2b.module';
+import { MerchantB2bModule } from './modules/merchant-b2b/merchant-b2b.module';
 import { HostTravelModule } from './modules/host-travel/host-travel.module';
 import { HaulingMovingModule } from './modules/hauling-moving/hauling-moving.module';
 import { FreightTruckingModule } from './modules/freight-trucking/freight-trucking.module';
@@ -104,7 +104,7 @@ import { LocalizationModule } from './modules/localization/localization.module';
     GovernanceModule,
     DriverOperatorModule,
     DeliveryCourierModule,
-    MerchantB2BModule,
+    MerchantB2bModule,
     HostTravelModule,
     HaulingMovingModule,
     FreightTruckingModule,
