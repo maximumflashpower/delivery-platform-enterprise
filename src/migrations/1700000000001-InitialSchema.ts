@@ -4,9 +4,9 @@ export class InitialSchema1700000000001 implements MigrationInterface {
   name = 'InitialSchema1700000000001';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`);
+
     await queryRunner.query(`
-      CREATE TYPE "public"."identity_users_status_enum" AS ENUM('active', 'inactive', 'suspended', 'banned', 'pending_verification');
-      
       CREATE TABLE "identity_users" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
         "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
@@ -27,7 +27,6 @@ export class InitialSchema1700000000001 implements MigrationInterface {
         CONSTRAINT "PK_identity_users" PRIMARY KEY ("id")
       );
     `);
-
     await queryRunner.query(`CREATE INDEX "idx_identity_users_phone" ON "identity_users" ("phone");`);
     await queryRunner.query(`CREATE INDEX "idx_identity_users_email" ON "identity_users" ("email");`);
 
@@ -85,9 +84,6 @@ export class InitialSchema1700000000001 implements MigrationInterface {
     `);
 
     await queryRunner.query(`
-      CREATE TYPE "public"."identity_verifications_status_enum" AS ENUM('pending', 'verified', 'failed', 'expired');
-      CREATE TYPE "public"."identity_verifications_provider_enum" AS ENUM('local', 'google', 'apple', 'facebook', 'twilio');
-      
       CREATE TABLE "identity_verifications" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
         "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
@@ -107,9 +103,6 @@ export class InitialSchema1700000000001 implements MigrationInterface {
     `);
 
     await queryRunner.query(`
-      CREATE TYPE "public"."credentials_type_enum" AS ENUM('password', 'oauth', 'passkey', 'mfa_phone', 'mfa_email', 'mfa_totp');
-      CREATE TYPE "public"."credentials_status_enum" AS ENUM('active', 'inactive', 'locked', 'expired', 'revoked');
-      
       CREATE TABLE "credentials" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
         "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
@@ -128,22 +121,15 @@ export class InitialSchema1700000000001 implements MigrationInterface {
         CONSTRAINT "FK_credentials_user" FOREIGN KEY ("userId") REFERENCES "identity_users"("id") ON DELETE CASCADE
       );
     `);
-
     await queryRunner.query(`CREATE INDEX "idx_credentials_identifier" ON "credentials" ("identifier", "type");`);
-    await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`DROP TABLE IF EXISTS "credentials";`);
-    await queryRunner.query(`DROP TYPE IF EXISTS "public"."credentials_type_enum";`);
-    await queryRunner.query(`DROP TYPE IF EXISTS "public"."credentials_status_enum";`);
     await queryRunner.query(`DROP TABLE IF EXISTS "identity_verifications";`);
-    await queryRunner.query(`DROP TYPE IF EXISTS "public"."identity_verifications_status_enum";`);
-    await queryRunner.query(`DROP TYPE IF EXISTS "public"."identity_verifications_provider_enum";`);
     await queryRunner.query(`DROP TABLE IF EXISTS "identity_recovery_codes";`);
     await queryRunner.query(`DROP TABLE IF EXISTS "identity_devices";`);
     await queryRunner.query(`DROP TABLE IF EXISTS "identity_sessions";`);
     await queryRunner.query(`DROP TABLE IF EXISTS "identity_users";`);
-    await queryRunner.query(`DROP TYPE IF EXISTS "public"."identity_users_status_enum";`);
   }
 }
