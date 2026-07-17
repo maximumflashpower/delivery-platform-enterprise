@@ -28,10 +28,10 @@ export class Shipment extends BaseEntity {
   @Column({ type: 'jsonb' })
   deliveryLocation: Record<string, any>;
 
-  @Column({ type: 'datetime' })
+  @Column({ type: 'timestamp' })
   pickupDateTime: Date;
 
-  @Column({ type: 'datetime', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   deliveryDateTime?: Date;
 
   @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
