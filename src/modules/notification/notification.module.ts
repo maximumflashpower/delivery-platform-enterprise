@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Notification } from './entities/notification.entity';
 import { NotificationTemplate } from './entities/notification-template.entity';
 import { NotificationPreference } from './entities/notification-preference.entity';
+import { NotificationService } from './services/notification.service';
+import { NotificationController } from './controllers/notification.controller';
 
 @Module({
   imports: [
@@ -12,6 +14,8 @@ import { NotificationPreference } from './entities/notification-preference.entit
       NotificationPreference,
     ]),
   ],
+  controllers: [NotificationController],
+  providers: [NotificationService],
   exports: [TypeOrmModule],
 })
 export class NotificationModule {}
