@@ -3,4 +3,6 @@ export enum MerchantStatus {
   PENDING = 'pending',
   SUSPENDED = 'suspended',
   CLOSED = 'closed',
+  APPROVED = 'approved',
+  REJECTED = 'rejected',
 }
