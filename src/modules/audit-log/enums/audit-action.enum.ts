@@ -1,0 +1,17 @@
+export enum AuditAction {
+  CREATE = 'create',
+  READ = 'read',
+  UPDATE = 'update',
+  DELETE = 'delete',
+  LOGIN = 'login',
+  LOGOUT = 'logout',
+  AUTHENTICATE = 'authenticate',
+  AUTHORIZE = 'authorize',
+  EXPORT = 'export',
+  IMPORT = 'import',
+  APPROVE = 'approve',
+  REJECT = 'reject',
+  CANCEL = 'cancel',
+  SUSPEND = 'suspend',
+  ACTIVATE = 'activate',
+}
