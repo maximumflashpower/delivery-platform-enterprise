@@ -3,18 +3,22 @@ import { ValidationPipe, Logger } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+import { WinstonModule } from 'nest-winston';
 import helmet from 'helmet';
 import compression from 'compression';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
+import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
+import { winstonConfig } from './config/winston.config';
 
 async function bootstrap() {
-  const logger = new Logger('Bootstrap');
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
+    logger: WinstonModule.createLogger(winstonConfig),
   });
 
+  const logger = new Logger('Bootstrap');
   const configService = app.get(ConfigService);
   const port = configService.get<number>('app.port') || 3000;
   const apiPrefix = configService.get<string>('app.apiPrefix') || 'api';
@@ -50,6 +54,9 @@ async function bootstrap() {
 
   // Exception filter (global)
   app.useGlobalFilters(new HttpExceptionFilter());
+
+  // Logging interceptor (global)
+  app.useGlobalInterceptors(new LoggingInterceptor());
 
   // Swagger
   if (swaggerEnabled) {

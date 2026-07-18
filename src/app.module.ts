@@ -19,7 +19,7 @@ import { VehicleCapabilityModule } from './modules/vehicle-capability/vehicle-ca
 import { MobilityRideModule } from './modules/mobility-ride/mobility-ride.module';
 import { DriverOperatorModule } from './modules/driver-operator/driver-operator.module';
 import { DeliveryCourierModule } from './modules/delivery-courier/delivery-courier.module';
-import { MerchantB2BModule } from './modules/merchant-b2b/merchant-b2b.module';
+import { MerchantB2bModule } from './modules/merchant-b2b/merchant-b2b.module';
 import { HostTravelModule } from './modules/host-travel/host-travel.module';
 import { FreightTruckingModule } from './modules/freight-trucking/freight-trucking.module';
 import { SupportClaimsModule } from './modules/support-claims/support-claims.module';
@@ -86,7 +86,7 @@ import { RateLimitModule } from './modules/rate-limit/rate-limit.module';
     MobilityRideModule,
     DriverOperatorModule,
     DeliveryCourierModule,
-    MerchantB2BModule,
+    MerchantB2bModule,
     HostTravelModule,
     FreightTruckingModule,
     SupportClaimsModule,
