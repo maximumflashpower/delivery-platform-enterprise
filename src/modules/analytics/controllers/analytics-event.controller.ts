@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { AnalyticsEventService } from '../services/analytics-event.service';
 import { AnalyticsEvent } from '../entities/analytics-event.entity';
@@ -6,6 +7,7 @@ import { AnalyticsEvent } from '../entities/analytics-event.entity';
 export class AnalyticsEventController {
   constructor(private readonly analyticsService: AnalyticsEventService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('category') category?: string): Promise<AnalyticsEvent[]> {
     return this.analyticsService.findAll(category);

@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import {
   Controller, Get, Post, Put, Delete, Body, Param, Query, UseGuards, ParseUUIDPipe,
 } from '@nestjs/common';
@@ -33,6 +34,7 @@ export class VehicleCapabilityController {
     return this.service.createVehicle(dto);
   }
 
+  @PublicRoute()
   @Get()
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)

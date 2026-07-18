@@ -7,10 +7,10 @@
   "license": "UNLICENSED",
   "scripts": {
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "db:migrate": "npx typeorm-ts-node-commonjs migration:run -d src/config/database.datasource.ts",
-    "db:migrate:revert": "npm run typeorm -- migration:revert -d src/data-source.ts",
-    "db:migration:generate": "npm run typeorm -- migration:generate -d src/data-source.ts",
-    "db:migration:create": "npm run typeorm -- migration:create",
+    "db:migrate": "ts-node -P tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d src/data-source.ts",
+    "db:migrate:revert": "ts-node -P tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d src/data-source.ts",
+    "db:migration:generate": "ts-node -P tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -d src/data-source.ts",
+    "db:migration:create": "ts-node -P tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -25,9 +25,10 @@
     "test:e2e": "jest --config test/e2e/jest-e2e.json",
     "db:migrate:create": "npx typeorm-ts-node-commonjs migration:generate",
     "db:revert": "npx typeorm-ts-node-commonjs migration:revert -d src/config/database.datasource.ts",
-    "db:drop": "npx typeorm-ts-node-commonjs schema:drop -d src/config/database.datasource.ts",
-    "db:sync": "npx typeorm-ts-node-commonjs schema:sync -d src/config/database.datasource.ts",
-    "seed": "ts-node infrastructure/database/seeds/run-seed.ts"
+    "db:drop": "ts-node -P tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js schema:drop -d src/data-source.ts",
+    "db:sync": "ts-node -P tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js schema:sync -d src/data-source.ts",
+    "seed": "ts-node infrastructure/database/seeds/run-seed.ts",
+    "db:migrate:show": "ts-node -P tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:show -d src/data-source.ts"
   },
   "dependencies": {
     "@nestjs/axios": "^3.0.1",

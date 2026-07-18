@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { BiometricTemplateService } from '../services/biometric-template.service';
 import { BiometricTemplate } from '../entities/biometric-template.entity';
@@ -6,6 +7,7 @@ import { BiometricTemplate } from '../entities/biometric-template.entity';
 export class BiometricTemplateController {
   constructor(private readonly templateService: BiometricTemplateService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('userId') userId?: string): Promise<BiometricTemplate[]> {
     return this.templateService.findAll(userId);

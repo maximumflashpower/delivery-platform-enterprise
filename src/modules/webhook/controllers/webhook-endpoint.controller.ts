@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { WebhookEndpointService } from '../services/webhook-endpoint.service';
 import { WebhookEndpoint } from '../entities/webhook-endpoint.entity';
@@ -6,6 +7,7 @@ import { WebhookEndpoint } from '../entities/webhook-endpoint.entity';
 export class WebhookEndpointController {
   constructor(private readonly webhookService: WebhookEndpointService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('ownerUserId') ownerUserId?: string): Promise<WebhookEndpoint[]> {
     return this.webhookService.findAll(ownerUserId);

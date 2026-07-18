@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { ExperimentService } from '../services/experiment.service';
 import { Experiment } from '../entities/experiment.entity';
@@ -6,6 +7,7 @@ import { Experiment } from '../entities/experiment.entity';
 export class ExperimentController {
   constructor(private readonly experimentService: ExperimentService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('status') status?: string): Promise<Experiment[]> {
     return this.experimentService.findAll(status);

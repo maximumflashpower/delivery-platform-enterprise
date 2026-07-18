@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Patch, Body, Param, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
@@ -15,6 +16,7 @@ import { MerchantInvoice } from '../entities/merchant-invoice.entity';
 export class MerchantInvoiceController {
   constructor(private readonly invoiceService: MerchantInvoiceService) {}
 
+  @PublicRoute()
   @Get()
   @ApiOperation({ summary: 'List all invoices' })
   @ApiResponse({ status: 200, type: [MerchantInvoice] })

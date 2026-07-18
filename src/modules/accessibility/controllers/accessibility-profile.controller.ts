@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { AccessibilityProfileService } from '../services/accessibility-profile.service';
 import { AccessibilityProfile } from '../entities/accessibility-profile.entity';
@@ -6,6 +7,7 @@ import { AccessibilityProfile } from '../entities/accessibility-profile.entity';
 export class AccessibilityProfileController {
   constructor(private readonly profileService: AccessibilityProfileService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('userId') userId?: string): Promise<AccessibilityProfile[]> {
     return this.profileService.findAll(userId);

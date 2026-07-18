@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { LanguageService } from '../services/language.service';
 import { Language } from '../entities/language.entity';
@@ -6,6 +7,7 @@ import { Language } from '../entities/language.entity';
 export class LanguageController {
   constructor(private readonly languageService: LanguageService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('isActive') isActive?: string): Promise<Language[]> {
     return this.languageService.findAll(isActive === 'true');

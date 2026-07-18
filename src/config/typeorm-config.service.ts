@@ -7,6 +7,8 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
   constructor(private configService: ConfigService) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
+    const isDev = this.configService.get<string>('NODE_ENV') !== 'production';
+
     return {
       type: this.configService.get<'sqlite' | 'postgres'>('TYPEORM_CONNECTION', 'sqlite'),
       database: this.configService.get<string>('TYPEORM_DATABASE', 'dev.db'),
@@ -16,8 +18,9 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       password: this.configService.get<string>('TYPEORM_PASSWORD'),
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       migrations: [__dirname + '/../migrations/*{.ts,.js}'],
-      synchronize: true,
-      logging: ['query', 'schema', 'error'],
+      migrationsRun: false,
+      synchronize: isDev, // Solo en desarrollo, false en producción
+      logging: isDev ? ['error', 'schema'] : ['error'],
     };
   }
 }

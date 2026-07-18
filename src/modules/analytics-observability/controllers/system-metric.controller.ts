@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { SystemMetricService } from '../services/system-metric.service';
 import { SystemMetric } from '../entities/system-metric.entity';
@@ -6,6 +7,7 @@ import { SystemMetric } from '../entities/system-metric.entity';
 export class SystemMetricController {
   constructor(private readonly metricService: SystemMetricService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('serviceName') serviceName?: string): Promise<SystemMetric[]> {
     return this.metricService.findAll(serviceName);

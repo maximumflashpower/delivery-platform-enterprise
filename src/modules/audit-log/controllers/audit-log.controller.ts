@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { AuditLogService } from '../services/audit-log.service';
 import { AuditLog } from '../entities/audit-log.entity';
@@ -6,6 +7,7 @@ import { AuditLog } from '../entities/audit-log.entity';
 export class AuditLogController {
   constructor(private readonly auditLogService: AuditLogService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('userId') userId?: string, @Query('limit') limit = '100'): Promise<AuditLog[]> {
     return this.auditLogService.findAll(userId, parseInt(limit));

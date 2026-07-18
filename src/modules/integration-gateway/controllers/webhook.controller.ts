@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { WebhookService } from '../services/webhook.service';
 import { Webhook } from '../entities/webhook.entity';
@@ -6,6 +7,7 @@ import { Webhook } from '../entities/webhook.entity';
 export class WebhookController {
   constructor(private readonly webhookService: WebhookService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('isActive') isActive?: string): Promise<Webhook[]> {
     return this.webhookService.findAll(isActive === 'true');

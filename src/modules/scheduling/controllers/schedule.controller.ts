@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Patch, Delete, Body, Param, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
@@ -15,6 +16,7 @@ import { Schedule } from '../entities/schedule.entity';
 export class ScheduleController {
   constructor(private readonly scheduleService: ScheduleService) {}
 
+  @PublicRoute()
   @Get()
   @ApiOperation({ summary: 'List all schedules' })
   @ApiResponse({ status: 200, type: [Schedule] })

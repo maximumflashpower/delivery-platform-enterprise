@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { CarbonCreditService } from '../services/carbon-credit.service';
 import { CarbonCredit } from '../entities/carbon-credit.entity';
@@ -6,6 +7,7 @@ import { CarbonCredit } from '../entities/carbon-credit.entity';
 export class CarbonCreditController {
   constructor(private readonly creditService: CarbonCreditService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('isActive') isActive?: string): Promise<CarbonCredit[]> {
     return this.creditService.findAll(isActive === 'true');

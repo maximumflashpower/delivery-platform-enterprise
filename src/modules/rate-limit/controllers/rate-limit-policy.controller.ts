@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { RateLimitPolicyService } from '../services/rate-limit-policy.service';
 import { RateLimitPolicy } from '../entities/rate-limit-policy.entity';
@@ -6,6 +7,7 @@ import { RateLimitPolicy } from '../entities/rate-limit-policy.entity';
 export class RateLimitPolicyController {
   constructor(private readonly policyService: RateLimitPolicyService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('isActive') isActive?: string): Promise<RateLimitPolicy[]> {
     return this.policyService.findAll(isActive === 'true');

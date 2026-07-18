@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import {
   Controller, Get, Post, Put, Body, Param, Query, UseGuards, ParseUUIDPipe,
 } from '@nestjs/common';
@@ -29,6 +30,7 @@ export class MobilityRideController {
     return this.service.createRide(dto);
   }
 
+  @PublicRoute()
   @Get()
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)

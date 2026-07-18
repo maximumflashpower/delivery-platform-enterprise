@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { WellnessGoalService } from '../services/wellness-goal.service';
 import { WellnessGoal } from '../entities/wellness-goal.entity';
@@ -6,11 +7,14 @@ import { WellnessGoal } from '../entities/wellness-goal.entity';
 export class WellnessGoalController {
   constructor(private readonly goalService: WellnessGoalService) {}
 
+  @PublicRoute()
+  @PublicRoute()
   @Get()
   findAll(@Query('userId') userId?: string): Promise<WellnessGoal[]> {
     return this.goalService.findAll(userId);
   }
 
+  @PublicRoute()
   @Get(':id')
   findOne(@Param('id') id: string): Promise<WellnessGoal | null> {
     return this.goalService.findOne(id);

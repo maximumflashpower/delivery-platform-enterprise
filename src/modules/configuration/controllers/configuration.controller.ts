@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { ConfigurationService } from '../services/configuration.service';
 import { Configuration } from '../entities/configuration.entity';
@@ -6,6 +7,7 @@ import { Configuration } from '../entities/configuration.entity';
 export class ConfigurationController {
   constructor(private readonly configService: ConfigurationService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('scope') scope?: string): Promise<Configuration[]> {
     return this.configService.findAll(scope);

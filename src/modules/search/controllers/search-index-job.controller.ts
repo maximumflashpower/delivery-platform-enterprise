@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
@@ -15,6 +16,7 @@ import { SearchIndexJob } from '../entities/search-index-job.entity';
 export class SearchIndexJobController {
   constructor(private readonly indexJobService: SearchIndexJobService) {}
 
+  @PublicRoute()
   @Get()
   @ApiOperation({ summary: 'List all index jobs' })
   @ApiResponse({ status: 200, type: [SearchIndexJob] })

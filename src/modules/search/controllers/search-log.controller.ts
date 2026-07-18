@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Query, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
@@ -15,6 +16,7 @@ import { SearchLog } from '../entities/search-log.entity';
 export class SearchLogController {
   constructor(private readonly logService: SearchLogService) {}
 
+  @PublicRoute()
   @Get()
   @ApiOperation({ summary: 'List search logs (paginated)' })
   @ApiQuery({ name: 'page', required: false, type: Number })

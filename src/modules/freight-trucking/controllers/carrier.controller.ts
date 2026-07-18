@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Patch, Delete, Body, Param, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
@@ -15,6 +16,7 @@ import { Carrier } from '../entities/carrier.entity';
 export class CarrierController {
   constructor(private readonly carrierService: CarrierService) {}
 
+  @PublicRoute()
   @Get()
   @ApiOperation({ summary: 'List all carriers' })
   @ApiResponse({ status: 200, type: [Carrier] })

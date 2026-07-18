@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { RealtimeChannelService } from '../services/realtime-channel.service';
 import { RealtimeChannel } from '../entities/realtime-channel.entity';
@@ -6,6 +7,7 @@ import { RealtimeChannel } from '../entities/realtime-channel.entity';
 export class RealtimeChannelController {
   constructor(private readonly channelService: RealtimeChannelService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('isActive') isActive?: string): Promise<RealtimeChannel[]> {
     return this.channelService.findAll(isActive === 'true');

@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { SmartContractService } from '../services/smart-contract.service';
 import { SmartContract } from '../entities/smart-contract.entity';
@@ -6,6 +7,7 @@ import { SmartContract } from '../entities/smart-contract.entity';
 export class SmartContractController {
   constructor(private readonly contractService: SmartContractService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('status') status?: string): Promise<SmartContract[]> {
     return this.contractService.findAll(status);

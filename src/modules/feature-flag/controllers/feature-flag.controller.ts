@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { FeatureFlagService } from '../services/feature-flag.service';
 import { FeatureFlag } from '../entities/feature-flag.entity';
@@ -6,6 +7,7 @@ import { FeatureFlag } from '../entities/feature-flag.entity';
 export class FeatureFlagController {
   constructor(private readonly flagService: FeatureFlagService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('environment') environment?: string): Promise<FeatureFlag[]> {
     return this.flagService.findAll(environment);

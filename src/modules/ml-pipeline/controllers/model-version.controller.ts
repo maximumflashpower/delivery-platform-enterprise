@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { ModelVersionService } from '../services/model-version.service';
 import { ModelVersion } from '../entities/model-version.entity';
@@ -6,6 +7,7 @@ import { ModelVersion } from '../entities/model-version.entity';
 export class ModelVersionController {
   constructor(private readonly modelService: ModelVersionService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('status') status?: string): Promise<ModelVersion[]> {
     return this.modelService.findAll(status);

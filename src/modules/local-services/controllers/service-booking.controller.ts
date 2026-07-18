@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Patch, Body, Param, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
@@ -15,6 +16,7 @@ import { ServiceBooking } from '../entities/service-booking.entity';
 export class ServiceBookingController {
   constructor(private readonly bookingService: ServiceBookingService) {}
 
+  @PublicRoute()
   @Get()
   @ApiOperation({ summary: 'List all bookings' })
   @ApiResponse({ status: 200, type: [ServiceBooking] })

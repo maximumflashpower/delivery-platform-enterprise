@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { AchievementService } from '../services/achievement.service';
 import { Achievement } from '../entities/achievement.entity';
@@ -6,6 +7,7 @@ import { Achievement } from '../entities/achievement.entity';
 export class AchievementController {
   constructor(private readonly achievementService: AchievementService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('isVisible') isVisible?: string): Promise<Achievement[]> {
     return this.achievementService.findAll(isVisible === 'true');

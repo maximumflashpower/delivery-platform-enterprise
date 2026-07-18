@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import {
   Controller, Get, Post, Put, Body, Param, Query, UseGuards, ParseUUIDPipe,
 } from '@nestjs/common';
@@ -32,6 +33,7 @@ export class PayoutController {
     return this.service.createPayout(dto);
   }
 
+  @PublicRoute()
   @Get()
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)

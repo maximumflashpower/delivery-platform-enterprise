@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import {
   Controller, Get, Post, Put, Delete, Body, Param, Query, UseGuards, ParseUUIDPipe,
 } from '@nestjs/common';
@@ -28,6 +29,7 @@ export class SurfaceRoutingController {
     return this.service.createRoute(dto);
   }
 
+  @PublicRoute()
   @Get()
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)

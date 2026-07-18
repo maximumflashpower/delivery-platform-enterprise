@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Patch, Delete, Body, Param, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
@@ -16,6 +17,7 @@ import { TierLevel } from '../enums/tier-level.enum';
 export class MerchantController {
   constructor(private readonly merchantService: MerchantService) {}
 
+  @PublicRoute()
   @Get()
   @ApiOperation({ summary: 'List all merchants' })
   @ApiResponse({ status: 200, type: [Merchant] })

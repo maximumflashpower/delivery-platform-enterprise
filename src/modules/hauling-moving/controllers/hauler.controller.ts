@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Patch, Delete, Body, Param, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
@@ -15,6 +16,7 @@ import { Hauler } from '../entities/hauler.entity';
 export class HaulerController {
   constructor(private readonly haulerService: HaulerService) {}
 
+  @PublicRoute()
   @Get()
   @ApiOperation({ summary: 'List all haulers' })
   @ApiResponse({ status: 200, type: [Hauler] })

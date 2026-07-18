@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { StoredFileService } from '../services/stored-file.service';
 import { StoredFile } from '../entities/stored-file.entity';
@@ -6,6 +7,7 @@ import { StoredFile } from '../entities/stored-file.entity';
 export class StoredFileController {
   constructor(private readonly fileService: StoredFileService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('bucketId') bucketId?: string): Promise<StoredFile[]> {
     return this.fileService.findAll(bucketId);

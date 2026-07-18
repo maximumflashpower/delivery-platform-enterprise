@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { ApiKeyService } from '../services/api-key.service';
 import { ApiKey } from '../entities/api-key.entity';
@@ -6,6 +7,7 @@ import { ApiKey } from '../entities/api-key.entity';
 export class ApiKeyController {
   constructor(private readonly apiKeyService: ApiKeyService) {}
 
+  @PublicRoute()
   @Get()
   findAll(@Query('userId') userId?: string): Promise<ApiKey[]> {
     return this.apiKeyService.findAll(userId);

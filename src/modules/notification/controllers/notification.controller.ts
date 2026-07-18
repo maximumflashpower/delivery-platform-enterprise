@@ -1,3 +1,4 @@
+import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { NotificationService } from '../services/notification.service';
 import { Notification } from '../entities/notification.entity';
@@ -6,6 +7,7 @@ import { Notification } from '../entities/notification.entity';
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
+  @PublicRoute()
   @Get()
   findAll(): Promise<Notification[]> {
     return this.notificationService.findAll();
