@@ -1,12 +1,13 @@
 import { NestFactory } from '@nestjs/core';
-import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { ValidationPipe, Logger } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import helmet from 'helmet';
 import compression from 'compression';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
@@ -34,11 +35,11 @@ async function bootstrap() {
   // Global prefix
   app.setGlobalPrefix(apiPrefix);
 
+  // JWT Auth guard (global)
+  app.useGlobalGuards(new JwtAuthGuard(app.get(Reflector)));
+
   // Validation pipe (global)
   app.useGlobalPipes(
-
-  // JWT Auth guard (global)
-  app.useGlobalGuards(app.get(JwtAuthGuard));
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,

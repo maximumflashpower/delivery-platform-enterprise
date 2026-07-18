@@ -254,7 +254,7 @@ export class AuthService {
   }
 
   async logout(userId: string) {
-    await this.verificationRepo.delete({ userId, status: 'pending' });
+    await this.verificationRepo.delete({ userId, status: 'pending' as any });
     return { message: 'Logged out successfully' };
   }
 
