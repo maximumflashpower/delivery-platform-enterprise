@@ -1,4 +1,5 @@
 import { NestFactory } from '@nestjs/core';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { ValidationPipe, Logger } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
@@ -35,6 +36,9 @@ async function bootstrap() {
 
   // Validation pipe (global)
   app.useGlobalPipes(
+
+  // JWT Auth guard (global)
+  app.useGlobalGuards(app.get(JwtAuthGuard));
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,

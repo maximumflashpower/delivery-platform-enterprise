@@ -10,6 +10,7 @@ import { AuthController } from './controllers/auth.controller';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { IdentityUser } from '../identity/entities/identity-user.entity';
 import { IdentityVerification } from '../identity/entities/identity-verification.entity';
+import { IdentitySession } from '../identity/entities/identity-session.entity';
 import { Credential } from './entities/credential.entity';
 
 @Module({
@@ -20,12 +21,10 @@ import { Credential } from './entities/credential.entity';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>('jwt.secret'),
-        signOptions: {
-          expiresIn: configService.get<string>('jwt.expiresIn') || '15m',
-        },
+        signOptions: { expiresIn: configService.get<string>('jwt.expiresIn') || '15m' },
       }),
     }),
-    TypeOrmModule.forFeature([IdentityUser, Credential, IdentityVerification]),
+    TypeOrmModule.forFeature([IdentityUser, Credential, IdentityVerification, IdentitySession]),
   ],
   controllers: [AuthController],
   providers: [AuthService, TokenService, OtpService, JwtStrategy],

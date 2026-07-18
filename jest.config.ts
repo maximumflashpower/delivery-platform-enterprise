@@ -5,7 +5,7 @@ const config: Config = {
   testEnvironment: 'node',
   roots: ['<rootDir>/src', '<rootDir>/test'],
   moduleFileExtensions: ['js', 'json', 'ts'],
-  moduleNameMapping: {
+  moduleNameMapper: {
     '^@common/(.*)$': '<rootDir>/src/common/$1',
   },
   transform: {

@@ -1,20 +1,27 @@
 #!/usr/bin/env node
 /**
  * Seeder Runner - Ejecuta todos los seeders en orden
- *
  * Uso: npm run seed
  */
 import { DataSource } from 'typeorm';
-import { TypeOrmConfigService } from '../../src/config/typeorm-config.service';
 import { runInitialSeed } from './initial-seed';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 async function main() {
   console.log('🌱 Iniciando proceso de seeding...\n');
 
-  const configService = new TypeOrmConfigService();
-  const dataSource = new DataSource(
-    configService.createTypeOrmOptions() as any,
-  );
+  const dbType = process.env.DB_TYPE || 'sqlite';
+  const dbPath = process.env.DB_PATH || './dev.db';
+
+  const dataSource = new DataSource({
+    type: dbType as 'sqlite',
+    database: dbPath,
+    entities: ['src/modules/**/*.entity{.ts,.js}'],
+    synchronize: false,
+    logging: false,
+  });
 
   await dataSource.initialize();
   console.log('📦 Conexión a base de datos establecida\n');
