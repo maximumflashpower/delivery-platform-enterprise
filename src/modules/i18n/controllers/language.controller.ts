@@ -1,8 +1,10 @@
+import { ApiTags } from '@nestjs/swagger';
 import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { LanguageService } from '../services/language.service';
 import { Language } from '../entities/language.entity';
 
+@ApiTags('I18n')
 @Controller('languages')
 export class LanguageController {
   constructor(private readonly languageService: LanguageService) {}

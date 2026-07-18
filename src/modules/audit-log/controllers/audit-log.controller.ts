@@ -1,8 +1,10 @@
+import { ApiTags } from '@nestjs/swagger';
 import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { AuditLogService } from '../services/audit-log.service';
 import { AuditLog } from '../entities/audit-log.entity';
 
+@ApiTags('Audit')
 @Controller('audit-logs')
 export class AuditLogController {
   constructor(private readonly auditLogService: AuditLogService) {}

@@ -1,8 +1,10 @@
+import { ApiTags } from '@nestjs/swagger';
 import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { RateLimitPolicyService } from '../services/rate-limit-policy.service';
 import { RateLimitPolicy } from '../entities/rate-limit-policy.entity';
 
+@ApiTags('Rate Limiting')
 @Controller('rate-limit/policies')
 export class RateLimitPolicyController {
   constructor(private readonly policyService: RateLimitPolicyService) {}

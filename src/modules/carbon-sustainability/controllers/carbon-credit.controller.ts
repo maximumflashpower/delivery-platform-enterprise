@@ -1,8 +1,10 @@
+import { ApiTags } from '@nestjs/swagger';
 import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { CarbonCreditService } from '../services/carbon-credit.service';
 import { CarbonCredit } from '../entities/carbon-credit.entity';
 
+@ApiTags('Sustainability')
 @Controller('carbon/credits')
 export class CarbonCreditController {
   constructor(private readonly creditService: CarbonCreditService) {}

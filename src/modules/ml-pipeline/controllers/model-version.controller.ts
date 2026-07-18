@@ -1,8 +1,10 @@
+import { ApiTags } from '@nestjs/swagger';
 import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { ModelVersionService } from '../services/model-version.service';
 import { ModelVersion } from '../entities/model-version.entity';
 
+@ApiTags('ML')
 @Controller('ml/models')
 export class ModelVersionController {
   constructor(private readonly modelService: ModelVersionService) {}

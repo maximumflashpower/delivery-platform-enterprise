@@ -1,8 +1,10 @@
+import { ApiTags } from '@nestjs/swagger';
 import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { AnalyticsEventService } from '../services/analytics-event.service';
 import { AnalyticsEvent } from '../entities/analytics-event.entity';
 
+@ApiTags('Analytics')
 @Controller('analytics/events')
 export class AnalyticsEventController {
   constructor(private readonly analyticsService: AnalyticsEventService) {}

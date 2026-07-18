@@ -1,8 +1,10 @@
+import { ApiTags } from '@nestjs/swagger';
 import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { WebhookService } from '../services/webhook.service';
 import { Webhook } from '../entities/webhook.entity';
 
+@ApiTags('Integration')
 @Controller('integration/webhooks')
 export class WebhookController {
   constructor(private readonly webhookService: WebhookService) {}

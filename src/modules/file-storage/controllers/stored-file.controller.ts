@@ -1,8 +1,10 @@
+import { ApiTags } from '@nestjs/swagger';
 import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { StoredFileService } from '../services/stored-file.service';
 import { StoredFile } from '../entities/stored-file.entity';
 
+@ApiTags('Files')
 @Controller('files')
 export class StoredFileController {
   constructor(private readonly fileService: StoredFileService) {}

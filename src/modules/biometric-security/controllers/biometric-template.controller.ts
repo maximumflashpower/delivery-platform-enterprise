@@ -1,8 +1,10 @@
+import { ApiTags } from '@nestjs/swagger';
 import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { BiometricTemplateService } from '../services/biometric-template.service';
 import { BiometricTemplate } from '../entities/biometric-template.entity';
 
+@ApiTags('Biometric Security')
 @Controller('biometric/templates')
 export class BiometricTemplateController {
   constructor(private readonly templateService: BiometricTemplateService) {}

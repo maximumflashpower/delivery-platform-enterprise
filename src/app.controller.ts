@@ -1,4 +1,3 @@
-import { PublicRoute } from './common/decorators/public-route.decorator';
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 import { PublicRoute } from './common/decorators/public-route.decorator';
@@ -7,7 +6,6 @@ import { PublicRoute } from './common/decorators/public-route.decorator';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @PublicRoute()
   @PublicRoute()
   @Get('health')
   healthCheck() {

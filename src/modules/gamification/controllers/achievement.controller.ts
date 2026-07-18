@@ -1,8 +1,10 @@
+import { ApiTags } from '@nestjs/swagger';
 import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { AchievementService } from '../services/achievement.service';
 import { Achievement } from '../entities/achievement.entity';
 
+@ApiTags('Gamification')
 @Controller('gamification/achievements')
 export class AchievementController {
   constructor(private readonly achievementService: AchievementService) {}

@@ -1,8 +1,10 @@
+import { ApiTags } from '@nestjs/swagger';
 import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put, Query } from '@nestjs/common';
 import { AccessibilityProfileService } from '../services/accessibility-profile.service';
 import { AccessibilityProfile } from '../entities/accessibility-profile.entity';
 
+@ApiTags('Accessibility')
 @Controller('accessibility/profiles')
 export class AccessibilityProfileController {
   constructor(private readonly profileService: AccessibilityProfileService) {}

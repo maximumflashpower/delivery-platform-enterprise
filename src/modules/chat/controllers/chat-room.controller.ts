@@ -1,8 +1,10 @@
+import { ApiTags } from '@nestjs/swagger';
 import { PublicRoute } from '../../../common/decorators/public-route.decorator';
 import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { ChatRoomService } from '../services/chat-room.service';
 import { ChatRoom } from '../entities/chat-room.entity';
 
+@ApiTags('Chat')
 @Controller('chat/rooms')
 export class ChatRoomController {
   constructor(private readonly roomService: ChatRoomService) {}
