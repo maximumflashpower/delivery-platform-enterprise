@@ -31,7 +31,7 @@ export class Incident extends BaseEntity {
   @Column({ type: 'varchar', length: 50, default: 'open' })
   status: string;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   resolvedAt?: Date;
 
   @Column({ type: 'text', nullable: true })

@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { RateLimitUnit } from '../enums/rate-limit-unit.enum';
 
 @Entity('rate_limit_buckets')
@@ -16,10 +16,10 @@ export class RateLimitBucket extends BaseEntity {
   @Column({ name: 'currentCount', type: 'int', default: 0 })
   currentCount: number;
 
-  @Column({ name: 'resetAt', type: 'timestamp with time zone' })
+  @Column({ name: 'resetAt', type: 'datetime' })
   resetAt: Date;
 
-  @Column({ name: 'unit', type: 'enum', enum: RateLimitUnit })
+  @Column({ name: 'unit', type: 'varchar', enum: RateLimitUnit })
   unit: RateLimitUnit;
 
   @Column({ name: 'maxRequests', type: 'int' })
@@ -28,12 +28,12 @@ export class RateLimitBucket extends BaseEntity {
   @Column({ name: 'windowDuration', type: 'int' })
   windowDuration: number;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

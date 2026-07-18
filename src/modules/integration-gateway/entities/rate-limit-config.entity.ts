@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 
 @Entity('rate_limit_configs')
 export class RateLimitConfig extends BaseEntity {
@@ -27,18 +27,18 @@ export class RateLimitConfig extends BaseEntity {
   @Column({ name: 'scope', type: 'varchar', length: 100, default: 'global' })
   scope: string;
 
-  @Column({ name: 'bypassList', type: 'jsonb', nullable: true })
+  @Column({ name: 'bypassList', type: 'text', nullable: true })
   bypassList: string[] | null;
 
   @Column({ name: 'isActive', type: 'boolean', default: true })
   isActive: boolean;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

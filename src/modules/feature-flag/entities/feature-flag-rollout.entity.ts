@@ -1,36 +1,37 @@
 import { Entity, Column, JoinColumn, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { FeatureFlag } from './feature-flag.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 
 @Entity('feature_flag_rollouts')
 export class FeatureFlagRollout extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'flagId', type: 'uuid' })
+  @Column({ name: 'flag_id', type: 'varchar', length: 36 })
   flagId: string;
 
-  @ManyToOne(() => Object, { nullable: true })
-  @JoinColumn({ name: 'flagId' })
-  flag: any;
+  @ManyToOne(() => FeatureFlag, { nullable: true, onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'flag_id' })
+  flag: FeatureFlag | null;
 
-  @Column({ name: 'targetType', type: 'varchar', length: 50 })
+  @Column({ name: 'target_type', type: 'varchar', length: 50 })
   targetType: string;
 
-  @Column({ name: 'targetValue', type: 'varchar', length: 255 })
+  @Column({ name: 'target_value', type: 'varchar', length: 255 })
   targetValue: string;
 
-  @Column({ name: 'rolloutPercentage', type: 'int', default: 100 })
+  @Column({ name: 'rollout_percentage', type: 'int', default: 100 })
   rolloutPercentage: number;
 
-  @Column({ type: 'jsonb', nullable: true })
-  conditions: Record<string, any> | null;
+  @Column({ type: 'text', nullable: true })
+  conditions: string | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @Column({ name: 'created_at', type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @Column({ name: 'updated_at', type: 'datetime', onUpdate: 'CURRENT_TIMESTAMP', default: () => 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'deleted_at', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

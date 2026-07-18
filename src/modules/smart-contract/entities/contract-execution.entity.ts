@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { ExecutionStatus } from '../enums/execution-status.enum';
 
 @Entity('contract_executions')
@@ -13,10 +13,10 @@ export class ContractExecution extends BaseEntity {
   @Column({ name: 'functionName', type: 'varchar', length: '255' })
   functionName: string;
 
-  @Column({ name: 'functionArgs', type: 'jsonb', nullable: true })
+  @Column({ name: 'functionArgs', type: 'text', nullable: true })
   functionArgs: Record<string, any> | null;
 
-  @Column({ type: 'enum', enum: ExecutionStatus, default: ExecutionStatus.QUEUED })
+  @Column({ type: 'varchar', enum: ExecutionStatus, default: ExecutionStatus.QUEUED })
   status: ExecutionStatus;
 
   @Column({ name: 'initiatedByUserId', type: 'uuid' })
@@ -31,18 +31,18 @@ export class ContractExecution extends BaseEntity {
   @Column({ name: 'gasUsed', type: 'bigint', nullable: true })
   gasUsed: number | null;
 
-  @Column({ name: 'result', type: 'jsonb', nullable: true })
+  @Column({ name: 'result', type: 'text', nullable: true })
   result: Record<string, any> | null;
 
   @Column({ name: 'error', type: 'text', nullable: true })
   error: string | null;
 
-  @Column({ name: 'executedAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'executedAt', type: 'datetime', nullable: true })
   executedAt: Date | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

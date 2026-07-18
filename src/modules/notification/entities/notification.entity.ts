@@ -1,5 +1,5 @@
 import { Entity, Column, JoinColumn, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { NotificationType } from '../enums/notification-type.enum';
 import { NotificationStatus } from '../enums/notification-status.enum';
 import { NotificationChannel } from '../enums/notification-channel.enum';
@@ -20,13 +20,13 @@ export class Notification extends BaseEntity {
   @JoinColumn({ name: 'templateId' })
   template: NotificationTemplate | null;
 
-  @Column({ type: 'enum', enum: NotificationType, default: NotificationType.INFO })
+  @Column({ type: 'varchar', enum: NotificationType, default: NotificationType.INFO })
   type: NotificationType;
 
-  @Column({ type: 'enum', enum: NotificationChannel, default: NotificationChannel.IN_APP })
+  @Column({ type: 'varchar', enum: NotificationChannel, default: NotificationChannel.IN_APP })
   channel: NotificationChannel;
 
-  @Column({ type: 'enum', enum: NotificationStatus, default: NotificationStatus.PENDING })
+  @Column({ type: 'varchar', enum: NotificationStatus, default: NotificationStatus.PENDING })
   status: NotificationStatus;
 
   @Column({ type: 'varchar', length: 255 })
@@ -35,27 +35,27 @@ export class Notification extends BaseEntity {
   @Column({ type: 'text' })
   body: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   metadata: Record<string, any> | null;
 
-  @Column({ name: 'scheduledAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'scheduledAt', type: 'datetime', nullable: true })
   scheduledAt: Date | null;
 
-  @Column({ name: 'sentAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'sentAt', type: 'datetime', nullable: true })
   sentAt: Date | null;
 
-  @Column({ name: 'deliveredAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'deliveredAt', type: 'datetime', nullable: true })
   deliveredAt: Date | null;
 
-  @Column({ name: 'readAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'readAt', type: 'datetime', nullable: true })
   readAt: Date | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

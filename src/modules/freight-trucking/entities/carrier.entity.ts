@@ -33,9 +33,9 @@ export class Carrier extends BaseEntity {
   @Column({ type: 'integer', default: 0 })
   totalShipments: number;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   serviceRegions?: string[];
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   equipmentTypes?: string[];
 }

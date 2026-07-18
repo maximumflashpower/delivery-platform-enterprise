@@ -12,7 +12,7 @@ export class Role extends BaseEntity {
   @Column({ type: 'varchar', length: 50 })
   level: string;
 
-  @Column({ type: 'text', array: true, default: '{}' })
+  @Column({ type: 'text', default: '{}' })
   permissions: string[];
 
   @Column({ type: 'boolean', default: true })

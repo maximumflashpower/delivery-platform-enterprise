@@ -18,10 +18,10 @@ export class Load extends BaseEntity {
   @Column({ type: 'varchar', length: 50, default: LoadStatus.PICKUP_PENDING })
   status: LoadStatus;
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'text' })
   pickupLocation: Record<string, any>;
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'text' })
   deliveryLocation: Record<string, any>;
 
   @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
@@ -30,12 +30,12 @@ export class Load extends BaseEntity {
   @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
   volumeM3?: number;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   items?: Array<Record<string, any>>;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   pickedUpAt?: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   deliveredAt?: Date;
 }

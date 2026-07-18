@@ -21,9 +21,9 @@ export class CourierAssignment extends BaseEntity {
   @Column({ type: 'varchar', length: 50, default: AssignmentStatus.ASSIGNED })
   status: AssignmentStatus;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   assignedAt?: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   completedAt?: Date;
 }

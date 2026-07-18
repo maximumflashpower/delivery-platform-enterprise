@@ -18,9 +18,9 @@ export class TrustScore extends BaseEntity {
   @Column({ type: 'varchar', length: 50 })
   trend: TrustScoreTrend;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'datetime' })
   calculatedAt: Date;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   factors?: Record<string, number>;
 }

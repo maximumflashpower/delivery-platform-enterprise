@@ -22,16 +22,16 @@ export class Shipment extends BaseEntity {
   @Column({ type: 'varchar', length: 50, default: CargoType.DRY_FREIGHT })
   cargoType: CargoType;
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'text' })
   pickupLocation: Record<string, any>;
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'text' })
   deliveryLocation: Record<string, any>;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'datetime' })
   pickupDateTime: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   deliveryDateTime?: Date;
 
   @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
@@ -43,6 +43,6 @@ export class Shipment extends BaseEntity {
   @Column({ type: 'varchar', length: 10, default: 'USD' })
   currency: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   proofOfDelivery?: Record<string, any>;
 }

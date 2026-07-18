@@ -28,6 +28,6 @@ export class Profile extends BaseEntity {
   @Column({ type: 'varchar', length: 255, nullable: true })
   location?: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   metadata?: Record<string, unknown>;
 }

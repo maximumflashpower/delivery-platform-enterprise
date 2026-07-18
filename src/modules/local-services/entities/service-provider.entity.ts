@@ -31,9 +31,9 @@ export class ServiceProvider extends BaseEntity {
   @Column({ type: 'integer', default: 0 })
   totalBookings: number;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   serviceAreas?: string[];
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   categories?: string[];
 }

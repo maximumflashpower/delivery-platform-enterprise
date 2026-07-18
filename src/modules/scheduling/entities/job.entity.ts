@@ -20,16 +20,16 @@ export class Job extends BaseEntity {
   @Column({ type: 'varchar', length: 255 })
   jobType: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   payload?: Record<string, any>;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   scheduledAt?: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   startedAt?: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   completedAt?: Date;
 
   @Column({ type: 'integer', default: 0 })
@@ -38,6 +38,6 @@ export class Job extends BaseEntity {
   @Column({ type: 'text', nullable: true })
   errorMessage?: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   metadata?: Record<string, any>;
 }

@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { WebhookEventType } from '../enums/webhook-event-type.enum';
 
 @Entity('webhook_endpoints')
@@ -13,7 +13,7 @@ export class WebhookEndpoint extends BaseEntity {
   @Column({ name: 'targetUrl', type: 'varchar', length: 1000 })
   targetUrl: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   subscribedEvents: WebhookEventType[] | null;
 
   @Column({ name: 'secretToken', type: 'varchar', length: 500, nullable: true })
@@ -31,15 +31,15 @@ export class WebhookEndpoint extends BaseEntity {
   @Column({ name: 'retryDelaySeconds', type: 'int', default: 60 })
   retryDelaySeconds: number;
 
-  @Column({ name: 'lastTriggeredAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'lastTriggeredAt', type: 'datetime', nullable: true })
   lastTriggeredAt: Date | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

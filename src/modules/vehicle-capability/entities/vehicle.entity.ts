@@ -28,6 +28,6 @@ export class Vehicle extends BaseEntity {
   @Column({ type: 'varchar', length: 50, default: VehicleStatus.AVAILABLE })
   status: VehicleStatus;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   capacity?: Record<string, number>;
 }

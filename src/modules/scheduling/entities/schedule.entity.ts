@@ -22,7 +22,7 @@ export class Schedule extends BaseEntity {
   @Column({ type: 'varchar', length: 255 })
   jobType: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   jobPayload?: Record<string, any>;
 
   @Column({ type: 'boolean', default: true })
@@ -31,12 +31,12 @@ export class Schedule extends BaseEntity {
   @Column({ type: 'time', nullable: true })
   timezone?: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   exceptions?: string[];
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   lastRunAt?: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   nextRunAt?: Date;
 }

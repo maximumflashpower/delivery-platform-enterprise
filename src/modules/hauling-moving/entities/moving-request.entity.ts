@@ -21,10 +21,10 @@ export class MovingRequest extends BaseEntity {
   @Column({ type: 'varchar', length: 50, default: RequestStatus.SUBMITTED })
   status: RequestStatus;
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'text' })
   originAddress: Record<string, any>;
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'text' })
   destinationAddress: Record<string, any>;
 
   @Column({ type: 'date' })

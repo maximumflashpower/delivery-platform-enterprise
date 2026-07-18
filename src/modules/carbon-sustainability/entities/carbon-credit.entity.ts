@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { CarbonCreditType } from '../enums/carbon-credit-type.enum';
 
 @Entity('carbon_credits')
@@ -10,7 +10,7 @@ export class CarbonCredit extends BaseEntity {
   @Column({ name: 'creditName', type: 'varchar', length: '255' })
   creditName: string;
 
-  @Column({ type: 'enum', enum: CarbonCreditType })
+  @Column({ type: 'varchar', enum: CarbonCreditType })
   type: CarbonCreditType;
 
   @Column({ name: 'co2AmountKg', type: 'decimal', precision: 12, scale: 2 })
@@ -19,7 +19,7 @@ export class CarbonCredit extends BaseEntity {
   @Column({ name: 'pricePerKg', type: 'decimal', precision: 10, scale: 2, nullable: true })
   pricePerKg: number | null;
 
-  @Column({ name: 'currency', type: 'varchar', length: '10', default: "'USD'" })
+  @Column({ name: 'currency', type: 'varchar', length: 10, default: 'USD' })
   currency: string;
 
   @Column({ name: 'provider', type: 'varchar', length: '255', nullable: true })
@@ -34,12 +34,12 @@ export class CarbonCredit extends BaseEntity {
   @Column({ name: 'expiryDate', type: 'date', nullable: true })
   expiryDate: Date | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

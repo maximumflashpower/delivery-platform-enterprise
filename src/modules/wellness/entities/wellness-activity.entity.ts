@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { ActivityType } from '../enums/activity-type.enum';
 
 @Entity('wellness_activities')
@@ -13,7 +13,7 @@ export class WellnessActivity extends BaseEntity {
   @Column({ name: 'goalId', type: 'uuid', nullable: true })
   goalId: string | null;
 
-  @Column({ type: 'enum', enum: ActivityType })
+  @Column({ type: 'varchar', enum: ActivityType })
   type: ActivityType;
 
   @Column({ name: 'activityName', type: 'varchar', length: '255' })
@@ -31,21 +31,21 @@ export class WellnessActivity extends BaseEntity {
   @Column({ name: 'notes', type: 'text', nullable: true })
   notes: string | null;
 
-  @Column({ name: 'startTime', type: 'timestamp with time zone' })
+  @Column({ name: 'startTime', type: 'datetime' })
   startTime: Date;
 
-  @Column({ name: 'endTime', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'endTime', type: 'datetime', nullable: true })
   endTime: Date | null;
 
-  @Column({ name: 'metadata', type: 'jsonb', nullable: true })
+  @Column({ name: 'metadata', type: 'text', nullable: true })
   metadata: Record<string, any> | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

@@ -27,6 +27,6 @@ export class Courier extends BaseEntity {
   @Column({ type: 'boolean', default: true })
   isAvailable: boolean;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   serviceAreas?: string[];
 }

@@ -17,16 +17,16 @@ export class BillOfLading extends BaseEntity {
   @Column({ type: 'date' })
   issueDate: Date;
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'text' })
   shipperInfo: Record<string, any>;
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'text' })
   consigneeInfo: Record<string, any>;
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'text' })
   notifyPartyInfo?: Record<string, any>;
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'text' })
   items: Array<Record<string, any>>;
 
   @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
@@ -38,7 +38,7 @@ export class BillOfLading extends BaseEntity {
   @Column({ type: 'boolean', default: false })
   isSigned: boolean;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   signedAt?: Date;
 
   @Column({ type: 'varchar', length: 255, nullable: true })

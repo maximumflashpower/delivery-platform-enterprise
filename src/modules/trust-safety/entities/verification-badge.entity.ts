@@ -18,10 +18,10 @@ export class VerificationBadge extends BaseEntity {
   @Column({ type: 'varchar', length: 50 })
   level: VerificationLevel;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'datetime' })
   awardedAt: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   expiresAt?: Date;
 
   @Column({ type: 'varchar', length: 255, nullable: true })

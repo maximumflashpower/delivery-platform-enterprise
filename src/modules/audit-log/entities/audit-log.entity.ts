@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { AuditAction } from '../enums/audit-action.enum';
 import { AuditEntityType } from '../enums/audit-entity-type.enum';
 
@@ -14,10 +14,10 @@ export class AuditLog extends BaseEntity {
   @Column({ name: 'actorIpAddress', type: 'varchar', length: 45, nullable: true })
   actorIpAddress: string | null;
 
-  @Column({ type: 'enum', enum: AuditAction })
+  @Column({ type: 'varchar', enum: AuditAction })
   action: AuditAction;
 
-  @Column({ type: 'enum', enum: AuditEntityType })
+  @Column({ type: 'varchar', enum: AuditEntityType })
   entityType: AuditEntityType;
 
   @Column({ name: 'entityId', type: 'uuid', nullable: true })
@@ -26,18 +26,18 @@ export class AuditLog extends BaseEntity {
   @Column({ type: 'varchar', length: 100, nullable: true })
   description: string | null;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   oldValues: Record<string, any> | null;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   newValues: Record<string, any> | null;
 
   @Column({ name: 'userAgent', type: 'varchar', length: 500, nullable: true })
   userAgent: string | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

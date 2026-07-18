@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { RateLimitUnit } from '../enums/rate-limit-unit.enum';
 
 @Entity('rate_limit_policies')
@@ -19,7 +19,7 @@ export class RateLimitPolicy extends BaseEntity {
   @Column({ name: 'windowDuration', type: 'int' })
   windowDuration: number;
 
-  @Column({ name: 'windowUnit', type: 'enum', enum: RateLimitUnit })
+  @Column({ name: 'windowUnit', type: 'varchar', enum: RateLimitUnit })
   windowUnit: RateLimitUnit;
 
   @Column({ name: 'isActive', type: 'boolean', default: true })
@@ -34,12 +34,12 @@ export class RateLimitPolicy extends BaseEntity {
   @Column({ name: 'scope', type: 'varchar', length: 50, default: 'global' })
   scope: string;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

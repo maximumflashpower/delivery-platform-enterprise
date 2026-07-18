@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { PredictionStatus } from '../enums/prediction-status.enum';
 
 @Entity('prediction_logs')
@@ -16,13 +16,13 @@ export class PredictionLog extends BaseEntity {
   @Column({ name: 'userId', type: 'uuid', nullable: true })
   userId: string | null;
 
-  @Column({ name: 'inputData', type: 'jsonb' })
+  @Column({ name: 'inputData', type: 'text' })
   inputData: Record<string, any>;
 
-  @Column({ name: 'predictionResult', type: 'jsonb', nullable: true })
+  @Column({ name: 'predictionResult', type: 'text', nullable: true })
   predictionResult: Record<string, any> | null;
 
-  @Column({ type: 'enum', enum: PredictionStatus, default: PredictionStatus.PENDING })
+  @Column({ type: 'varchar', enum: PredictionStatus, default: PredictionStatus.PENDING })
   status: PredictionStatus;
 
   @Column({ name: 'confidenceScore', type: 'decimal', precision: 5, scale: 4, nullable: true })
@@ -37,9 +37,9 @@ export class PredictionLog extends BaseEntity {
   @Column({ name: 'sessionId', type: 'varchar', length: '255', nullable: true })
   sessionId: string | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

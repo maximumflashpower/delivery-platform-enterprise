@@ -25,15 +25,15 @@ export class Credential extends BaseEntity {
   @Column({ type: 'varchar', length: 50, default: CredentialStatus.ACTIVE })
   status: CredentialStatus;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   lastUsedAt?: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   expiresAt?: Date;
 
   @Column({ type: 'int', default: 0 })
   failedAttempts: number;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   lockedUntil?: Date;
 }

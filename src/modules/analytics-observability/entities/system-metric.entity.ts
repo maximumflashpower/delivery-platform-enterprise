@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { SystemMetricType } from '../enums/system-metric-type.enum';
 
 @Entity('system_metrics')
@@ -13,7 +13,7 @@ export class SystemMetric extends BaseEntity {
   @Column({ name: 'instanceId', type: 'varchar', length: '255', nullable: true })
   instanceId: string | null;
 
-  @Column({ type: 'enum', enum: SystemMetricType })
+  @Column({ type: 'varchar', enum: SystemMetricType })
   metricType: SystemMetricType;
 
   @Column({ name: 'metricValue', type: 'decimal', precision: 14, scale: 4 })
@@ -22,15 +22,15 @@ export class SystemMetric extends BaseEntity {
   @Column({ name: 'unit', type: 'varchar', length: '50', nullable: true })
   unit: string | null;
 
-  @Column({ name: 'labels', type: 'jsonb', nullable: true })
+  @Column({ name: 'labels', type: 'text', nullable: true })
   labels: Record<string, string> | null;
 
-  @Column({ name: 'collectedAt', type: 'timestamp with time zone' })
+  @Column({ name: 'collectedAt', type: 'datetime' })
   collectedAt: Date;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

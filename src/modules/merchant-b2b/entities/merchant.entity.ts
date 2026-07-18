@@ -31,6 +31,6 @@ export class Merchant extends BaseEntity {
   @Column({ type: 'varchar', length: 50, default: TierLevel.BRONZE })
   tier: TierLevel;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   businessAddress?: Record<string, any>;
 }

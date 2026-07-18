@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { StorageProvider } from '../enums/storage-provider.enum';
 import { FileType } from '../enums/file-type.enum';
 import { FileStatus } from '../enums/file-status.enum';
@@ -15,7 +15,7 @@ export class StoredFile extends BaseEntity {
   @Column({ name: 'originalName', type: 'varchar', length: 500 })
   originalName: string;
 
-  @Column({ type: 'enum', enum: FileType })
+  @Column({ type: 'varchar', enum: FileType })
   fileType: FileType;
 
   @Column({ name: 'mimeType', type: 'varchar', length: 255 })
@@ -24,7 +24,7 @@ export class StoredFile extends BaseEntity {
   @Column({ name: 'fileSizeBytes', type: 'bigint' })
   fileSizeBytes: number;
 
-  @Column({ name: 'storageProvider', type: 'enum', enum: StorageProvider })
+  @Column({ name: 'storageProvider', type: 'varchar', enum: StorageProvider })
   storageProvider: StorageProvider;
 
   @Column({ type: 'varchar', length: 500 })
@@ -39,24 +39,24 @@ export class StoredFile extends BaseEntity {
   @Column({ name: 'bucketName', type: 'varchar', length: 255, nullable: true })
   bucketName: string | null;
 
-  @Column({ type: 'enum', enum: FileStatus, default: FileStatus.UPLOADED })
+  @Column({ type: 'varchar', enum: FileStatus, default: FileStatus.UPLOADED })
   status: FileStatus;
 
   @Column({ name: 'uploadedByUserId', type: 'uuid' })
   uploadedByUserId: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   metadata: Record<string, any> | null;
 
   @Column({ name: 'checksum', type: 'varchar', length: 64, nullable: true })
   checksum: string | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

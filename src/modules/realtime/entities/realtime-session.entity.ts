@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { SessionState } from '../enums/session-state.enum';
 
 @Entity('realtime_sessions')
@@ -13,7 +13,7 @@ export class RealtimeSession extends BaseEntity {
   @Column({ name: 'connectionId', type: 'varchar', length: '255', unique: true })
   connectionId: string;
 
-  @Column({ type: 'enum', enum: SessionState, default: SessionState.CONNECTED })
+  @Column({ type: 'varchar', enum: SessionState, default: SessionState.CONNECTED })
   state: SessionState;
 
   @Column({ name: 'channelId', type: 'uuid', nullable: true })
@@ -25,18 +25,18 @@ export class RealtimeSession extends BaseEntity {
   @Column({ name: 'userAgent', type: 'varchar', length: '500', nullable: true })
   userAgent: string | null;
 
-  @Column({ name: 'lastHeartbeatAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'lastHeartbeatAt', type: 'datetime', nullable: true })
   lastHeartbeatAt: Date | null;
 
-  @Column({ name: 'disconnectedAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'disconnectedAt', type: 'datetime', nullable: true })
   disconnectedAt: Date | null;
 
-  @Column({ name: 'metadata', type: 'jsonb', nullable: true })
+  @Column({ name: 'metadata', type: 'text', nullable: true })
   metadata: Record<string, any> | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

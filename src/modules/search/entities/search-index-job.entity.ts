@@ -17,10 +17,10 @@ export class SearchIndexJob extends BaseEntity {
   @Column({ type: 'uuid' })
   entityId: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   indexedData?: Record<string, any>;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   indexedAt?: Date;
 
   @Column({ type: 'text', nullable: true })

@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 
 @Entity('api_keys')
 export class ApiKey extends BaseEntity {
@@ -18,30 +18,30 @@ export class ApiKey extends BaseEntity {
   @Column({ name: 'name', type: 'varchar', length: 100 })
   name: string;
 
-  @Column({ name: 'permissions', type: 'jsonb' })
+  @Column({ name: 'permissions', type: 'text' })
   permissions: string[];
 
-  @Column({ name: 'allowedOrigins', type: 'jsonb', nullable: true })
+  @Column({ name: 'allowedOrigins', type: 'text', nullable: true })
   allowedOrigins: string[] | null;
 
   @Column({ name: 'rateLimit', type: 'int', default: 1000 })
   rateLimit: number;
 
-  @Column({ name: 'expiresAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'expiresAt', type: 'datetime', nullable: true })
   expiresAt: Date | null;
 
-  @Column({ name: 'lastUsedAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'lastUsedAt', type: 'datetime', nullable: true })
   lastUsedAt: Date | null;
 
   @Column({ name: 'isActive', type: 'boolean', default: true })
   isActive: boolean;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

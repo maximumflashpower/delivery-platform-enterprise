@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { ModelStatus } from '../enums/model-status.enum';
 
 @Entity('model_versions')
@@ -16,7 +16,7 @@ export class ModelVersion extends BaseEntity {
   @Column({ name: 'versionNumber', type: 'int' })
   versionNumber: number;
 
-  @Column({ type: 'enum', enum: ModelStatus, default: ModelStatus.TRAINING })
+  @Column({ type: 'varchar', enum: ModelStatus, default: ModelStatus.TRAINING })
   status: ModelStatus;
 
   @Column({ name: 'modelPath', type: 'varchar', length: '1000', nullable: true })
@@ -28,24 +28,24 @@ export class ModelVersion extends BaseEntity {
   @Column({ name: 'accuracy', type: 'decimal', precision: 5, scale: 4, nullable: true })
   accuracy: number | null;
 
-  @Column({ name: 'metrics', type: 'jsonb', nullable: true })
+  @Column({ name: 'metrics', type: 'text', nullable: true })
   metrics: Record<string, any> | null;
 
   @Column({ name: 'trainedByUserId', type: 'uuid', nullable: true })
   trainedByUserId: string | null;
 
-  @Column({ name: 'deployedAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'deployedAt', type: 'datetime', nullable: true })
   deployedAt: Date | null;
 
   @Column({ name: 'isActive', type: 'boolean', default: true })
   isActive: boolean;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

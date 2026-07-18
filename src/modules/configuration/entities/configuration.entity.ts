@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { ConfigScope } from '../enums/config-scope.enum';
 import { ConfigType } from '../enums/config-type.enum';
 
@@ -14,10 +14,10 @@ export class Configuration extends BaseEntity {
   @Column({ name: 'configName', type: 'varchar', length: 255 })
   configName: string;
 
-  @Column({ type: 'enum', enum: ConfigType })
+  @Column({ type: 'varchar', enum: ConfigType })
   configType: ConfigType;
 
-  @Column({ type: 'enum', enum: ConfigScope, default: ConfigScope.GLOBAL })
+  @Column({ type: 'varchar', enum: ConfigScope, default: ConfigScope.GLOBAL })
   scope: ConfigScope;
 
   @Column({ name: 'scopeIdentifier', type: 'varchar', length: 255, nullable: true })
@@ -29,7 +29,7 @@ export class Configuration extends BaseEntity {
   @Column({ name: 'defaultValue', type: 'text', nullable: true })
   defaultValue: string | null;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   schemaDefinition: Record<string, any> | null;
 
   @Column({ name: 'isEncrypted', type: 'boolean', default: false })
@@ -44,12 +44,12 @@ export class Configuration extends BaseEntity {
   @Column({ name: 'modifiedByUserId', type: 'uuid' })
   modifiedByUserId: string;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

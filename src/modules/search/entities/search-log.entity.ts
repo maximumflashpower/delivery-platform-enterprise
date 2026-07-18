@@ -12,7 +12,7 @@ export class SearchLog extends BaseEntity {
   @Column({ type: 'varchar', length: 50, nullable: true })
   entityType?: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   filters?: Record<string, any>;
 
   @Column({ type: 'integer', nullable: true })
@@ -30,6 +30,6 @@ export class SearchLog extends BaseEntity {
   @Column({ type: 'varchar', length: 100, nullable: true })
   sessionId?: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   clickResults?: number[];
 }

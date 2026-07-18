@@ -1,0 +1,4 @@
+    TypeOrmModule.forRootAsync({
+      inject: [TypeOrmConfigService],
+      useFactory: (cfg: TypeOrmConfigService) => cfg.createTypeOrmOptions(),
+    }),

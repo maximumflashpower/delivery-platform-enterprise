@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn, Index } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { TranslationStatus } from '../enums/translation-status.enum';
 
 @Entity('translations')
@@ -17,13 +17,13 @@ export class Translation extends BaseEntity {
   @Column({ name: 'value', type: 'text' })
   value: string;
 
-  @Column({ type: 'enum', enum: TranslationStatus, default: TranslationStatus.PENDING })
+  @Column({ type: 'varchar', enum: TranslationStatus, default: TranslationStatus.PENDING })
   status: TranslationStatus;
 
   @Column({ name: 'reviewedByUserId', type: 'uuid', nullable: true })
   reviewedByUserId: string | null;
 
-  @Column({ name: 'reviewedAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'reviewedAt', type: 'datetime', nullable: true })
   reviewedAt: Date | null;
 
   @Column({ name: 'version', type: 'int', default: 1 })
@@ -32,12 +32,12 @@ export class Translation extends BaseEntity {
   @Column({ name: 'notes', type: 'text', nullable: true })
   notes: string | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

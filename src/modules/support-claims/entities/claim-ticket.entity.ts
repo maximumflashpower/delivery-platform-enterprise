@@ -20,7 +20,7 @@ export class ClaimTicket extends BaseEntity {
   @Column({ type: 'text' })
   message: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   attachments?: string[];
 
   @Column({ type: 'boolean', default: false })

@@ -33,6 +33,6 @@ export class Host extends BaseEntity {
   @Column({ type: 'boolean', default: true })
   isSuperHost: boolean;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   responseTime?: Record<string, any>;
 }

@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { EventCategory } from '../enums/event-category.enum';
 
 @Entity('analytics_events')
@@ -13,13 +13,13 @@ export class AnalyticsEvent extends BaseEntity {
   @Column({ name: 'sessionId', type: 'varchar', length: 255, nullable: true })
   sessionId: string | null;
 
-  @Column({ type: 'enum', enum: EventCategory })
+  @Column({ type: 'varchar', enum: EventCategory })
   category: EventCategory;
 
   @Column({ name: 'eventName', type: 'varchar', length: 255 })
   eventName: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   properties: Record<string, any> | null;
 
   @Column({ name: 'deviceType', type: 'varchar', length: 50, nullable: true })
@@ -34,6 +34,6 @@ export class AnalyticsEvent extends BaseEntity {
   @Column({ name: 'userAgent', type: 'varchar', length: 500, nullable: true })
   userAgent: string | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 }

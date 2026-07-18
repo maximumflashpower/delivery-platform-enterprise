@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 
 @Entity('experiment_variants')
 export class ExperimentVariant extends BaseEntity {
@@ -18,7 +18,7 @@ export class ExperimentVariant extends BaseEntity {
   @Column({ name: 'trafficPercentage', type: 'int', default: 0 })
   trafficPercentage: number;
 
-  @Column({ name: 'configuration', type: 'jsonb', nullable: true })
+  @Column({ name: 'configuration', type: 'text', nullable: true })
   configuration: Record<string, any> | null;
 
   @Column({ name: 'conversionRate', type: 'decimal', precision: 5, scale: 4, nullable: true })
@@ -36,12 +36,12 @@ export class ExperimentVariant extends BaseEntity {
   @Column({ name: 'isActive', type: 'boolean', default: true })
   isActive: boolean;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

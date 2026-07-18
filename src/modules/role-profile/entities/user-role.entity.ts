@@ -19,7 +19,7 @@ export class UserRole extends BaseEntity {
   @Column({ type: 'uuid' })
   roleId: string;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'datetime' })
   assignedAt: Date;
 
   @Column({ type: 'varchar', length: 100, nullable: true })

@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { WebhookEventType } from '../enums/webhook-event-type.enum';
 import { WebhookStatus } from '../enums/webhook-status.enum';
 
@@ -11,13 +11,13 @@ export class WebhookEvent extends BaseEntity {
   @Column({ name: 'endpointId', type: 'uuid' })
   endpointId: string;
 
-  @Column({ type: 'enum', enum: WebhookEventType })
+  @Column({ type: 'varchar', enum: WebhookEventType })
   eventType: WebhookEventType;
 
-  @Column({ type: 'enum', enum: WebhookStatus, default: WebhookStatus.PENDING })
+  @Column({ type: 'varchar', enum: WebhookStatus, default: WebhookStatus.PENDING })
   status: WebhookStatus;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   payload: Record<string, any> | null;
 
   @Column({ name: 'attemptCount', type: 'int', default: 0 })
@@ -26,21 +26,21 @@ export class WebhookEvent extends BaseEntity {
   @Column({ name: 'maxAttempts', type: 'int', default: 3 })
   maxAttempts: number;
 
-  @Column({ name: 'nextRetryAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'nextRetryAt', type: 'datetime', nullable: true })
   nextRetryAt: Date | null;
 
-  @Column({ name: 'triggeredAt', type: 'timestamp with time zone' })
+  @Column({ name: 'triggeredAt', type: 'datetime' })
   triggeredAt: Date;
 
-  @Column({ name: 'sentAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'sentAt', type: 'datetime', nullable: true })
   sentAt: Date | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

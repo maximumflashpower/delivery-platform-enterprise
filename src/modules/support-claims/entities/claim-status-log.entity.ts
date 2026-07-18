@@ -20,7 +20,7 @@ export class ClaimStatusLog extends BaseEntity {
   @Column({ type: 'uuid', nullable: true })
   changedByUserId?: string;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   changedAt: Date;
 
   @Column({ type: 'text', nullable: true })

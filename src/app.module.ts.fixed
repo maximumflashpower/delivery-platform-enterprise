@@ -1,0 +1,15 @@
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import databaseConfig from './config/database.config';
+import { AppController } from './app.controller';
+// ... otras imports
+
+@Module({
+  imports: [
+    TypeOrmModule.forRoot(databaseConfig),
+    // ... otros módulos
+  ],
+  controllers: [AppController],
+  providers: [],
+})
+export class AppModule {}

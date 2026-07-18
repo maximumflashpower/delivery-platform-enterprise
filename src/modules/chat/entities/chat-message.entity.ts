@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { MessageStatus } from '../enums/message-status.enum';
 
 @Entity('chat_messages')
@@ -16,27 +16,27 @@ export class ChatMessage extends BaseEntity {
   @Column({ type: 'text' })
   content: string;
 
-  @Column({ type: 'enum', enum: MessageStatus, default: MessageStatus.SENT })
+  @Column({ type: 'varchar', enum: MessageStatus, default: MessageStatus.SENT })
   status: MessageStatus;
 
-  @Column({ name: 'attachments', type: 'jsonb', nullable: true })
+  @Column({ name: 'attachments', type: 'text', nullable: true })
   attachments: Record<string, any>[] | null;
 
   @Column({ name: 'replyToId', type: 'uuid', nullable: true })
   replyToId: string | null;
 
-  @Column({ name: 'editedAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'editedAt', type: 'datetime', nullable: true })
   editedAt: Date | null;
 
-  @Column({ name: 'readByUserIds', type: 'jsonb', nullable: true })
+  @Column({ name: 'readByUserIds', type: 'text', nullable: true })
   readByUserIds: string[] | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

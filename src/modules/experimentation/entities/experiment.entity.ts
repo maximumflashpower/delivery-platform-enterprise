@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { ExperimentType } from '../enums/experiment-type.enum';
 import { ExperimentStatus } from '../enums/experiment-status.enum';
 
@@ -14,22 +14,22 @@ export class Experiment extends BaseEntity {
   @Column({ name: 'description', type: 'text', nullable: true })
   description: string | null;
 
-  @Column({ type: 'enum', enum: ExperimentType })
+  @Column({ type: 'varchar', enum: ExperimentType })
   type: ExperimentType;
 
-  @Column({ type: 'enum', enum: ExperimentStatus, default: ExperimentStatus.DRAFT })
+  @Column({ type: 'varchar', enum: ExperimentStatus, default: ExperimentStatus.DRAFT })
   status: ExperimentStatus;
 
-  @Column({ name: 'startDate', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'startDate', type: 'datetime', nullable: true })
   startDate: Date | null;
 
-  @Column({ name: 'endDate', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'endDate', type: 'datetime', nullable: true })
   endDate: Date | null;
 
   @Column({ name: 'createdByUserId', type: 'uuid', nullable: true })
   createdByUserId: string | null;
 
-  @Column({ name: 'targetAudience', type: 'jsonb', nullable: true })
+  @Column({ name: 'targetAudience', type: 'text', nullable: true })
   targetAudience: Record<string, any> | null;
 
   @Column({ name: 'primaryMetric', type: 'varchar', length: '100', nullable: true })
@@ -38,12 +38,12 @@ export class Experiment extends BaseEntity {
   @Column({ name: 'isActive', type: 'boolean', default: true })
   isActive: boolean;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

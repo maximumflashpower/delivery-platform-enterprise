@@ -6,11 +6,12 @@ import { ThrottlerModule, ThrottlerGuard } from "@nestjs/throttler";
 import { APP_GUARD } from '@nestjs/core';
 
 import appConfig from './config/app.config';
-import databaseConfig from './config/database.config';
 import jwtConfig from './config/jwt.config';
 import swaggerConfig from './config/swagger.config';
 import throttlerConfig from './config/throttler.config';
 import redisConfig from './config/redis.config';
+import { TypeOrmConfigService } from './config/typeorm-config.service';
+import { ConfigModule as GlobalConfigModule } from './modules/config/config.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -69,30 +70,17 @@ import { LocalizationModule } from './modules/localization/localization.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [appConfig, databaseConfig, jwtConfig, swaggerConfig, throttlerConfig, redisConfig],
+      load: [appConfig, jwtConfig, swaggerConfig, throttlerConfig, redisConfig],
       envFilePath: '.env',
     }),
     TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres' as const,
-        host: configService.get<string>('database.host'),
-        port: configService.get<number>('database.port'),
-        username: configService.get<string>('database.username'),
-        password: configService.get<string>('database.password'),
-        database: configService.get<string>('database.database'),
-        autoLoadEntities: true,
-        synchronize: configService.get<boolean>('database.synchronize'),
-        logging: configService.get<boolean>('database.logging'),
-      }),
+      useClass: TypeOrmConfigService,
+      inject: [TypeOrmConfigService],
     }),
-    ThrottlerModule.forRoot([
-      {
-        ttl: 60000,
-        limit: 100,
-      },
-    ]),
+    ThrottlerModule.forRoot([{ ttl: 60000, limit: 100 }]),
     ScheduleModule.forRoot(),
+    // GLOBAL MODULE ADDED FIRST
+    GlobalConfigModule,
     IdentityModule,
     RoleProfileModule,
     TrustSafetyModule,
@@ -136,6 +124,7 @@ import { LocalizationModule } from './modules/localization/localization.module';
   ],
   controllers: [AppController],
   providers: [
+    TypeOrmConfigService,
     AppService,
     { provide: APP_GUARD, useClass: ThrottlerGuard },
   ],

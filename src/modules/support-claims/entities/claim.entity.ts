@@ -36,13 +36,13 @@ export class Claim extends BaseEntity {
   @Column({ type: 'uuid', nullable: true })
   assignedToUserId?: string;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   openedAt?: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   respondedAt?: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   resolvedAt?: Date;
 
   @Column({ type: 'text', nullable: true })

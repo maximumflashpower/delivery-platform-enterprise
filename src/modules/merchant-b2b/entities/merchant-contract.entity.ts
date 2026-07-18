@@ -27,6 +27,6 @@ export class MerchantContract extends BaseEntity {
   @Column({ type: 'decimal', precision: 5, scale: 2, default: 0 })
   commissionRate: number;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   terms?: Record<string, any>;
 }

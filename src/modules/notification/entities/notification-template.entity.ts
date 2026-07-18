@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { NotificationType } from '../enums/notification-type.enum';
 import { NotificationChannel } from '../enums/notification-channel.enum';
 
@@ -14,10 +14,10 @@ export class NotificationTemplate extends BaseEntity {
   @Column({ name: 'templateName', type: 'varchar', length: 255 })
   templateName: string;
 
-  @Column({ type: 'enum', enum: NotificationType })
+  @Column({ type: 'varchar', enum: NotificationType })
   type: NotificationType;
 
-  @Column({ type: 'enum', enum: NotificationChannel })
+  @Column({ type: 'varchar', enum: NotificationChannel })
   channel: NotificationChannel;
 
   @Column({ type: 'varchar', length: 255 })
@@ -26,7 +26,7 @@ export class NotificationTemplate extends BaseEntity {
   @Column({ type: 'text' })
   bodyTemplate: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   variableDefinitions: Record<string, any> | null;
 
   @Column({ name: 'isActive', type: 'boolean', default: true })
@@ -35,12 +35,12 @@ export class NotificationTemplate extends BaseEntity {
   @Column({ type: 'varchar', length: 5, default: 'en' })
   locale: string;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

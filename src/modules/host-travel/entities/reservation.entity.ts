@@ -36,10 +36,10 @@ export class Reservation extends BaseEntity {
   @Column({ type: 'varchar', length: 50, default: ReservationStatus.PENDING })
   status: ReservationStatus;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   checkedInAt?: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   checkedOutAt?: Date;
 
   @Column({ type: 'text', nullable: true })

@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { BiometricType } from '../enums/biometric-type.enum';
 import { VerificationStatus } from '../enums/verification-status.enum';
 
@@ -14,10 +14,10 @@ export class BiometricVerification extends BaseEntity {
   @Column({ name: 'templateId', type: 'uuid', nullable: true })
   templateId: string | null;
 
-  @Column({ type: 'enum', enum: BiometricType })
+  @Column({ type: 'varchar', enum: BiometricType })
   type: BiometricType;
 
-  @Column({ type: 'enum', enum: VerificationStatus, default: VerificationStatus.PENDING })
+  @Column({ type: 'varchar', enum: VerificationStatus, default: VerificationStatus.PENDING })
   status: VerificationStatus;
 
   @Column({ name: 'confidenceScore', type: 'decimal', precision: 5, scale: 4, nullable: true })
@@ -32,15 +32,15 @@ export class BiometricVerification extends BaseEntity {
   @Column({ name: 'failureReason', type: 'text', nullable: true })
   failureReason: string | null;
 
-  @Column({ name: 'verifiedAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'verifiedAt', type: 'datetime', nullable: true })
   verifiedAt: Date | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

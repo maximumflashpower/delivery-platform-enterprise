@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { WellnessGoalType } from '../enums/wellness-goal-type.enum';
 
 @Entity('wellness_goals')
@@ -16,7 +16,7 @@ export class WellnessGoal extends BaseEntity {
   @Column({ name: 'description', type: 'text', nullable: true })
   description: string | null;
 
-  @Column({ type: 'enum', enum: WellnessGoalType })
+  @Column({ type: 'varchar', enum: WellnessGoalType })
   type: WellnessGoalType;
 
   @Column({ name: 'targetValue', type: 'decimal', precision: 10, scale: 2 })
@@ -46,12 +46,12 @@ export class WellnessGoal extends BaseEntity {
   @Column({ name: 'completedAt', type: 'date', nullable: true })
   completedAt: Date | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

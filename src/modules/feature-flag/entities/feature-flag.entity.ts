@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { FlagStrategy } from '../enums/flag-strategy.enum';
 import { FlagStatus } from '../enums/flag-status.enum';
 
@@ -8,36 +8,36 @@ export class FeatureFlag extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'flagKey', type: 'varchar', length: 100, unique: true })
+  @Column({ name: 'flag_key', type: 'varchar', length: 100, unique: true })
   flagKey: string;
 
-  @Column({ name: 'flagName', type: 'varchar', length: 255 })
+  @Column({ name: 'flag_name', type: 'varchar', length: 255 })
   flagName: string;
 
   @Column({ type: 'text', nullable: true })
   description: string | null;
 
-  @Column({ type: 'enum', enum: FlagStrategy, default: FlagStrategy.BOOLEAN })
-  strategy: FlagStrategy;
+  @Column({ type: 'varchar', length: 50, default: 'BOOLEAN' })
+  strategy: string;
 
-  @Column({ type: 'enum', enum: FlagStatus, default: FlagStatus.DISABLED })
-  status: FlagStatus;
+  @Column({ type: 'varchar', length: 50, default: 'DISABLED' })
+  status: string;
 
-  @Column({ name: 'defaultValue', type: 'boolean', default: false })
+  @Column({ name: 'default_value', type: 'boolean', default: false })
   defaultValue: boolean;
 
-  @Column({ type: 'jsonb', nullable: true })
-  config: Record<string, any> | null;
+  @Column({ type: 'text', nullable: true })
+  config: string | null;
 
-  @Column({ name: 'createdByUserId', type: 'uuid' })
+  @Column({ name: 'created_by_user_id', type: 'varchar', length: 36 })
   createdByUserId: string;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @Column({ name: 'created_at', type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @Column({ name: 'updated_at', type: 'datetime', onUpdate: 'CURRENT_TIMESTAMP', default: () => 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'deleted_at', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

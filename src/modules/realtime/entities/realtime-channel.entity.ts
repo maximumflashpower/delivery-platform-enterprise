@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { ChannelType } from '../enums/channel-type.enum';
 
 @Entity('realtime_channels')
@@ -10,7 +10,7 @@ export class RealtimeChannel extends BaseEntity {
   @Column({ name: 'channelName', type: 'varchar', length: '255', unique: true })
   channelName: string;
 
-  @Column({ type: 'enum', enum: ChannelType })
+  @Column({ type: 'varchar', enum: ChannelType })
   type: ChannelType;
 
   @Column({ name: 'description', type: 'text', nullable: true })
@@ -22,21 +22,21 @@ export class RealtimeChannel extends BaseEntity {
   @Column({ name: 'participantCount', type: 'int', default: 0 })
   participantCount: number;
 
-  @Column({ name: 'settings', type: 'jsonb', nullable: true })
+  @Column({ name: 'settings', type: 'text', nullable: true })
   settings: Record<string, any> | null;
 
   @Column({ name: 'isActive', type: 'boolean', default: true })
   isActive: boolean;
 
-  @Column({ name: 'lastActivityAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'lastActivityAt', type: 'datetime', nullable: true })
   lastActivityAt: Date | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

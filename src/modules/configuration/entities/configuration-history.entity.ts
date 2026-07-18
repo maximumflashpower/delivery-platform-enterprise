@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 
 @Entity('configuration_history')
 export class ConfigurationHistory extends BaseEntity {
@@ -21,6 +21,6 @@ export class ConfigurationHistory extends BaseEntity {
   @Column({ name: 'changeReason', type: 'text', nullable: true })
   changeReason: string | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 }

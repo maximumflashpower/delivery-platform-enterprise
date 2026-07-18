@@ -21,9 +21,9 @@ export class IdentityRecoveryCode extends BaseEntity {
   @Column({ type: 'boolean', default: false })
   isUsed: boolean;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   usedAt?: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   expiresAt?: Date;
 }

@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { LanguageCode } from '../enums/language-code.enum';
 
 @Entity('languages')
@@ -7,7 +7,7 @@ export class Language extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'code', type: 'enum', enum: LanguageCode, unique: true })
+  @Column({ name: 'code', type: 'varchar', enum: LanguageCode, unique: true })
   code: LanguageCode;
 
   @Column({ name: 'displayName', type: 'varchar', length: 100 })
@@ -28,12 +28,12 @@ export class Language extends BaseEntity {
   @Column({ name: 'regionCode', type: 'varchar', length: 10, nullable: true })
   regionCode: string | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { PolicyType } from '../enums/policy-type.enum';
 
 @Entity('governance_policies')
@@ -13,7 +13,7 @@ export class GovernancePolicy extends BaseEntity {
   @Column({ name: 'description', type: 'text', nullable: true })
   description: string | null;
 
-  @Column({ type: 'enum', enum: PolicyType })
+  @Column({ type: 'varchar', enum: PolicyType })
   type: PolicyType;
 
   @Column({ name: 'jurisdiction', type: 'varchar', length: 100 })
@@ -40,15 +40,15 @@ export class GovernancePolicy extends BaseEntity {
   @Column({ name: 'isActive', type: 'boolean', default: true })
   isActive: boolean;
 
-  @Column({ name: 'metadata', type: 'jsonb', nullable: true })
+  @Column({ name: 'metadata', type: 'text', nullable: true })
   metadata: Record<string, any> | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

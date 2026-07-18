@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 
 @Entity('webhook_deliveries')
 export class WebhookDelivery extends BaseEntity {
@@ -18,16 +18,16 @@ export class WebhookDelivery extends BaseEntity {
   @Column({ name: 'requestUrl', type: 'varchar', length: 1000 })
   requestUrl: string;
 
-  @Column({ name: 'requestHeaders', type: 'jsonb', nullable: true })
+  @Column({ name: 'requestHeaders', type: 'text', nullable: true })
   requestHeaders: Record<string, string> | null;
 
-  @Column({ name: 'requestBody', type: 'jsonb', nullable: true })
+  @Column({ name: 'requestBody', type: 'text', nullable: true })
   requestBody: Record<string, any> | null;
 
   @Column({ name: 'responseStatusCode', type: 'int', nullable: true })
   responseStatusCode: number | null;
 
-  @Column({ name: 'responseHeaders', type: 'jsonb', nullable: true })
+  @Column({ name: 'responseHeaders', type: 'text', nullable: true })
   responseHeaders: Record<string, string> | null;
 
   @Column({ name: 'responseBody', type: 'text', nullable: true })
@@ -45,12 +45,12 @@ export class WebhookDelivery extends BaseEntity {
   @Column({ name: 'attemptNumber', type: 'int' })
   attemptNumber: number;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

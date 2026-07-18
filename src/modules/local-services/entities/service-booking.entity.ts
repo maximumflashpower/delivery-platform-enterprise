@@ -24,7 +24,7 @@ export class ServiceBooking extends BaseEntity {
   @Column({ type: 'varchar', length: 255 })
   serviceName: string;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'datetime' })
   scheduledAt: Date;
 
   @Column({ type: 'integer', nullable: true })
@@ -36,7 +36,7 @@ export class ServiceBooking extends BaseEntity {
   @Column({ type: 'varchar', length: 50, default: BookingStatus.PENDING })
   status: BookingStatus;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   location?: Record<string, any>;
 
   @Column({ type: 'text', nullable: true })

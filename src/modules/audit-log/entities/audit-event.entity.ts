@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { AuditAction } from '../enums/audit-action.enum';
 import { AuditEntityType } from '../enums/audit-entity-type.enum';
 
@@ -11,10 +11,10 @@ export class AuditEvent extends BaseEntity {
   @Column({ name: 'eventName', type: 'varchar', length: 255 })
   eventName: string;
 
-  @Column({ type: 'enum', enum: AuditAction })
+  @Column({ type: 'varchar', enum: AuditAction })
   action: AuditAction;
 
-  @Column({ type: 'enum', enum: AuditEntityType })
+  @Column({ type: 'varchar', enum: AuditEntityType })
   entityType: AuditEntityType;
 
   @Column({ name: 'triggerUserId', type: 'uuid', nullable: true })
@@ -26,18 +26,18 @@ export class AuditEvent extends BaseEntity {
   @Column({ name: 'isProcessed', type: 'boolean', default: false })
   isProcessed: boolean;
 
-  @Column({ name: 'processedAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'processedAt', type: 'datetime', nullable: true })
   processedAt: Date | null;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   payload: Record<string, any> | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

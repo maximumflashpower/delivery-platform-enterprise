@@ -1,5 +1,5 @@
 import { Entity, Column, JoinColumn, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { NotificationChannel } from '../enums/notification-channel.enum';
 
 @Entity('notification_preferences')
@@ -10,27 +10,27 @@ export class NotificationPreference extends BaseEntity {
   @Column({ name: 'userId', type: 'uuid', unique: true })
   userId: string;
 
-  @Column({ name: 'channelType', type: 'enum', enum: NotificationChannel, unique: true })
+  @Column({ name: 'channelType', type: 'varchar', enum: NotificationChannel, unique: true })
   channelType: NotificationChannel;
 
   @Column({ name: 'isEnabled', type: 'boolean', default: true })
   isEnabled: boolean;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   settings: Record<string, any> | null;
 
-  @Column({ name: 'optedInAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'optedInAt', type: 'datetime', nullable: true })
   optedInAt: Date | null;
 
-  @Column({ name: 'optedOutAt', type: 'timestamp with time zone', nullable: true })
+  @Column({ name: 'optedOutAt', type: 'datetime', nullable: true })
   optedOutAt: Date | null;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }

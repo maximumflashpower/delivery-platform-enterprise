@@ -43,12 +43,12 @@ export class Listing extends BaseEntity {
   @Column({ type: 'integer', default: 1 })
   bathrooms: number;
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'text' })
   location: Record<string, any>;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   amenities?: string[];
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   photos?: Array<Record<string, any>>;
 }

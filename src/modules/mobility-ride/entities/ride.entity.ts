@@ -32,6 +32,6 @@ export class Ride extends BaseEntity {
   @Column({ type: 'decimal', precision: 19, scale: 4, nullable: true })
   fare?: number;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   locations?: Record<string, { lat: number; lng: number; address: string }>;
 }

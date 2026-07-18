@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '@common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { ComplianceStatus } from '../enums/compliance-status.enum';
 
 @Entity('compliance_records')
@@ -16,7 +16,7 @@ export class ComplianceRecord extends BaseEntity {
   @Column({ name: 'entityId', type: 'uuid' })
   entityId: string;
 
-  @Column({ type: 'enum', enum: ComplianceStatus, default: ComplianceStatus.PENDING_REVIEW })
+  @Column({ type: 'varchar', enum: ComplianceStatus, default: ComplianceStatus.PENDING_REVIEW })
   status: ComplianceStatus;
 
   @Column({ name: 'assessmentDate', type: 'date' })
@@ -28,10 +28,10 @@ export class ComplianceRecord extends BaseEntity {
   @Column({ name: 'auditorId', type: 'uuid', nullable: true })
   auditorId: string | null;
 
-  @Column({ name: 'findings', type: 'jsonb', nullable: true })
+  @Column({ name: 'findings', type: 'text', nullable: true })
   findings: Record<string, any> | null;
 
-  @Column({ name: 'remediationPlan', type: 'jsonb', nullable: true })
+  @Column({ name: 'remediationPlan', type: 'text', nullable: true })
   remediationPlan: Record<string, any> | null;
 
   @Column({ name: 'comments', type: 'text', nullable: true })
@@ -40,12 +40,12 @@ export class ComplianceRecord extends BaseEntity {
   @Column({ name: 'isCritical', type: 'boolean', default: false })
   isCritical: boolean;
 
-  @CreateDateColumn({ name: 'createdAt', type: 'timestamp with time zone' })
+  @CreateDateColumn({ name: 'createdAt', type: 'datetime' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt', type: 'timestamp with time zone' })
+  @UpdateDateColumn({ name: 'updatedAt', type: 'datetime' })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deletedAt', type: 'timestamp with time zone', nullable: true })
+  @DeleteDateColumn({ name: 'deletedAt', type: 'datetime', nullable: true })
   deletedAt: Date | null;
 }
