@@ -20,8 +20,8 @@ import { Credential } from './entities/credential.entity';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        secret: configService.get<string>('jwt.secret'),
-        signOptions: { expiresIn: configService.get<string>('jwt.expiresIn') || '15m' },
+        secret: configService.get<string>('JWT_SECRET') || 'fallback-dev-secret-min-32-chars!!',
+        signOptions: { expiresIn: configService.get<string>('JWT_EXPIRES_IN') || '15m' },
       }),
     }),
     TypeOrmModule.forFeature([IdentityUser, Credential, IdentityVerification, IdentitySession]),
