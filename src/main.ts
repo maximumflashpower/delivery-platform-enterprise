@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe, Logger } from '@nestjs/common';
+import { ValidationPipe, Logger, BadRequestException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
@@ -17,6 +17,20 @@ async function bootstrap() {
     bufferLogs: true,
     logger: WinstonModule.createLogger(winstonConfig),
   });
+
+  // Global validation pipe
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+      exceptionFactory: (errors) =>
+        new BadRequestException(errors.map((e) => e.constraints)),
+    }),
+  );
 
   const logger = new Logger('Bootstrap');
   const configService = app.get(ConfigService);
@@ -43,14 +57,6 @@ async function bootstrap() {
   app.useGlobalGuards(new JwtAuthGuard(app.get(Reflector)));
 
   // Validation pipe (global)
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-      transformOptions: { enableImplicitConversion: true },
-    }),
-  );
 
   // Exception filter (global)
   app.useGlobalFilters(new HttpExceptionFilter());
