@@ -47,11 +47,17 @@ import { FileStorageModule } from './modules/file-storage/file-storage.module';
 import { I18nModule } from './modules/i18n/i18n.module';
 import { ChatModule } from './modules/chat/chat.module';
 import { RateLimitModule } from './modules/rate-limit/rate-limit.module';
+import appConfig from './config/app.config';
+import jwtConfig from './config/jwt.config';
+import swaggerConfig from './config/swagger.config';
+import throttlerConfig from './config/throttler.config';
+import redisConfig from './config/redis.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      load: [appConfig, jwtConfig, swaggerConfig, throttlerConfig, redisConfig],
       envFilePath: ['.env', '.env.local'],
     }),
     ThrottlerModule.forRoot([

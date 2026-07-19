@@ -182,7 +182,15 @@ All endpoints (except those marked as **Public**) require a valid JWT Bearer tok
       },
     });
 
+    // Expose Swagger JSON via Express adapter
+    const httpAdapter = app.getHttpAdapter();
+    httpAdapter.get('/docs-json', (req, res) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.json(document);
+    });
+
     logger.log(`📚 Swagger documentation: http://localhost:${port}/docs`);
+    logger.log(`📄 Swagger JSON: http://localhost:${port}/docs-json`);
   }
 
   await app.listen(port);
