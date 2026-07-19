@@ -33,7 +33,7 @@ export class PayoutService {
   async findAllPayouts(where?: Partial<Payout>): Promise<Payout[]> {
     return this.payoutRepo.find({
       where: where || {},
-      relations: {'user'},
+      relations: { user: true },
       order: { createdAt: 'DESC' },
     });
   }
@@ -41,7 +41,7 @@ export class PayoutService {
   async findPayoutById(id: string): Promise<Payout> {
     const payout = await this.payoutRepo.findOne({
       where: { id },
-      relations: {'user'},
+      relations: { user: true },
     });
     if (!payout) throw new NotFoundException('Payout not found');
     return payout;
@@ -50,7 +50,7 @@ export class PayoutService {
   async findPayoutByPayoutId(payoutId: string): Promise<Payout> {
     const payout = await this.payoutRepo.findOne({
       where: { payoutId },
-      relations: {'user'},
+      relations: { user: true },
     });
     if (!payout) throw new NotFoundException('Payout not found');
     return payout;
@@ -59,7 +59,7 @@ export class PayoutService {
   async findPayoutsByUser(userId: string): Promise<Payout[]> {
     return this.payoutRepo.find({
       where: { userId },
-      relations: {'user'},
+      relations: { user: true },
       order: { createdAt: 'DESC' },
     });
   }
@@ -67,7 +67,7 @@ export class PayoutService {
   async findPayoutsByStatus(status: PayoutStatus): Promise<Payout[]> {
     return this.payoutRepo.find({
       where: { status },
-      relations: {'user'},
+      relations: { user: true },
       order: { createdAt: 'DESC' },
     });
   }

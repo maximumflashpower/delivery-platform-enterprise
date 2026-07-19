@@ -1,7 +1,8 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 import { ServiceProvider } from './service-provider.entity';
 import { BookingStatus } from '../enums/booking-status.enum';
+import { IdentityUser } from '../../identity/entities/identity-user.entity';
 
 @Entity('domain_service_bookings')
 export class ServiceBooking extends BaseEntity {
@@ -41,4 +42,10 @@ export class ServiceBooking extends BaseEntity {
 
   @Column({ type: 'text', nullable: true })
   notes?: string;
+  /**
+   * OneToMany - provider
+   */
+  /**
+   * OneToMany - customer
+   */
 }

@@ -14,13 +14,13 @@ export class CourierAssignmentService {
   ) {}
 
   async findAll(): Promise<CourierAssignment[]> {
-    return this.assignmentRepo.find({ where: { deletedAt: IsNull() }, relations: {'courier'} });
+    return this.assignmentRepo.find({ where: { deletedAt: IsNull() }, relations: { courier: true } });
   }
 
   async findByCouriertId(courierId: string): Promise<CourierAssignment[]> {
     return this.assignmentRepo.find({ 
       where: { courierId, deletedAt: IsNull() }, 
-      relations: {'courier'},
+      relations: { courier: true },
       order: { createdAt: 'DESC' } 
     });
   }
@@ -28,7 +28,7 @@ export class CourierAssignmentService {
   async findById(id: string): Promise<CourierAssignment> {
     const assignment = await this.assignmentRepo.findOne({ 
       where: { id, deletedAt: IsNull() }, 
-      relations: {'courier'} 
+      relations: { courier: true } 
     });
     if (!assignment) throw new NotFoundException(`Assignment with ID ${id} not found`);
     return assignment;

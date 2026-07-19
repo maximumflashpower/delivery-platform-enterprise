@@ -182,7 +182,7 @@ export async function runInitialSeed(dataSource: DataSource): Promise<void> {
 if (require.main === module) {
   const { DataSource } = require('typeorm');
   const dataSource = new DataSource({
-    type: 'sqlite',
+    type: 'better-sqlite3',
     database: process.env.DB_PATH || './dev.db',
     entities: ['src/modules/**/*.entity{.ts,.js}'],
     synchronize: false,

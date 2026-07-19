@@ -1,5 +1,6 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
+import { ServiceBooking } from './service-booking.entity';
 
 @Entity('domain_service_categories')
 export class ServiceCategory extends BaseEntity {
@@ -17,4 +18,10 @@ export class ServiceCategory extends BaseEntity {
 
   @Column({ type: 'boolean', default: true })
   isActive: boolean;
+  /**
+   * OneToMany - serviceBookings
+   */
+  @OneToMany(() => ServiceBooking, (entity: any) => entity.category)
+  serviceBookings: ServiceBooking[];
+
 }

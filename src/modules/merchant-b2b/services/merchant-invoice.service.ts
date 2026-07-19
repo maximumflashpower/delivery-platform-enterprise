@@ -14,13 +14,13 @@ export class MerchantInvoiceService {
   ) {}
 
   async findAll(): Promise<MerchantInvoice[]> {
-    return this.invoiceRepo.find({ where: { deletedAt: IsNull() }, relations: {'merchant'} });
+    return this.invoiceRepo.find({ where: { deletedAt: IsNull() }, relations: { merchant: true } });
   }
 
   async findByMerchantId(merchantId: string): Promise<MerchantInvoice[]> {
     return this.invoiceRepo.find({ 
       where: { merchantId, deletedAt: IsNull() }, 
-      relations: {'merchant'},
+      relations: { merchant: true },
       order: { issueDate: 'DESC' } 
     });
   }
@@ -28,7 +28,7 @@ export class MerchantInvoiceService {
   async findById(id: string): Promise<MerchantInvoice> {
     const invoice = await this.invoiceRepo.findOne({ 
       where: { id, deletedAt: IsNull() }, 
-      relations: {'merchant'} 
+      relations: { merchant: true } 
     });
     if (!invoice) throw new NotFoundException(`Invoice with ID ${id} not found`);
     return invoice;

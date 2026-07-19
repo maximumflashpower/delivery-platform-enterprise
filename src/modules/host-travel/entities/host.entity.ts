@@ -1,7 +1,8 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 import { IdentityUser } from '../../identity/entities/identity-user.entity';
 import { HostStatus } from '../enums/host-status.enum';
+import { Listing } from './listing.entity';
 
 @Entity('domain_hosts')
 export class Host extends BaseEntity {
@@ -35,4 +36,10 @@ export class Host extends BaseEntity {
 
   @Column({ type: 'text', nullable: true })
   responseTime?: Record<string, any>;
+  /**
+   * OneToMany - listings
+   */
+  @OneToMany(() => Listing, (entity: any) => entity.host)
+  listings: Listing[];
+
 }

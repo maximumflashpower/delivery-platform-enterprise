@@ -1,7 +1,8 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 import { IdentityUser } from '../../identity/entities/identity-user.entity';
 import { CarrierStatus } from '../enums/carrier-status.enum';
+import { Shipment } from './shipment.entity';
 
 @Entity('domain_carriers')
 export class Carrier extends BaseEntity {
@@ -38,4 +39,10 @@ export class Carrier extends BaseEntity {
 
   @Column({ type: 'text', nullable: true })
   equipmentTypes?: string[];
+  /**
+   * OneToMany - shipments
+   */
+  @OneToMany(() => Shipment, (entity: any) => entity.carrier)
+  shipments: Shipment[];
+
 }

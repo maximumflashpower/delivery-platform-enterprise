@@ -1,7 +1,8 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 import { Hauler } from './hauler.entity';
 import { RequestStatus } from '../enums/request-status.enum';
+import { IdentityUser } from '../../identity/entities/identity-user.entity';
 
 @Entity('domain_moving_requests')
 export class MovingRequest extends BaseEntity {
@@ -38,4 +39,7 @@ export class MovingRequest extends BaseEntity {
 
   @Column({ type: 'text', nullable: true })
   notes?: string;
+  @OneToMany(() => IdentityUser, (entity: any) => entity.movingRequests)
+  customer: IdentityUser[];
+
 }

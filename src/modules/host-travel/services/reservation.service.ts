@@ -16,7 +16,7 @@ export class ReservationService {
   async findAll(): Promise<Reservation[]> {
     return this.reservationRepo.find({ 
       where: { deletedAt: IsNull() }, 
-      relations: {'listing', 'guest'},
+      relations: { listing: true, guest: true } as any,
       order: { createdAt: 'DESC' } 
     });
   }
@@ -24,7 +24,7 @@ export class ReservationService {
   async findById(id: string): Promise<Reservation> {
     const reservation = await this.reservationRepo.findOne({ 
       where: { id, deletedAt: IsNull() },
-      relations: {'listing', 'guest'}
+      relations: { listing: true, guest: true } as any
     });
     if (!reservation) throw new NotFoundException(`Reservation with ID ${id} not found`);
     return reservation;
@@ -33,7 +33,7 @@ export class ReservationService {
   async findByGuestId(guestId: string): Promise<Reservation[]> {
     return this.reservationRepo.find({ 
       where: { guestId, deletedAt: IsNull() },
-      relations: {'listing'},
+      relations: { listing: true } as any,
       order: { checkInDate: 'ASC' }
     });
   }
@@ -41,7 +41,7 @@ export class ReservationService {
   async findByListingId(listingId: string): Promise<Reservation[]> {
     return this.reservationRepo.find({ 
       where: { listingId, deletedAt: IsNull() },
-      relations: {'guest'},
+      relations: { guest: true } as any,
       order: { checkInDate: 'ASC' }
     });
   }

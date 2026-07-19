@@ -14,11 +14,11 @@ export class DeliveryBatchService {
   ) {}
 
   async findAll(): Promise<DeliveryBatch[]> {
-    return this.batchRepo.find({ where: { deletedAt: IsNull() }, relations: {'courier'}, order: { createdAt: 'DESC' } });
+    return this.batchRepo.find({ where: { deletedAt: IsNull() }, relations: { courier: true }, order: { createdAt: 'DESC' } });
   }
 
   async findById(id: string): Promise<DeliveryBatch> {
-    const batch = await this.batchRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: {'courier'} });
+    const batch = await this.batchRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: { courier: true } });
     if (!batch) throw new NotFoundException(`Batch with ID ${id} not found`);
     return batch;
   }

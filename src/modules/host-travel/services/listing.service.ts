@@ -17,7 +17,7 @@ export class ListingService {
   async findAll(): Promise<Listing[]> {
     return this.listingRepo.find({ 
       where: { deletedAt: IsNull() }, 
-      relations: {'host'},
+      relations: { host: true },
       order: { createdAt: 'DESC' } 
     });
   }
@@ -25,7 +25,7 @@ export class ListingService {
   async findById(id: string): Promise<Listing> {
     const listing = await this.listingRepo.findOne({ 
       where: { id, deletedAt: IsNull() },
-      relations: {'host'}
+      relations: { host: true }
     });
     if (!listing) throw new NotFoundException(`Listing with ID ${id} not found`);
     return listing;
@@ -34,7 +34,7 @@ export class ListingService {
   async findByHostId(hostId: string): Promise<Listing[]> {
     return this.listingRepo.find({ 
       where: { hostId, deletedAt: IsNull() },
-      relations: {'host'},
+      relations: { host: true },
       order: { createdAt: 'DESC' }
     });
   }

@@ -13,17 +13,17 @@ export class BillOfLadingService {
   ) {}
 
   async findAll(): Promise<BillOfLading[]> {
-    return this.bolRepo.find({ where: { deletedAt: IsNull() }, relations: {'shipment'}, order: { createdAt: 'DESC' } });
+    return this.bolRepo.find({ where: { deletedAt: IsNull() }, relations: { shipment: true }, order: { createdAt: 'DESC' } });
   }
 
   async findById(id: string): Promise<BillOfLading> {
-    const b = await this.bolRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: {'shipment'} });
+    const b = await this.bolRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: { shipment: true } });
     if (!b) throw new NotFoundException(`Bill of Lading with ID ${id} not found`);
     return b;
   }
 
   async findByShipmentId(shipmentId: string): Promise<BillOfLading[]> {
-    return this.bolRepo.find({ where: { shipmentId, deletedAt: IsNull() }, relations: {'shipment'}, order: { issueDate: 'DESC' } });
+    return this.bolRepo.find({ where: { shipmentId, deletedAt: IsNull() }, relations: { shipment: true }, order: { issueDate: 'DESC' } });
   }
 
   async create(data: Partial<BillOfLading>): Promise<BillOfLading> {

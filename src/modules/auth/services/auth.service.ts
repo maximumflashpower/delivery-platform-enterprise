@@ -104,7 +104,7 @@ export class AuthService {
   async login(dto: LoginDto) {
     let credential = await this.credentialRepo.findOne({
       where: { identifier: dto.identifier, type: CredentialType.PASSWORD },
-      relations: {'user'},
+      relations: { user: true },
     });
 
     if (!credential && dto.identifier.includes('@')) {
@@ -112,7 +112,7 @@ export class AuthService {
       if (user) {
         credential = await this.credentialRepo.findOne({
           where: { userId: user.id, type: CredentialType.PASSWORD },
-          relations: {'user'},
+          relations: { user: true },
         });
       }
     }

@@ -1,7 +1,8 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 import { Listing } from './listing.entity';
 import { ReservationStatus } from '../enums/reservation-status.enum';
+import { IdentityUser } from '../../identity/entities/identity-user.entity';
 
 @Entity('domain_reservations')
 export class Reservation extends BaseEntity {
@@ -44,4 +45,13 @@ export class Reservation extends BaseEntity {
 
   @Column({ type: 'text', nullable: true })
   specialRequests?: string;
+  /**
+   * OneToMany - listing
+   */
+  /**
+   * OneToMany - guest
+   */
+  @OneToMany(() => IdentityUser, (entity: any) => entity.reservationsAsGuest)
+  guest: IdentityUser[];
+
 }

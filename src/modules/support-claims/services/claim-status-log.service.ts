@@ -13,11 +13,11 @@ export class ClaimStatusLogService {
   ) {}
 
   async findAll(): Promise<ClaimStatusLog[]> {
-    return this.statusLogRepo.find({ where: { deletedAt: IsNull() }, relations: {'claim'}, order: { changedAt: 'DESC' } });
+    return this.statusLogRepo.find({ where: { deletedAt: IsNull() }, relations: { claim: true }, order: { changedAt: 'DESC' } });
   }
 
   async findById(id: string): Promise<ClaimStatusLog> {
-    const l = await this.statusLogRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: {'claim'} });
+    const l = await this.statusLogRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: { claim: true } });
     if (!l) throw new NotFoundException(`Status log with ID ${id} not found`);
     return l;
   }
@@ -25,7 +25,7 @@ export class ClaimStatusLogService {
   async findByClaimId(claimId: string): Promise<ClaimStatusLog[]> {
     return this.statusLogRepo.find({ 
       where: { claimId, deletedAt: IsNull() }, 
-      relations: {'claim'},
+      relations: { claim: true },
       order: { changedAt: 'ASC' }
     });
   }

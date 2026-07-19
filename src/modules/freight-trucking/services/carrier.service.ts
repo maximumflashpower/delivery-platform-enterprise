@@ -19,7 +19,7 @@ export class CarrierService {
   }
 
   async findById(id: string): Promise<Carrier> {
-    const carrier = await this.carrierRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: {'shipments'} });
+    const carrier = await this.carrierRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: { shipments: true } as any });
     if (!carrier) throw new NotFoundException(`Carrier with ID ${id} not found`);
     return carrier;
   }

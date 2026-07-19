@@ -1,7 +1,9 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 import { IdentityUser } from '../../identity/entities/identity-user.entity';
 import { DriverStatus } from '../enums/driver-status.enum';
+import { License } from './license.entity';
+import { Compliance } from './compliance.entity';
 
 @Entity('domain_drivers')
 export class Driver extends BaseEntity {
@@ -32,4 +34,16 @@ export class Driver extends BaseEntity {
 
   @Column({ type: 'boolean', default: true })
   isAvailable: boolean;
+  /**
+   * OneToMany - licenses
+   */
+  @OneToMany(() => License, (entity: any) => entity.driver)
+  licenses: License[];
+
+  /**
+   * OneToMany - compliance
+   */
+  @OneToMany(() => Compliance, (entity: any) => entity.driver)
+  compliance: Compliance[];
+
 }

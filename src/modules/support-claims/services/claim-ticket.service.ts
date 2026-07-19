@@ -13,11 +13,11 @@ export class ClaimTicketService {
   ) {}
 
   async findAll(): Promise<ClaimTicket[]> {
-    return this.ticketRepo.find({ where: { deletedAt: IsNull() }, relations: {'claim'}, order: { createdAt: 'DESC' } });
+    return this.ticketRepo.find({ where: { deletedAt: IsNull() }, relations: { claim: true }, order: { createdAt: 'DESC' } });
   }
 
   async findById(id: string): Promise<ClaimTicket> {
-    const t = await this.ticketRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: {'claim'} });
+    const t = await this.ticketRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: { claim: true } });
     if (!t) throw new NotFoundException(`Ticket with ID ${id} not found`);
     return t;
   }
@@ -25,7 +25,7 @@ export class ClaimTicketService {
   async findByClaimId(claimId: string): Promise<ClaimTicket[]> {
     return this.ticketRepo.find({ 
       where: { claimId, deletedAt: IsNull() }, 
-      relations: {'claim'},
+      relations: { claim: true },
       order: { createdAt: 'ASC' }
     });
   }

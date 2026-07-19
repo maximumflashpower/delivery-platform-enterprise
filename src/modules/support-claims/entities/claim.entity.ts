@@ -1,8 +1,10 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 import { ClaimStatus } from '../enums/claim-status.enum';
 import { ClaimPriority } from '../enums/claim-priority.enum';
 import { ClaimCategory } from '../enums/claim-category.enum';
+import { ClaimTicket } from './claim-ticket.entity';
+import { ClaimStatusLog } from './claim-status-log.entity';
 
 @Entity('domain_claims')
 export class Claim extends BaseEntity {
@@ -47,4 +49,16 @@ export class Claim extends BaseEntity {
 
   @Column({ type: 'text', nullable: true })
   resolutionNotes?: string;
+  /**
+   * OneToMany - tickets
+   */
+  @OneToMany(() => ClaimTicket, (entity: any) => entity.claim)
+  tickets: ClaimTicket[];
+
+  /**
+   * OneToMany - statusLogs
+   */
+  @OneToMany(() => ClaimStatusLog, (entity: any) => entity.claim)
+  statusLogs: ClaimStatusLog[];
+
 }

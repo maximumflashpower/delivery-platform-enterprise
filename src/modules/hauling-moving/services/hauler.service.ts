@@ -24,7 +24,7 @@ export class HaulerService {
   }
 
   async findById(id: string): Promise<Hauler> {
-    const hauler = await this.haulerRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: {'loads', 'requests'} });
+    const hauler = await this.haulerRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: { loads: true, requests: true } as any });
     if (!hauler) throw new NotFoundException(`Hauler with ID ${id} not found`);
     return hauler;
   }

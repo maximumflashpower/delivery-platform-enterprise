@@ -1,7 +1,9 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 import { IdentityUser } from '../../identity/entities/identity-user.entity';
 import { HaulerStatus } from '../enums/hauler-status.enum';
+import { Load } from './load.entity';
+import { MovingRequest } from './moving-request.entity';
 
 @Entity('domain_haulers')
 export class Hauler extends BaseEntity {
@@ -32,4 +34,16 @@ export class Hauler extends BaseEntity {
 
   @Column({ type: 'text', nullable: true })
   equipmentTypes?: string[];
+  /**
+   * OneToMany - loads
+   */
+  @OneToMany(() => Load, (entity: any) => entity.hauler)
+  loads: Load[];
+
+  /**
+   * OneToMany - requests
+   */
+  @OneToMany(() => MovingRequest, (entity: any) => entity.hauler)
+  requests: MovingRequest[];
+
 }

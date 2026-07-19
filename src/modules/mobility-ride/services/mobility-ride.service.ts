@@ -46,7 +46,7 @@ export class MobilityRideService {
   async findAllRides(where?: Partial<Ride>): Promise<Ride[]> {
     return this.rideRepo.find({
       where: where || {},
-      relations: {'passenger', 'driver'},
+      relations: { passenger: true, driver: true },
       order: { createdAt: 'DESC' },
     });
   }
@@ -54,7 +54,7 @@ export class MobilityRideService {
   async findRideById(id: string): Promise<Ride> {
     const ride = await this.rideRepo.findOne({
       where: { id },
-      relations: {'passenger', 'driver'},
+      relations: { passenger: true, driver: true },
     });
     if (!ride) throw new NotFoundException('Ride not found');
     return ride;
@@ -63,7 +63,7 @@ export class MobilityRideService {
   async findRideByRideId(rideId: string): Promise<Ride> {
     const ride = await this.rideRepo.findOne({
       where: { rideId },
-      relations: {'passenger', 'driver'},
+      relations: { passenger: true, driver: true },
     });
     if (!ride) throw new NotFoundException('Ride not found');
     return ride;
@@ -72,7 +72,7 @@ export class MobilityRideService {
   async findRidesByPassenger(passengerId: string): Promise<Ride[]> {
     return this.rideRepo.find({
       where: { passengerId },
-      relations: {'passenger', 'driver'},
+      relations: { passenger: true, driver: true },
       order: { createdAt: 'DESC' },
     });
   }
@@ -80,7 +80,7 @@ export class MobilityRideService {
   async findRidesByDriver(driverId: string): Promise<Ride[]> {
     return this.rideRepo.find({
       where: { driverId },
-      relations: {'passenger', 'driver'},
+      relations: { passenger: true, driver: true },
       order: { createdAt: 'DESC' },
     });
   }
@@ -88,7 +88,7 @@ export class MobilityRideService {
   async findRidesByStatus(status: RideStatus): Promise<Ride[]> {
     return this.rideRepo.find({
       where: { status },
-      relations: {'passenger', 'driver'},
+      relations: { passenger: true, driver: true },
       order: { createdAt: 'DESC' },
     });
   }
@@ -97,7 +97,7 @@ export class MobilityRideService {
     const statuses = [RideStatus.REQUESTED, RideStatus.ACCEPTED, RideStatus.IN_PROGRESS];
     return this.rideRepo.find({
       where: statuses.map(s => ({ status: s })),
-      relations: {'passenger', 'driver'},
+      relations: { passenger: true, driver: true },
       order: { createdAt: 'DESC' },
     });
   }
