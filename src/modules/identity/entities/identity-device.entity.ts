@@ -4,11 +4,11 @@ import { IdentityUser } from './identity-user.entity';
 
 @Entity('identity_devices')
 export class IdentityDevice extends BaseEntity {
-  @ManyToOne(() => IdentityUser, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'userId' })
+  @ManyToOne(() => IdentityUser, user => user.sessions, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'user_id' })
   user: IdentityUser;
 
-  @Column({ type: 'uuid' })
+  @Column({ name: 'user_id', type: 'uuid' })
   userId: string;
 
   @Column({ type: 'varchar', length: 255 })
@@ -23,6 +23,6 @@ export class IdentityDevice extends BaseEntity {
   @Column({ type: 'boolean', default: true })
   isTrusted: boolean;
 
-  @Column({ type: 'datetime', nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   lastUsedAt?: Date;
 }
