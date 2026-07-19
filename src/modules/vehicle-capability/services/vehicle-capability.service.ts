@@ -36,7 +36,7 @@ export class VehicleCapabilityService {
   async findAllVehicles(where?: Partial<Vehicle>): Promise<Vehicle[]> {
     return this.vehicleRepo.find({
       where: where || {},
-      relations: ['owner'],
+      relations: { owner: true },
       order: { createdAt: 'DESC' },
     });
   }
@@ -44,7 +44,7 @@ export class VehicleCapabilityService {
   async findVehicleById(id: string): Promise<Vehicle> {
     const vehicle = await this.vehicleRepo.findOne({
       where: { id },
-      relations: ['owner'],
+      relations: { owner: true },
     });
     if (!vehicle) throw new NotFoundException('Vehicle not found');
     return vehicle;
@@ -53,7 +53,7 @@ export class VehicleCapabilityService {
   async findVehicleByPlate(plateNumber: string): Promise<Vehicle> {
     const vehicle = await this.vehicleRepo.findOne({
       where: { plateNumber },
-      relations: ['owner'],
+      relations: { owner: true },
     });
     if (!vehicle) throw new NotFoundException('Vehicle not found');
     return vehicle;
@@ -62,7 +62,7 @@ export class VehicleCapabilityService {
   async findVehiclesByOwner(ownerId: string): Promise<Vehicle[]> {
     return this.vehicleRepo.find({
       where: { ownerId },
-      relations: ['owner'],
+      relations: { owner: true },
       order: { createdAt: 'DESC' },
     });
   }
@@ -70,7 +70,7 @@ export class VehicleCapabilityService {
   async findAvailableVehicles(): Promise<Vehicle[]> {
     return this.vehicleRepo.find({
       where: { status: VehicleStatus.AVAILABLE },
-      relations: ['owner'],
+      relations: { owner: true },
       order: { createdAt: 'DESC' },
     });
   }
@@ -78,7 +78,7 @@ export class VehicleCapabilityService {
   async findVehiclesByType(type: VehicleType): Promise<Vehicle[]> {
     return this.vehicleRepo.find({
       where: { type },
-      relations: ['owner'],
+      relations: { owner: true },
       order: { createdAt: 'DESC' },
     });
   }
@@ -86,7 +86,7 @@ export class VehicleCapabilityService {
   async findVehiclesByStatus(status: VehicleStatus): Promise<Vehicle[]> {
     return this.vehicleRepo.find({
       where: { status },
-      relations: ['owner'],
+      relations: { owner: true },
       order: { createdAt: 'DESC' },
     });
   }
