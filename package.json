@@ -26,6 +26,7 @@
     "db:migration:generate": "typeorm migration:generate -d src/config/database.datasource.ts"
   },
   "dependencies": {
+    "@mapbox/node-pre-gyp": "^2.0.3",
     "@nestjs/axios": "^3.0.3",
     "@nestjs/common": "^11.1.28",
     "@nestjs/config": "^4.0.4",
@@ -40,7 +41,7 @@
     "@nestjs/throttler": "^6.2.1",
     "@nestjs/typeorm": "^11.0.3",
     "@nestjs/websockets": "^11.1.28",
-    "bcrypt": "^5.1.1",
+    "bcrypt": "^6.0.0",
     "better-sqlite3": "^12.11.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
