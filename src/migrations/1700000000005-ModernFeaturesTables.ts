@@ -90,7 +90,7 @@ export class ModernFeaturesTables1700000000005 implements MigrationInterface {
         { name: 'type', type: 'varchar', length: '50' },
         { name: 'co2AmountKg', type: 'decimal', precision: 12, scale: 2 },
         { name: 'pricePerKg', type: 'decimal', precision: 10, scale: 2, isNullable: true },
-        { name: 'currency', type: 'varchar', length: '10', default: "'USD'" },
+        { name: 'currency', type: 'varchar', length: '10', default: 'USD' },
         { name: 'provider', type: 'varchar', length: '255', isNullable: true },
         { name: 'certificationId', type: 'varchar', length: '255', isNullable: true },
         { name: 'isActive', type: 'boolean', default: true },

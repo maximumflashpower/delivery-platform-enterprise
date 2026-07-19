@@ -5,6 +5,6 @@ export default {
   database: 'dev.db',
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/../migrations/*{.ts,.js}'],
-  synchronize: false,
+  synchronize: true,
   logging: ['query', 'error'],
 } as TypeOrmModuleOptions;

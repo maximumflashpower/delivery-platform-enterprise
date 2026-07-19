@@ -1,19 +1,15 @@
+import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
+import * as path from 'path';
 
 dotenv.config();
 
-const dbType = (process.env.TYPEORM_CONNECTION || 'better-sqlite3') as 'better-sqlite3' | 'postgres';
-
-export default new DataSource({
-  type: dbType,
-  database: process.env.TYPEORM_DATABASE || 'dev.db',
-  host: process.env.TYPEORM_HOST,
-  port: parseInt(process.env.TYPEORM_PORT || '5432', 10),
-  username: process.env.TYPEORM_USERNAME,
-  password: process.env.TYPEORM_PASSWORD,
-  entities: ['src/modules/**/*.entity{.ts,.js}'],
-  migrations: ['src/migrations/*{.ts,.js}'],
-  synchronize: false,
-  logging: ['error'],
+export const AppDataSource = new DataSource({
+  type: 'better-sqlite3',
+  database: path.join(process.cwd(), 'dev.db'),
+  entities: [path.join(process.cwd(), 'src', '**', '*.entity{.ts,.js}')],
+  migrations: [path.join(process.cwd(), 'src', 'migrations', '*{.ts,.js}')],
+  synchronize: true,  // TRUE para desarrollo
+  logging: ['schema', 'error'],
 });
