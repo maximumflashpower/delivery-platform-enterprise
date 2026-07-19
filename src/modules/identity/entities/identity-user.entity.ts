@@ -23,13 +23,13 @@ export class IdentityUser extends BaseEntity {
   @Column({ type: 'varchar', length: 50, default: AccountStatus.ACTIVE })
   status: AccountStatus;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   emailVerifiedAt?: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   phoneVerifiedAt?: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   lastLoginAt?: Date;
 
   @Column({ type: 'text', nullable: true })

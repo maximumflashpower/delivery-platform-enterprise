@@ -6,38 +6,60 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
-  private readonly logger = new Logger(HttpExceptionFilter.name);
+  private readonly logger = new Logger('Exception');
 
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
-    const request = ctx.getRequest();
+    const request = ctx.getRequest<Request>();
 
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
     let message = 'Internal server error';
+    let details: any = undefined;
 
     if (exception instanceof HttpException) {
       status = exception.getStatus();
+      const response = exception.getResponse();
+      if (typeof response === 'string') {
+        message = response;
+      } else if (typeof response === 'object' && response !== null) {
+        const resp = response as any;
+        message = resp.message || exception.message;
+        if (Array.isArray(resp.message)) {
+          details = resp.message;
+          message = 'Validation failed';
+        }
+      }
+    } else if (exception instanceof Error) {
       message = exception.message;
     }
+
+    const correlationId = (request as any).correlationId || 'unknown';
 
     const errorResponse = {
       code: this.getStatusCodeName(status),
       message,
-      statusCode: status.toString(),
+      ...(details ? { details } : {}),
+      statusCode: status,
       timestamp: new Date().toISOString(),
       path: request.url,
+      correlationId,
     };
 
-    this.logger.error(
-      `${request.method} ${request.url}`,
-      JSON.stringify(errorResponse),
-      exception instanceof Error ? exception.stack : undefined,
-    );
+    if (status >= 500) {
+      this.logger.error(
+        `${request.method} ${request.url} | ${status} | CID: ${correlationId} | ${message}`,
+        exception instanceof Error ? exception.stack : undefined,
+      );
+    } else {
+      this.logger.warn(
+        `${request.method} ${request.url} | ${status} | CID: ${correlationId} | ${message}`,
+      );
+    }
 
     response.status(status).json(errorResponse);
   }
@@ -50,11 +72,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
       404: 'NOT_FOUND',
       409: 'CONFLICT',
       422: 'UNPROCESSABLE_ENTITY',
+      429: 'TOO_MANY_REQUESTS',
       500: 'INTERNAL_SERVER_ERROR',
       502: 'BAD_GATEWAY',
       503: 'SERVICE_UNAVAILABLE',
     };
-
     return names[status] || 'ERROR';
   }
 }

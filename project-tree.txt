@@ -1,0 +1,785 @@
+src/
+├── common
+│   ├── constants
+│   │   ├── cache-keys.constants.ts
+│   │   ├── error-codes.constants.ts
+│   │   └── event-names.constants.ts
+│   ├── decorators
+│   │   ├── audit-log.decorator.ts
+│   │   ├── current-user.decorator.ts
+│   │   ├── feature-flag.decorator.ts
+│   │   ├── public-route.decorator.ts
+│   │   ├── roles.decorator.ts
+│   │   └── skip-throttle.decorator.ts
+│   ├── dto
+│   │   ├── error-response.dto.ts
+│   │   ├── pagination.dto.ts
+│   │   └── success-response.dto.ts
+│   ├── entities
+│   │   └── base.entity.ts
+│   ├── filters
+│   │   └── http-exception.filter.ts
+│   ├── guards
+│   │   ├── jwt-auth.guard.ts
+│   │   ├── optional-jwt-auth.guard.ts
+│   │   └── roles.guard.ts
+│   ├── interceptors
+│   │   └── logging.interceptor.ts
+│   ├── pipes
+│   ├── utils
+│   └── base.entity.ts
+├── config
+│   ├── interfaces
+│   ├── app.config.ts
+│   ├── database.config.ts
+│   ├── database.datasource.ts
+│   ├── env_validation.ts
+│   ├── jwt.config.ts
+│   ├── redis.config.ts
+│   ├── swagger.config.ts
+│   ├── throttler.config.ts
+│   ├── typeorm-config.service.ts
+│   └── winston.config.ts
+├── migrations
+│   ├── 1700000000001-InitialSchema.ts
+│   ├── 1700000000002-FoundationTables.ts
+│   ├── 1700000000003-DomainTables.ts
+│   ├── 1700000000004-CrossCuttingTables.ts
+│   ├── 1700000000005-ModernFeaturesTables.ts
+│   └── 1700000000006-GovernanceIntegrationTables.ts
+├── modules
+│   ├── accessibility
+│   │   ├── controllers
+│   │   │   └── accessibility-profile.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── accessibility-profile.entity.ts
+│   │   │   └── accessibility-setting.entity.ts
+│   │   ├── enums
+│   │   │   ├── accessibility-level.enum.ts
+│   │   │   └── accessibility-type.enum.ts
+│   │   ├── services
+│   │   │   └── accessibility-profile.service.ts
+│   │   └── accessibility.module.ts
+│   ├── analytics
+│   │   ├── controllers
+│   │   │   └── analytics-event.controller.ts
+│   │   ├── entities
+│   │   │   ├── analytics-event.entity.ts
+│   │   │   └── analytics-report.entity.ts
+│   │   ├── enums
+│   │   │   └── event-category.enum.ts
+│   │   ├── services
+│   │   │   └── analytics-event.service.ts
+│   │   └── analytics.module.ts
+│   ├── analytics-observability
+│   │   ├── controllers
+│   │   │   └── system-metric.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── alert-rule.entity.ts
+│   │   │   └── system-metric.entity.ts
+│   │   ├── enums
+│   │   │   ├── alert-severity.enum.ts
+│   │   │   └── system-metric-type.enum.ts
+│   │   ├── services
+│   │   │   └── system-metric.service.ts
+│   │   └── analytics-observability.module.ts
+│   ├── audit
+│   │   ├── controllers
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   └── enums
+│   │   ├── interceptors
+│   │   ├── services
+│   │   └── audit.module.ts
+│   ├── audit-log
+│   │   ├── controllers
+│   │   │   └── audit-log.controller.ts
+│   │   ├── entities
+│   │   │   ├── audit-event.entity.ts
+│   │   │   └── audit-log.entity.ts
+│   │   ├── enums
+│   │   │   ├── audit-action.enum.ts
+│   │   │   └── audit-entity-type.enum.ts
+│   │   ├── services
+│   │   │   └── audit-log.service.ts
+│   │   └── audit-log.module.ts
+│   ├── auth
+│   │   ├── controllers
+│   │   │   └── auth.controller.ts
+│   │   ├── dto
+│   │   │   ├── change-password.dto.ts
+│   │   │   ├── forgot-password.dto.ts
+│   │   │   ├── login.dto.ts
+│   │   │   ├── refresh-token.dto.ts
+│   │   │   ├── register.dto.ts
+│   │   │   ├── reset-password.dto.ts
+│   │   │   └── verify-otp.dto.ts
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   └── credential.entity.ts
+│   │   ├── enums
+│   │   │   ├── credential-status.enum.ts
+│   │   │   └── credential-type.enum.ts
+│   │   ├── services
+│   │   │   ├── auth.service.ts
+│   │   │   ├── otp.service.ts
+│   │   │   └── token.service.ts
+│   │   ├── strategies
+│   │   │   └── jwt.strategy.ts
+│   │   └── auth.module.ts
+│   ├── biometric-security
+│   │   ├── controllers
+│   │   │   └── biometric-template.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── biometric-template.entity.ts
+│   │   │   └── biometric-verification.entity.ts
+│   │   ├── enums
+│   │   │   ├── biometric-type.enum.ts
+│   │   │   └── verification-status.enum.ts
+│   │   ├── services
+│   │   │   └── biometric-template.service.ts
+│   │   └── biometric-security.module.ts
+│   ├── carbon-sustainability
+│   │   ├── controllers
+│   │   │   └── carbon-credit.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── carbon-credit.entity.ts
+│   │   │   └── sustainability-metric.entity.ts
+│   │   ├── enums
+│   │   │   ├── carbon-credit-type.enum.ts
+│   │   │   └── sustainability-metric-type.enum.ts
+│   │   ├── services
+│   │   │   └── carbon-credit.service.ts
+│   │   └── carbon-sustainability.module.ts
+│   ├── chat
+│   │   ├── controllers
+│   │   │   └── chat-room.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── chat-message.entity.ts
+│   │   │   └── chat-room.entity.ts
+│   │   ├── enums
+│   │   │   ├── chat-room-type.enum.ts
+│   │   │   └── message-status.enum.ts
+│   │   ├── services
+│   │   │   └── chat-room.service.ts
+│   │   └── chat.module.ts
+│   ├── config
+│   │   └── config.module.ts
+│   ├── configuration
+│   │   ├── controllers
+│   │   │   └── configuration.controller.ts
+│   │   ├── entities
+│   │   │   ├── configuration.entity.ts
+│   │   │   └── configuration-history.entity.ts
+│   │   ├── enums
+│   │   │   ├── config-scope.enum.ts
+│   │   │   └── config-type.enum.ts
+│   │   ├── services
+│   │   │   └── configuration.service.ts
+│   │   └── configuration.module.ts
+│   ├── delivery-courier
+│   │   ├── controllers
+│   │   │   ├── courier-assignment.controller.ts
+│   │   │   ├── courier.controller.ts
+│   │   │   └── delivery-batch.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── courier-assignment.entity.ts
+│   │   │   ├── courier.entity.ts
+│   │   │   └── delivery-batch.entity.ts
+│   │   ├── enums
+│   │   │   ├── assignment-status.enum.ts
+│   │   │   ├── batch-status.enum.ts
+│   │   │   └── courier-status.enum.ts
+│   │   ├── services
+│   │   │   ├── courier-assignment.service.ts
+│   │   │   ├── courier.service.ts
+│   │   │   └── delivery-batch.service.ts
+│   │   ├── strategies
+│   │   └── delivery-courier.module.ts
+│   ├── developer-platform
+│   │   ├── controllers
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   └── enums
+│   │   ├── middleware
+│   │   ├── services
+│   │   └── developer-platform.module.ts
+│   ├── driver-operator
+│   │   ├── controllers
+│   │   │   ├── compliance.controller.ts
+│   │   │   ├── driver.controller.ts
+│   │   │   └── license.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── compliance.entity.ts
+│   │   │   ├── driver.entity.ts
+│   │   │   └── license.entity.ts
+│   │   ├── enums
+│   │   │   ├── compliance-status.enum.ts
+│   │   │   ├── driver-status.enum.ts
+│   │   │   └── license-status.enum.ts
+│   │   ├── services
+│   │   │   ├── compliance.service.ts
+│   │   │   ├── driver.service.ts
+│   │   │   └── license.service.ts
+│   │   ├── strategies
+│   │   └── driver-operator.module.ts
+│   ├── experimentation
+│   │   ├── controllers
+│   │   │   └── experiment.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── experiment.entity.ts
+│   │   │   └── experiment-variant.entity.ts
+│   │   ├── enums
+│   │   │   ├── experiment-status.enum.ts
+│   │   │   └── experiment-type.enum.ts
+│   │   ├── services
+│   │   │   └── experiment.service.ts
+│   │   ├── strategies
+│   │   └── experimentation.module.ts
+│   ├── feature-flag
+│   │   ├── controllers
+│   │   │   └── feature-flag.controller.ts
+│   │   ├── entities
+│   │   │   ├── feature-flag.entity.ts
+│   │   │   └── feature-flag-rollout.entity.ts
+│   │   ├── enums
+│   │   │   ├── flag-status.enum.ts
+│   │   │   └── flag-strategy.enum.ts
+│   │   ├── services
+│   │   │   └── feature-flag.service.ts
+│   │   └── feature-flag.module.ts
+│   ├── file-storage
+│   │   ├── controllers
+│   │   │   └── stored-file.controller.ts
+│   │   ├── entities
+│   │   │   ├── file-bucket.entity.ts
+│   │   │   └── stored-file.entity.ts
+│   │   ├── enums
+│   │   │   ├── file-status.enum.ts
+│   │   │   ├── file-type.enum.ts
+│   │   │   └── storage-provider.enum.ts
+│   │   ├── services
+│   │   │   └── stored-file.service.ts
+│   │   └── file-storage.module.ts
+│   ├── financial-ledger
+│   │   ├── controllers
+│   │   │   └── financial-ledger.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── account.entity.ts
+│   │   │   ├── journal-entry.entity.ts
+│   │   │   └── journal-line.entity.ts
+│   │   ├── enums
+│   │   │   ├── account-currency.enum.ts
+│   │   │   ├── account-type.enum.ts
+│   │   │   └── journal-entry-type.enum.ts
+│   │   ├── services
+│   │   │   └── financial-ledger.service.ts
+│   │   ├── strategies
+│   │   └── financial-ledger.module.ts
+│   ├── freight-trucking
+│   │   ├── controllers
+│   │   │   ├── bill-of-lading.controller.ts
+│   │   │   ├── carrier.controller.ts
+│   │   │   └── shipment.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── bill-of-lading.entity.ts
+│   │   │   ├── carrier.entity.ts
+│   │   │   └── shipment.entity.ts
+│   │   ├── enums
+│   │   │   ├── cargo-type.enum.ts
+│   │   │   ├── carrier-status.enum.ts
+│   │   │   └── shipment-status.enum.ts
+│   │   ├── services
+│   │   │   ├── bill-of-lading.service.ts
+│   │   │   ├── carrier.service.ts
+│   │   │   └── shipment.service.ts
+│   │   ├── strategies
+│   │   └── freight-trucking.module.ts
+│   ├── gamification
+│   │   ├── controllers
+│   │   │   └── achievement.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── achievement.entity.ts
+│   │   │   └── user-progress.entity.ts
+│   │   ├── enums
+│   │   │   ├── achievement-type.enum.ts
+│   │   │   └── progress-status.enum.ts
+│   │   ├── services
+│   │   │   └── achievement.service.ts
+│   │   ├── strategies
+│   │   └── gamification.module.ts
+│   ├── governance
+│   │   ├── controllers
+│   │   │   └── governance-policy.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── compliance-record.entity.ts
+│   │   │   └── governance-policy.entity.ts
+│   │   ├── enums
+│   │   │   ├── compliance-status.enum.ts
+│   │   │   └── policy-type.enum.ts
+│   │   ├── services
+│   │   │   └── governance-policy.service.ts
+│   │   ├── strategies
+│   │   └── governance.module.ts
+│   ├── hauling-moving
+│   │   ├── controllers
+│   │   │   ├── hauler.controller.ts
+│   │   │   ├── load.controller.ts
+│   │   │   └── moving-request.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── hauler.entity.ts
+│   │   │   ├── load.entity.ts
+│   │   │   └── moving-request.entity.ts
+│   │   ├── enums
+│   │   │   ├── hauler-status.enum.ts
+│   │   │   ├── load-status.enum.ts
+│   │   │   └── request-status.enum.ts
+│   │   ├── services
+│   │   │   ├── hauler.service.ts
+│   │   │   ├── load.service.ts
+│   │   │   └── moving-request.service.ts
+│   │   └── hauling-moving.module.ts
+│   ├── host-travel
+│   │   ├── controllers
+│   │   │   ├── host.controller.ts
+│   │   │   ├── listing.controller.ts
+│   │   │   └── reservation.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── host.entity.ts
+│   │   │   ├── listing.entity.ts
+│   │   │   └── reservation.entity.ts
+│   │   ├── enums
+│   │   │   ├── host-status.enum.ts
+│   │   │   ├── listing-status.enum.ts
+│   │   │   ├── property-type.enum.ts
+│   │   │   └── reservation-status.enum.ts
+│   │   ├── services
+│   │   │   ├── host.service.ts
+│   │   │   ├── listing.service.ts
+│   │   │   └── reservation.service.ts
+│   │   └── host-travel.module.ts
+│   ├── i18n
+│   │   ├── controllers
+│   │   │   └── language.controller.ts
+│   │   ├── entities
+│   │   │   ├── language.entity.ts
+│   │   │   ├── translation.entity.ts
+│   │   │   └── translation-key.entity.ts
+│   │   ├── enums
+│   │   │   ├── language-code.enum.ts
+│   │   │   ├── locale-type.enum.ts
+│   │   │   └── translation-status.enum.ts
+│   │   ├── services
+│   │   │   └── language.service.ts
+│   │   └── i18n.module.ts
+│   ├── identity
+│   │   ├── controllers
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── identity-device.entity.ts
+│   │   │   ├── identity-recovery.entity.ts
+│   │   │   ├── identity-session.entity.ts
+│   │   │   ├── identity-user.entity.ts
+│   │   │   └── identity-verification.entity.ts
+│   │   ├── enums
+│   │   │   ├── account-status.enum.ts
+│   │   │   ├── identity-provider.enum.ts
+│   │   │   ├── recovery-method.enum.ts
+│   │   │   └── verification-status.enum.ts
+│   │   ├── services
+│   │   ├── strategies
+│   │   └── identity.module.ts
+│   ├── integration-gateway
+│   │   ├── adapters
+│   │   │   ├── biometric-adapter
+│   │   │   ├── blockchain-adapter
+│   │   │   ├── carbon-adapter
+│   │   │   ├── customs-adapter
+│   │   │   ├── erp-adapter
+│   │   │   ├── iot-adapter
+│   │   │   ├── llm-adapter
+│   │   │   ├── maps-adapter
+│   │   │   ├── micromobility-adapter
+│   │   │   ├── payment-adapter
+│   │   │   ├── sms-adapter
+│   │   │   └── transit-adapter
+│   │   ├── controllers
+│   │   │   ├── api-key.controller.ts
+│   │   │   └── webhook.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── api-key.entity.ts
+│   │   │   ├── external-service.entity.ts
+│   │   │   ├── rate-limit-config.entity.ts
+│   │   │   └── webhook.entity.ts
+│   │   ├── enums
+│   │   │   ├── api-method.enum.ts
+│   │   │   └── webhook-event.enum.ts
+│   │   ├── services
+│   │   │   ├── api-key.service.ts
+│   │   │   └── webhook.service.ts
+│   │   └── integration-gateway.module.ts
+│   ├── localization
+│   │   ├── controllers
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   └── enums
+│   │   ├── files
+│   │   ├── services
+│   │   └── localization.module.ts
+│   ├── local-services
+│   │   ├── controllers
+│   │   │   ├── service-booking.controller.ts
+│   │   │   ├── service-category.controller.ts
+│   │   │   └── service-provider.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── service-booking.entity.ts
+│   │   │   ├── service-category.entity.ts
+│   │   │   └── service-provider.entity.ts
+│   │   ├── enums
+│   │   │   ├── booking-status.enum.ts
+│   │   │   ├── provider-status.enum.ts
+│   │   │   └── skill-level.enum.ts
+│   │   ├── services
+│   │   │   ├── service-booking.service.ts
+│   │   │   ├── service-category.service.ts
+│   │   │   └── service-provider.service.ts
+│   │   └── local-services.module.ts
+│   ├── merchant-b2b
+│   │   ├── controllers
+│   │   │   ├── merchant-contract.controller.ts
+│   │   │   ├── merchant.controller.ts
+│   │   │   └── merchant-invoice.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── merchant-contract.entity.ts
+│   │   │   ├── merchant.entity.ts
+│   │   │   └── merchant-invoice.entity.ts
+│   │   ├── enums
+│   │   │   ├── contract-status.enum.ts
+│   │   │   ├── invoice-status.enum.ts
+│   │   │   ├── merchant-status.enum.ts
+│   │   │   └── tier-level.enum.ts
+│   │   ├── services
+│   │   │   ├── merchant-contract.service.ts
+│   │   │   ├── merchant-invoice.service.ts
+│   │   │   └── merchant.service.ts
+│   │   ├── strategies
+│   │   └── merchant-b2b.module.ts
+│   ├── ml-pipeline
+│   │   ├── agents
+│   │   ├── controllers
+│   │   │   └── model-version.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── model-version.entity.ts
+│   │   │   └── prediction-log.entity.ts
+│   │   ├── enums
+│   │   │   ├── model-status.enum.ts
+│   │   │   └── prediction-status.enum.ts
+│   │   ├── services
+│   │   │   └── model-version.service.ts
+│   │   └── ml-pipeline.module.ts
+│   ├── mobility-ride
+│   │   ├── controllers
+│   │   │   └── mobility-ride.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   └── ride.entity.ts
+│   │   ├── enums
+│   │   │   ├── ride-status.enum.ts
+│   │   │   └── ride-type.enum.ts
+│   │   ├── services
+│   │   │   └── mobility-ride.service.ts
+│   │   ├── strategies
+│   │   └── mobility-ride.module.ts
+│   ├── notification
+│   │   ├── controllers
+│   │   │   └── notification.controller.ts
+│   │   ├── entities
+│   │   │   ├── notification.entity.ts
+│   │   │   ├── notification-preference.entity.ts
+│   │   │   └── notification-template.entity.ts
+│   │   ├── enums
+│   │   │   ├── notification-channel.enum.ts
+│   │   │   ├── notification-status.enum.ts
+│   │   │   └── notification-type.enum.ts
+│   │   ├── services
+│   │   │   └── notification.service.ts
+│   │   └── notification.module.ts
+│   ├── notifications
+│   │   ├── controllers
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   └── enums
+│   │   ├── services
+│   │   └── notifications.module.ts
+│   ├── payout
+│   │   ├── controllers
+│   │   │   └── payout.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   └── payout.entity.ts
+│   │   ├── enums
+│   │   │   ├── payout-method.enum.ts
+│   │   │   └── payout-status.enum.ts
+│   │   ├── services
+│   │   │   └── payout.service.ts
+│   │   ├── strategies
+│   │   └── payout.module.ts
+│   ├── privacy-consent
+│   │   ├── controllers
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   └── enums
+│   │   ├── services
+│   │   └── privacy-consent.module.ts
+│   ├── proof-service
+│   │   ├── controllers
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   └── enums
+│   │   ├── services
+│   │   └── proof-service.module.ts
+│   ├── rate-limit
+│   │   ├── controllers
+│   │   │   └── rate-limit-policy.controller.ts
+│   │   ├── entities
+│   │   │   ├── rate-limit-bucket.entity.ts
+│   │   │   └── rate-limit-policy.entity.ts
+│   │   ├── enums
+│   │   │   └── rate-limit-unit.enum.ts
+│   │   ├── services
+│   │   │   └── rate-limit-policy.service.ts
+│   │   └── rate-limit.module.ts
+│   ├── realtime
+│   │   ├── controllers
+│   │   │   └── realtime-channel.controller.ts
+│   │   ├── decorators
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── realtime-channel.entity.ts
+│   │   │   └── realtime-session.entity.ts
+│   │   ├── enums
+│   │   │   ├── channel-type.enum.ts
+│   │   │   └── session-state.enum.ts
+│   │   ├── gateways
+│   │   ├── guards
+│   │   ├── interceptors
+│   │   ├── services
+│   │   │   └── realtime-channel.service.ts
+│   │   └── realtime.module.ts
+│   ├── role-profile
+│   │   ├── controllers
+│   │   │   └── role-profile.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── profile.entity.ts
+│   │   │   ├── role.entity.ts
+│   │   │   └── user-role.entity.ts
+│   │   ├── enums
+│   │   │   ├── profile-status.enum.ts
+│   │   │   ├── profile-type.enum.ts
+│   │   │   └── role-level.enum.ts
+│   │   ├── services
+│   │   │   └── role-profile.service.ts
+│   │   ├── strategies
+│   │   └── role-profile.module.ts
+│   ├── routing-navigation
+│   │   ├── controllers
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   └── enums
+│   │   ├── services
+│   │   ├── strategies
+│   │   └── routing-navigation.module.ts
+│   ├── scheduling
+│   │   ├── controllers
+│   │   │   ├── job.controller.ts
+│   │   │   └── schedule.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── job.entity.ts
+│   │   │   └── schedule.entity.ts
+│   │   ├── enums
+│   │   │   ├── job-priority.enum.ts
+│   │   │   ├── job-status.enum.ts
+│   │   │   └── recurrence-pattern.enum.ts
+│   │   ├── processors
+│   │   ├── services
+│   │   │   ├── job.service.ts
+│   │   │   └── schedule.service.ts
+│   │   └── scheduling.module.ts
+│   ├── search
+│   │   ├── controllers
+│   │   │   ├── search-index-job.controller.ts
+│   │   │   └── search-log.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── search-index-job.entity.ts
+│   │   │   └── search-log.entity.ts
+│   │   ├── enums
+│   │   │   ├── index-entity-type.enum.ts
+│   │   │   └── index-status.enum.ts
+│   │   ├── services
+│   │   │   ├── search-index-job.service.ts
+│   │   │   └── search-log.service.ts
+│   │   └── search.module.ts
+│   ├── smart-contract
+│   │   ├── controllers
+│   │   │   └── smart-contract.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── contract-execution.entity.ts
+│   │   │   └── smart-contract.entity.ts
+│   │   ├── enums
+│   │   │   ├── contract-status.enum.ts
+│   │   │   └── execution-status.enum.ts
+│   │   ├── services
+│   │   │   └── smart-contract.service.ts
+│   │   ├── strategies
+│   │   └── smart-contract.module.ts
+│   ├── storage
+│   │   ├── controllers
+│   │   ├── dto
+│   │   ├── services
+│   │   └── storage.module.ts
+│   ├── support-claims
+│   │   ├── controllers
+│   │   │   ├── claim.controller.ts
+│   │   │   ├── claim-status-log.controller.ts
+│   │   │   ├── claim-ticket.controller.ts
+│   │   │   └── sla-config.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── claim.entity.ts
+│   │   │   ├── claim-status-log.entity.ts
+│   │   │   ├── claim-ticket.entity.ts
+│   │   │   └── sla-config.entity.ts
+│   │   ├── enums
+│   │   │   ├── claim-category.enum.ts
+│   │   │   ├── claim-priority.enum.ts
+│   │   │   ├── claim-status.enum.ts
+│   │   │   └── resolution-type.enum.ts
+│   │   ├── services
+│   │   │   ├── claim.service.ts
+│   │   │   ├── claim-status-log.service.ts
+│   │   │   ├── claim-ticket.service.ts
+│   │   │   └── sla-config.service.ts
+│   │   └── support-claims.module.ts
+│   ├── surface-routing
+│   │   ├── controllers
+│   │   │   └── surface-routing.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   └── route.entity.ts
+│   │   ├── enums
+│   │   ├── services
+│   │   │   └── surface-routing.service.ts
+│   │   ├── strategies
+│   │   └── surface-routing.module.ts
+│   ├── trust-safety
+│   │   ├── controllers
+│   │   │   └── trust-safety.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   ├── incident.entity.ts
+│   │   │   ├── trust-score.entity.ts
+│   │   │   └── verification-badge.entity.ts
+│   │   ├── enums
+│   │   │   ├── incident-severity.enum.ts
+│   │   │   ├── trust-score-trend.enum.ts
+│   │   │   └── verification-level.enum.ts
+│   │   ├── services
+│   │   │   └── trust-safety.service.ts
+│   │   ├── strategies
+│   │   └── trust-safety.module.ts
+│   ├── vehicle-capability
+│   │   ├── controllers
+│   │   │   └── vehicle-capability.controller.ts
+│   │   ├── dto
+│   │   ├── entities
+│   │   │   ├── enums
+│   │   │   └── vehicle.entity.ts
+│   │   ├── enums
+│   │   │   ├── vehicle-status.enum.ts
+│   │   │   └── vehicle-type.enum.ts
+│   │   ├── services
+│   │   │   └── vehicle-capability.service.ts
+│   │   ├── strategies
+│   │   └── vehicle-capability.module.ts
+│   ├── webhook
+│   │   ├── controllers
+│   │   │   └── webhook-endpoint.controller.ts
+│   │   ├── entities
+│   │   │   ├── webhook-delivery.entity.ts
+│   │   │   ├── webhook-endpoint.entity.ts
+│   │   │   └── webhook-event.entity.ts
+│   │   ├── enums
+│   │   │   ├── webhook-event-type.enum.ts
+│   │   │   └── webhook-status.enum.ts
+│   │   ├── services
+│   │   │   └── webhook-endpoint.service.ts
+│   │   └── webhook.module.ts
+│   └── wellness
+│       ├── controllers
+│       │   └── wellness-goal.controller.ts
+│       ├── dto
+│       ├── entities
+│       │   ├── enums
+│       │   ├── wellness-activity.entity.ts
+│       │   └── wellness-goal.entity.ts
+│       ├── enums
+│       │   ├── activity-type.enum.ts
+│       │   └── wellness-goal-type.enum.ts
+│       ├── services
+│       │   └── wellness-goal.service.ts
+│       └── wellness.module.ts
+├── app.controller.ts
+├── app.module.ts
+├── app.service.ts
+├── data-source.ts
+└── main.ts
+
+368 directories, 415 files

@@ -13,7 +13,7 @@ export class Vehicle extends BaseEntity {
   @JoinColumn({ name: 'ownerId' })
   owner?: IdentityUser;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   ownerId?: string;
 
   @Column({ type: 'varchar', length: 100 })
@@ -28,6 +28,6 @@ export class Vehicle extends BaseEntity {
   @Column({ type: 'varchar', length: 50, default: VehicleStatus.AVAILABLE })
   status: VehicleStatus;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   capacity?: Record<string, number>;
 }

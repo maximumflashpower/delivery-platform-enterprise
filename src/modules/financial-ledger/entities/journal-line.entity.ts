@@ -10,10 +10,10 @@ export class JournalLine extends BaseEntity {
   @JoinColumn({ name: 'entryId' })
   entry: JournalEntry;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'varchar' })
   entryId: string;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'varchar' })
   accountId: string;
 
   @Column({ type: 'varchar', length: 50 })

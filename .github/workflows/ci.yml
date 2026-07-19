@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Lint
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Build
+        run: npm run build
+
+      - name: Unit tests
+        run: npm run test -- --passWithNoTests
+
+      - name: E2E tests
+        run: npm run test:e2e -- --passWithNoTests
+        env:
+          NODE_ENV: test
+          DB_TYPE: sqlite
+          DB_PATH: ./test.db
+          JWT_SECRET: test-secret
+
+  docker-build:
+    needs: lint-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t delivery-platform-enterprise:${{ github.sha }} .
+
+      - name: Verify health endpoint
+        run: |
+          docker run -d --name test-app -p 3000:3000 \
+            -e NODE_ENV=production \
+            -e DB_TYPE=sqlite \
+            -e DB_PATH=/tmp/test.db \
+            -e JWT_SECRET=test-secret \
+            delivery-platform-enterprise:${{ github.sha }}
+          sleep 15
+          curl -f http://localhost:3000/api/health || exit 1
+          docker stop test-app

@@ -13,14 +13,14 @@ export class Ride extends BaseEntity {
   @JoinColumn({ name: 'passengerId' })
   passenger?: IdentityUser;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   passengerId?: string;
 
   @ManyToOne(() => IdentityUser, { onDelete: 'SET NULL' })
   @JoinColumn({ name: 'driverId' })
   driver?: IdentityUser;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   driverId?: string;
 
   @Column({ type: 'varchar', length: 50 })
@@ -32,6 +32,6 @@ export class Ride extends BaseEntity {
   @Column({ type: 'decimal', precision: 19, scale: 4, nullable: true })
   fare?: number;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   locations?: Record<string, { lat: number; lng: number; address: string }>;
 }

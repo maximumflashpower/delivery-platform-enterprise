@@ -10,7 +10,7 @@ export class Profile extends BaseEntity {
   @JoinColumn({ name: 'userId' })
   user: IdentityUser;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'varchar' })
   userId: string;
 
   @Column({ type: 'varchar', length: 50, default: ProfileType.INDIVIDUAL })
@@ -28,6 +28,6 @@ export class Profile extends BaseEntity {
   @Column({ type: 'varchar', length: 255, nullable: true })
   location?: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'text', nullable: true })
   metadata?: Record<string, unknown>;
 }

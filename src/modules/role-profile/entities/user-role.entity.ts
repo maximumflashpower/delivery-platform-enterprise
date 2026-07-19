@@ -9,17 +9,17 @@ export class UserRole extends BaseEntity {
   @JoinColumn({ name: 'userId' })
   user: IdentityUser;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'varchar' })
   userId: string;
 
   @ManyToOne(() => Role, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'roleId' })
   role: Role;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'varchar' })
   roleId: string;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'datetime' })
   assignedAt: Date;
 
   @Column({ type: 'varchar', length: 100, nullable: true })

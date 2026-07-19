@@ -6,7 +6,7 @@ export class Route extends BaseEntity {
   @Column({ type: 'varchar', length: 100, unique: true })
   routeId: string;
 
-  @Column({ type: 'jsonb' })
+  @Column({ type: 'text' })
   waypoints: Array<{ lat: number; lng: number; order: number }>;
 
   @Column({ type: 'decimal', precision: 10, scale: 6, nullable: true })

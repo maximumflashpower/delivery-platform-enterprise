@@ -1,4 +1,4 @@
-import { Injectable, ConflictException, UnauthorizedException, NotFoundException, Logger } from '@nestjs/common';
+import { Injectable, ConflictException, UnauthorizedException, NotFoundException, Logger, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
@@ -11,6 +11,9 @@ import { AccountStatus } from '../../identity/enums/account-status.enum';
 import { RegisterDto } from '../dto/register.dto';
 import { LoginDto } from '../dto/login.dto';
 import { VerifyOtpDto } from '../dto/verify-otp.dto';
+import { ChangePasswordDto } from '../dto/change-password.dto';
+import { ForgotPasswordDto } from '../dto/forgot-password.dto';
+import { ResetPasswordDto } from '../dto/reset-password.dto';
 import { TokenService, JwtPayload } from './token.service';
 import { OtpService } from './otp.service';
 
@@ -30,8 +33,11 @@ export class AuthService {
   ) {}
 
   async register(dto: RegisterDto) {
-    const existing = await this.userRepo.findOne({ where: { phone: dto.phone } });
-    if (existing) throw new ConflictException('Phone number already registered');
+    const existing = await this.userRepo.findOne({ where: [{ phone: dto.phone }, { email: dto.email }] });
+    if (existing) {
+      if (existing.phone === dto.phone) throw new ConflictException('Phone number already registered');
+      if (existing.email === dto.email) throw new ConflictException('Email already registered');
+    }
 
     const user = this.userRepo.create({
       phone: dto.phone,
@@ -96,17 +102,32 @@ export class AuthService {
   }
 
   async login(dto: LoginDto) {
-    const credential = await this.credentialRepo.findOne({
+    let credential = await this.credentialRepo.findOne({
       where: { identifier: dto.identifier, type: CredentialType.PASSWORD },
-      relations: ['user'],
+      relations: { user: true },
     });
+
+    if (!credential && dto.identifier.includes('@')) {
+      const user = await this.userRepo.findOne({ where: { email: dto.identifier } });
+      if (user) {
+        credential = await this.credentialRepo.findOne({
+          where: { userId: user.id, type: CredentialType.PASSWORD },
+          relations: { user: true },
+        });
+      }
+    }
 
     if (!credential || !credential.secretHash) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
     if (credential.status === CredentialStatus.LOCKED) {
-      throw new UnauthorizedException('Account locked');
+      if (credential.lockedUntil && credential.lockedUntil > new Date()) {
+        throw new UnauthorizedException(`Account locked until ${credential.lockedUntil.toISOString()}`);
+      }
+      credential.status = CredentialStatus.ACTIVE;
+      credential.failedAttempts = 0;
+      await this.credentialRepo.save(credential);
     }
 
     const isMatch = await bcrypt.compare(dto.password, credential.secretHash);
@@ -122,7 +143,7 @@ export class AuthService {
 
     const user = credential.user;
     if (user.status !== AccountStatus.ACTIVE) {
-      throw new UnauthorizedException('Account not active');
+      throw new UnauthorizedException(`Account not active: ${user.status}`);
     }
 
     credential.failedAttempts = 0;
@@ -162,6 +183,81 @@ export class AuthService {
     return { accessToken, refreshToken: newRefreshToken };
   }
 
+  async changePassword(userId: string, dto: ChangePasswordDto) {
+    const credential = await this.credentialRepo.findOne({
+      where: { userId, type: CredentialType.PASSWORD },
+    });
+
+    if (!credential || !credential.secretHash) {
+      throw new BadRequestException('No password credential found');
+    }
+
+    const isMatch = await bcrypt.compare(dto.currentPassword, credential.secretHash);
+    if (!isMatch) throw new UnauthorizedException('Current password is incorrect');
+
+    const newHash = await bcrypt.hash(dto.newPassword, 10);
+    credential.secretHash = newHash;
+    credential.updatedAt = new Date();
+    await this.credentialRepo.save(credential);
+
+    return { message: 'Password changed successfully' };
+  }
+
+  async forgotPassword(dto: ForgotPasswordDto) {
+    let user: IdentityUser | null = null;
+
+    if (dto.identifier.includes('@')) {
+      user = await this.userRepo.findOne({ where: { email: dto.identifier } });
+    } else {
+      user = await this.userRepo.findOne({ where: { phone: dto.identifier } });
+    }
+
+    if (!user) {
+      this.logger.warn(`Password reset attempted for non-existent user: ${dto.identifier}`);
+      return { message: 'If the account exists, an OTP has been sent.' };
+    }
+
+    await this.otpService.generateAndSend(user.id, user.phone || '');
+    return { message: 'If the account exists, an OTP has been sent.' };
+  }
+
+  async resetPassword(dto: ResetPasswordDto) {
+    const isValid = await this.otpService.verify(dto.identifier, dto.otp);
+    if (!isValid) throw new UnauthorizedException('Invalid or expired OTP');
+
+    let user = await this.userRepo.findOne({ where: { phone: dto.identifier } });
+    if (!user && dto.identifier.includes('@')) {
+      user = await this.userRepo.findOne({ where: { email: dto.identifier } });
+    }
+    if (!user) throw new NotFoundException('User not found');
+
+    let credential = await this.credentialRepo.findOne({ where: { userId: user.id, type: CredentialType.PASSWORD } });
+    
+    if (credential) {
+      const newHash = await bcrypt.hash(dto.newPassword, 10);
+      credential.secretHash = newHash;
+      credential.updatedAt = new Date();
+      await this.credentialRepo.save(credential);
+    } else {
+      const secretHash = await bcrypt.hash(dto.newPassword, 10);
+      credential = this.credentialRepo.create({
+        userId: user.id,
+        type: CredentialType.PASSWORD,
+        identifier: user.phone || user.email || '',
+        secretHash,
+        status: CredentialStatus.ACTIVE,
+      });
+      await this.credentialRepo.save(credential);
+    }
+
+    return { message: 'Password reset successfully' };
+  }
+
+  async logout(userId: string) {
+    await this.verificationRepo.delete({ userId, status: 'pending' as any });
+    return { message: 'Logged out successfully' };
+  }
+
   async getUserById(userId: string) {
     const user = await this.userRepo.findOne({ where: { id: userId } });
     if (!user) throw new NotFoundException('User not found');
@@ -174,5 +270,9 @@ export class AuthService {
       email: user.email,
       status: user.status,
     };
+  }
+
+  async getMe(userId: string) {
+    return this.getUserById(userId);
   }
 }

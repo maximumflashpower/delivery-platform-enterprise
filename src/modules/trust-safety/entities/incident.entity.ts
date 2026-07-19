@@ -9,14 +9,14 @@ export class Incident extends BaseEntity {
   @JoinColumn({ name: 'reportedUserId' })
   reportedUser?: IdentityUser;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   reportedUserId?: string;
 
   @ManyToOne(() => IdentityUser, { onDelete: 'SET NULL' })
   @JoinColumn({ name: 'reporterId' })
   reporter?: IdentityUser;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   reporterId?: string;
 
   @Column({ type: 'varchar', length: 100 })
@@ -31,7 +31,7 @@ export class Incident extends BaseEntity {
   @Column({ type: 'varchar', length: 50, default: 'open' })
   status: string;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   resolvedAt?: Date;
 
   @Column({ type: 'text', nullable: true })

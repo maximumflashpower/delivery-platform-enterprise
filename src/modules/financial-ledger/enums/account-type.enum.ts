@@ -1,8 +1,7 @@
 export enum AccountType {
-  LEDGER = 'ledger',
-  CASH = 'cash',
-  BANK = 'bank',
-  CREDIT = 'credit',
+  ASSET = 'asset',
   LIABILITY = 'liability',
   EQUITY = 'equity',
+  REVENUE = 'revenue',
+  EXPENSE = 'expense',
 }

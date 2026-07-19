@@ -1,0 +1,26 @@
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+
+@Injectable()
+export class TypeOrmConfigService implements TypeOrmOptionsFactory {
+  constructor(private configService: ConfigService) {}
+
+  createTypeOrmOptions(): TypeOrmModuleOptions {
+    const isDev = this.configService.get<string>('NODE_ENV') !== 'production';
+
+    return {
+      type: this.configService.get<'better-sqlite3' | 'postgres'>('TYPEORM_CONNECTION', 'better-sqlite3'),
+      database: this.configService.get<string>('TYPEORM_DATABASE', 'dev.db'),
+      host: this.configService.get<string>('TYPEORM_HOST'),
+      port: this.configService.get<number>('TYPEORM_PORT', 5432),
+      username: this.configService.get<string>('TYPEORM_USERNAME'),
+      password: this.configService.get<string>('TYPEORM_PASSWORD'),
+      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+      migrations: [__dirname + '/../migrations/*{.ts,.js}'],
+      migrationsRun: false,
+      synchronize: isDev, // Solo en desarrollo, false en producción
+      logging: isDev ? ['error', 'schema'] : ['error'],
+    };
+  }
+}
