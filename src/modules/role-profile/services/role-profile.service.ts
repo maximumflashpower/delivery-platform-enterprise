@@ -84,7 +84,7 @@ export class RoleProfileService {
   async getUserRoles(userId: string): Promise<UserRole[]> {
     return this.userRoleRepo.find({
       where: { userId },
-      relations: ['role'],
+      relations: {'role'},
       order: { assignedAt: 'DESC' },
     });
   }

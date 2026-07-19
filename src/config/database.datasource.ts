@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-const dbType = (process.env.TYPEORM_CONNECTION || 'sqlite') as 'sqlite' | 'postgres';
+const dbType = (process.env.TYPEORM_CONNECTION || 'better-sqlite3') as 'better-sqlite3' | 'postgres';
 
 export default new DataSource({
   type: dbType,

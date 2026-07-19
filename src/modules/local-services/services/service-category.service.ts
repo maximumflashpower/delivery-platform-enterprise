@@ -25,7 +25,7 @@ export class ServiceCategoryService {
   async findBySlug(slug: string): Promise<ServiceCategory> {
     const category = await this.categoryRepo.findOne({ 
       where: { slug, deletedAt: IsNull(), isActive: true },
-      relations: ['serviceBookings'] 
+      relations: {'serviceBookings'} 
     });
     if (!category) throw new NotFoundException(`Category with slug ${slug} not found`);
     return category;

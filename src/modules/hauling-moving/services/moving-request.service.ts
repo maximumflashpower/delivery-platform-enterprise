@@ -16,7 +16,7 @@ export class MovingRequestService {
   async findAll(): Promise<MovingRequest[]> {
     return this.requestRepo.find({ 
       where: { deletedAt: IsNull() }, 
-      relations: ['customer', 'hauler'],
+      relations: {'customer', 'hauler'},
       order: { createdAt: 'DESC' } 
     });
   }
@@ -24,7 +24,7 @@ export class MovingRequestService {
   async findById(id: string): Promise<MovingRequest> {
     const request = await this.requestRepo.findOne({ 
       where: { id, deletedAt: IsNull() },
-      relations: ['customer', 'hauler']
+      relations: {'customer', 'hauler'}
     });
     if (!request) throw new NotFoundException(`Request with ID ${id} not found`);
     return request;
@@ -33,7 +33,7 @@ export class MovingRequestService {
   async findByCustomerId(customerId: string): Promise<MovingRequest[]> {
     return this.requestRepo.find({ 
       where: { customerId, deletedAt: IsNull() },
-      relations: ['hauler'],
+      relations: {'hauler'},
       order: { createdAt: 'DESC' }
     });
   }

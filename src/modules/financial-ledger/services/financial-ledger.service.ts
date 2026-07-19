@@ -86,7 +86,7 @@ export class FinancialLedgerService {
   async findAllJournalEntries(where?: Partial<JournalEntry>): Promise<JournalEntry[]> {
     return this.journalEntryRepo.find({
       where: where || {},
-      relations: ['lines'],
+      relations: {'lines'},
       order: { createdAt: 'DESC' },
     });
   }
@@ -94,7 +94,7 @@ export class FinancialLedgerService {
   async findJournalEntryById(id: string): Promise<JournalEntry> {
     const entry = await this.journalEntryRepo.findOne({
       where: { id },
-      relations: ['lines'],
+      relations: {'lines'},
     });
     if (!entry) throw new NotFoundException('Journal entry not found');
     return entry;
@@ -274,7 +274,7 @@ export class FinancialLedgerService {
   }>> {
     const entries = await this.journalEntryRepo.find({
       where: { entryDate: Between(startDate, endDate), status: 'posted' },
-      relations: ['lines'],
+      relations: {'lines'},
       order: { entryDate: 'ASC' },
     });
 

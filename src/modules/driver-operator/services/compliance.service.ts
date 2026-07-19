@@ -14,13 +14,13 @@ export class ComplianceService {
   ) {}
 
   async findAll(): Promise<Compliance[]> {
-    return this.complianceRepo.find({ where: { deletedAt: IsNull() }, relations: ['driver'] });
+    return this.complianceRepo.find({ where: { deletedAt: IsNull() }, relations: {'driver'} });
   }
 
   async findByDriverId(driverId: string): Promise<Compliance[]> {
     return this.complianceRepo.find({ 
       where: { driverId, deletedAt: IsNull() }, 
-      relations: ['driver'],
+      relations: {'driver'},
       order: { verifiedAt: 'DESC' } 
     });
   }
@@ -28,7 +28,7 @@ export class ComplianceService {
   async findById(id: string): Promise<Compliance> {
     const compliance = await this.complianceRepo.findOne({ 
       where: { id, deletedAt: IsNull() }, 
-      relations: ['driver'] 
+      relations: {'driver'} 
     });
     if (!compliance) throw new NotFoundException(`Compliance record with ID ${id} not found`);
     return compliance;

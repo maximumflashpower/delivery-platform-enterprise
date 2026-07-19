@@ -14,13 +14,13 @@ export class MerchantContractService {
   ) {}
 
   async findAll(): Promise<MerchantContract[]> {
-    return this.contractRepo.find({ where: { deletedAt: IsNull() }, relations: ['merchant'] });
+    return this.contractRepo.find({ where: { deletedAt: IsNull() }, relations: {'merchant'} });
   }
 
   async findByMerchantId(merchantId: string): Promise<MerchantContract[]> {
     return this.contractRepo.find({ 
       where: { merchantId, deletedAt: IsNull() }, 
-      relations: ['merchant'],
+      relations: {'merchant'},
       order: { endDate: 'DESC' } 
     });
   }
@@ -28,7 +28,7 @@ export class MerchantContractService {
   async findById(id: string): Promise<MerchantContract> {
     const contract = await this.contractRepo.findOne({ 
       where: { id, deletedAt: IsNull() }, 
-      relations: ['merchant'] 
+      relations: {'merchant'} 
     });
     if (!contract) throw new NotFoundException(`Contract with ID ${id} not found`);
     return contract;

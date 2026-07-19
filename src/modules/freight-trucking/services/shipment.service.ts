@@ -14,17 +14,17 @@ export class ShipmentService {
   ) {}
 
   async findAll(): Promise<Shipment[]> {
-    return this.shipmentRepo.find({ where: { deletedAt: IsNull() }, relations: ['carrier'], order: { createdAt: 'DESC' } });
+    return this.shipmentRepo.find({ where: { deletedAt: IsNull() }, relations: {'carrier'}, order: { createdAt: 'DESC' } });
   }
 
   async findById(id: string): Promise<Shipment> {
-    const s = await this.shipmentRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: ['carrier'] });
+    const s = await this.shipmentRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: {'carrier'} });
     if (!s) throw new NotFoundException(`Shipment with ID ${id} not found`);
     return s;
   }
 
   async findByCarrierId(carrierId: string): Promise<Shipment[]> {
-    return this.shipmentRepo.find({ where: { carrierId, deletedAt: IsNull() }, relations: ['carrier'], order: { createdAt: 'DESC' } });
+    return this.shipmentRepo.find({ where: { carrierId, deletedAt: IsNull() }, relations: {'carrier'}, order: { createdAt: 'DESC' } });
   }
 
   async create(data: Partial<Shipment>): Promise<Shipment> {

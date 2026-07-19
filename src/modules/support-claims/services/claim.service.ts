@@ -15,17 +15,17 @@ export class ClaimService {
   ) {}
 
   async findAll(): Promise<Claim[]> {
-    return this.claimRepo.find({ where: { deletedAt: IsNull() }, relations: ['tickets', 'statusLogs'], order: { createdAt: 'DESC' } });
+    return this.claimRepo.find({ where: { deletedAt: IsNull() }, relations: {'tickets', 'statusLogs'}, order: { createdAt: 'DESC' } });
   }
 
   async findById(id: string): Promise<Claim> {
-    const c = await this.claimRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: ['tickets', 'statusLogs'] });
+    const c = await this.claimRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: {'tickets', 'statusLogs'} });
     if (!c) throw new NotFoundException(`Claim with ID ${id} not found`);
     return c;
   }
 
   async findByUserId(userId: string): Promise<Claim[]> {
-    return this.claimRepo.find({ where: { userId, deletedAt: IsNull() }, relations: ['tickets'], order: { createdAt: 'DESC' } });
+    return this.claimRepo.find({ where: { userId, deletedAt: IsNull() }, relations: {'tickets'}, order: { createdAt: 'DESC' } });
   }
 
   async create(data: Partial<Claim>): Promise<Claim> {

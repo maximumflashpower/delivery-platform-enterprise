@@ -10,7 +10,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
     const isDev = this.configService.get<string>('NODE_ENV') !== 'production';
 
     return {
-      type: this.configService.get<'sqlite' | 'postgres'>('TYPEORM_CONNECTION', 'sqlite'),
+      type: this.configService.get<'better-sqlite3' | 'postgres'>('TYPEORM_CONNECTION', 'better-sqlite3'),
       database: this.configService.get<string>('TYPEORM_DATABASE', 'dev.db'),
       host: this.configService.get<string>('TYPEORM_HOST'),
       port: this.configService.get<number>('TYPEORM_PORT', 5432),

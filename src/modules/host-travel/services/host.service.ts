@@ -26,7 +26,7 @@ export class HostService {
   async findById(id: string): Promise<Host> {
     const host = await this.hostRepo.findOne({ 
       where: { id, deletedAt: IsNull() },
-      relations: ['listings']
+      relations: {'listings'}
     });
     if (!host) throw new NotFoundException(`Host with ID ${id} not found`);
     return host;

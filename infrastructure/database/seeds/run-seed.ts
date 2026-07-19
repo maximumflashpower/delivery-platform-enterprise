@@ -12,11 +12,11 @@ dotenv.config();
 async function main() {
   console.log('🌱 Iniciando proceso de seeding...\n');
 
-  const dbType = process.env.DB_TYPE || 'sqlite';
+  const dbType = process.env.DB_TYPE || 'better-sqlite3';
   const dbPath = process.env.DB_PATH || './dev.db';
 
   const dataSource = new DataSource({
-    type: dbType as 'sqlite',
+    type: dbType as 'better-sqlite3',
     database: dbPath,
     entities: ['src/modules/**/*.entity{.ts,.js}'],
     synchronize: false,

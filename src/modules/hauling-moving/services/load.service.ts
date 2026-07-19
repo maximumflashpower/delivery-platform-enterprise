@@ -14,13 +14,13 @@ export class LoadService {
   ) {}
 
   async findAll(): Promise<Load[]> {
-    return this.loadRepo.find({ where: { deletedAt: IsNull() }, relations: ['hauler'], order: { createdAt: 'DESC' } });
+    return this.loadRepo.find({ where: { deletedAt: IsNull() }, relations: {'hauler'}, order: { createdAt: 'DESC' } });
   }
 
   async findById(id: string): Promise<Load> {
     const load = await this.loadRepo.findOne({ 
       where: { id, deletedAt: IsNull() },
-      relations: ['hauler']
+      relations: {'hauler'}
     });
     if (!load) throw new NotFoundException(`Load with ID ${id} not found`);
     return load;
@@ -29,7 +29,7 @@ export class LoadService {
   async findByHaulerId(haulerId: string): Promise<Load[]> {
     return this.loadRepo.find({ 
       where: { haulerId, deletedAt: IsNull() },
-      relations: ['hauler'],
+      relations: {'hauler'},
       order: { createdAt: 'DESC' }
     });
   }

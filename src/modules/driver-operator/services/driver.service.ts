@@ -30,7 +30,7 @@ export class DriverService {
   }
 
   async findById(id: string): Promise<Driver> {
-    const driver = await this.driverRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: ['licenses', 'compliance'] });
+    const driver = await this.driverRepo.findOne({ where: { id, deletedAt: IsNull() }, relations: {'licenses', 'compliance'} });
     if (!driver) throw new NotFoundException(`Driver with ID ${id} not found`);
     return driver;
   }

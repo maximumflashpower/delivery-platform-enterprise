@@ -14,13 +14,13 @@ export class LicenseService {
   ) {}
 
   async findAll(): Promise<License[]> {
-    return this.licenseRepo.find({ where: { deletedAt: IsNull() }, relations: ['driver'] });
+    return this.licenseRepo.find({ where: { deletedAt: IsNull() }, relations: {'driver'} });
   }
 
   async findByDriverId(driverId: string): Promise<License[]> {
     return this.licenseRepo.find({ 
       where: { driverId, deletedAt: IsNull() }, 
-      relations: ['driver'],
+      relations: {'driver'},
       order: { expiryDate: 'ASC' } 
     });
   }
@@ -28,7 +28,7 @@ export class LicenseService {
   async findById(id: string): Promise<License> {
     const license = await this.licenseRepo.findOne({ 
       where: { id, deletedAt: IsNull() }, 
-      relations: ['driver'] 
+      relations: {'driver'} 
     });
     if (!license) throw new NotFoundException(`License with ID ${id} not found`);
     return license;
