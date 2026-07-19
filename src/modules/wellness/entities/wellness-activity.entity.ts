@@ -7,10 +7,10 @@ export class WellnessActivity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'userId', type: 'uuid' })
+  @Column({ name: 'userId', type: 'varchar' })
   userId: string;
 
-  @Column({ name: 'goalId', type: 'uuid', nullable: true })
+  @Column({ name: 'goalId', type: 'varchar', nullable: true })
   goalId: string | null;
 
   @Column({ type: 'varchar', enum: ActivityType })

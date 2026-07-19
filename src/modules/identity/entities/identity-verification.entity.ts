@@ -10,7 +10,7 @@ export class IdentityVerification extends BaseEntity {
   @JoinColumn({ name: 'user_id' })
   user: IdentityUser;
 
-  @Column({ name: 'user_id', type: 'uuid' })
+  @Column({ name: 'user_id', type: 'varchar' })
   userId: string;
 
   @Column({ type: 'varchar', length: 50 })
@@ -28,9 +28,9 @@ export class IdentityVerification extends BaseEntity {
   @Column({ type: 'varchar', length: 255, nullable: true })
   token?: string;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   verifiedAt?: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   expiresAt?: Date;
 }

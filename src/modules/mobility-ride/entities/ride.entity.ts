@@ -13,14 +13,14 @@ export class Ride extends BaseEntity {
   @JoinColumn({ name: 'passengerId' })
   passenger?: IdentityUser;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   passengerId?: string;
 
   @ManyToOne(() => IdentityUser, { onDelete: 'SET NULL' })
   @JoinColumn({ name: 'driverId' })
   driver?: IdentityUser;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   driverId?: string;
 
   @Column({ type: 'varchar', length: 50 })

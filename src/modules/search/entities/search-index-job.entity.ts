@@ -14,7 +14,7 @@ export class SearchIndexJob extends BaseEntity {
   @Column({ type: 'varchar', length: 50 })
   entityType: IndexEntityType;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'varchar' })
   entityId: string;
 
   @Column({ type: 'text', nullable: true })

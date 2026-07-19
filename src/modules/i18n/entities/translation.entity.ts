@@ -8,10 +8,10 @@ export class Translation extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'translationKeyId', type: 'uuid' })
+  @Column({ name: 'translationKeyId', type: 'varchar' })
   translationKeyId: string;
 
-  @Column({ name: 'languageId', type: 'uuid' })
+  @Column({ name: 'languageId', type: 'varchar' })
   languageId: string;
 
   @Column({ name: 'value', type: 'text' })
@@ -20,7 +20,7 @@ export class Translation extends BaseEntity {
   @Column({ type: 'varchar', enum: TranslationStatus, default: TranslationStatus.PENDING })
   status: TranslationStatus;
 
-  @Column({ name: 'reviewedByUserId', type: 'uuid', nullable: true })
+  @Column({ name: 'reviewedByUserId', type: 'varchar', nullable: true })
   reviewedByUserId: string | null;
 
   @Column({ name: 'reviewedAt', type: 'datetime', nullable: true })

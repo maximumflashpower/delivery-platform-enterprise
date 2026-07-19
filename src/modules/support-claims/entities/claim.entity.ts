@@ -9,7 +9,7 @@ export class Claim extends BaseEntity {
   @Column({ type: 'varchar', length: 100, unique: true })
   claimNumber: string;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   userId?: string;
 
   @Column({ type: 'varchar', length: 50, default: ClaimStatus.OPEN })
@@ -27,13 +27,13 @@ export class Claim extends BaseEntity {
   @Column({ type: 'text' })
   description: string;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   relatedEntityId?: string;
 
   @Column({ type: 'varchar', length: 50, nullable: true })
   relatedEntityType?: string;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   assignedToUserId?: string;
 
   @Column({ type: 'datetime', nullable: true })

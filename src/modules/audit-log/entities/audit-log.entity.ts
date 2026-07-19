@@ -8,7 +8,7 @@ export class AuditLog extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'actorUserId', type: 'uuid' })
+  @Column({ name: 'actorUserId', type: 'varchar' })
   actorUserId: string;
 
   @Column({ name: 'actorIpAddress', type: 'varchar', length: 45, nullable: true })
@@ -20,7 +20,7 @@ export class AuditLog extends BaseEntity {
   @Column({ type: 'varchar', enum: AuditEntityType })
   entityType: AuditEntityType;
 
-  @Column({ name: 'entityId', type: 'uuid', nullable: true })
+  @Column({ name: 'entityId', type: 'varchar', nullable: true })
   entityId: string | null;
 
   @Column({ type: 'varchar', length: 100, nullable: true })

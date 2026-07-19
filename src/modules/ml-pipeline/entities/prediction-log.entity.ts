@@ -7,13 +7,13 @@ export class PredictionLog extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'modelId', type: 'uuid' })
+  @Column({ name: 'modelId', type: 'varchar' })
   modelId: string;
 
   @Column({ name: 'modelVersion', type: 'varchar', length: '50' })
   modelVersion: string;
 
-  @Column({ name: 'userId', type: 'uuid', nullable: true })
+  @Column({ name: 'userId', type: 'varchar', nullable: true })
   userId: string | null;
 
   @Column({ name: 'inputData', type: 'text' })

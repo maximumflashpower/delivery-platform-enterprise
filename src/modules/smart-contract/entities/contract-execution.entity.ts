@@ -7,7 +7,7 @@ export class ContractExecution extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'contractId', type: 'uuid' })
+  @Column({ name: 'contractId', type: 'varchar' })
   contractId: string;
 
   @Column({ name: 'functionName', type: 'varchar', length: '255' })
@@ -19,7 +19,7 @@ export class ContractExecution extends BaseEntity {
   @Column({ type: 'varchar', enum: ExecutionStatus, default: ExecutionStatus.QUEUED })
   status: ExecutionStatus;
 
-  @Column({ name: 'initiatedByUserId', type: 'uuid' })
+  @Column({ name: 'initiatedByUserId', type: 'varchar' })
   initiatedByUserId: string;
 
   @Column({ name: 'transactionHash', type: 'varchar', length: '255', nullable: true })

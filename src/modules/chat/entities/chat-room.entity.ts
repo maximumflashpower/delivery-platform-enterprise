@@ -13,7 +13,7 @@ export class ChatRoom extends BaseEntity {
   @Column({ type: 'varchar', enum: ChatRoomType })
   type: ChatRoomType;
 
-  @Column({ name: 'createdByUserId', type: 'uuid' })
+  @Column({ name: 'createdByUserId', type: 'varchar' })
   createdByUserId: string;
 
   @Column({ name: 'participantIds', type: 'text' })

@@ -24,7 +24,7 @@ export class AnalyticsReport extends BaseEntity {
   @Column({ name: 'breakdownDimensions', type: 'text', nullable: true })
   breakdownDimensions: string[] | null;
 
-  @Column({ name: 'generatedByUserId', type: 'uuid' })
+  @Column({ name: 'generatedByUserId', type: 'varchar' })
   generatedByUserId: string;
 
   @Column({ type: 'text', nullable: true })

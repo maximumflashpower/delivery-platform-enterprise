@@ -9,13 +9,13 @@ export class CourierAssignment extends BaseEntity {
   @JoinColumn({ name: 'courierId' })
   courier: Courier;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'varchar' })
   courierId: string;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   rideId?: string;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   routeId?: string;
 
   @Column({ type: 'varchar', length: 50, default: AssignmentStatus.ASSIGNED })

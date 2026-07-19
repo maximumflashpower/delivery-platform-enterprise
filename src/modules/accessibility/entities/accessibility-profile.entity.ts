@@ -8,7 +8,7 @@ export class AccessibilityProfile extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'userId', type: 'uuid' })
+  @Column({ name: 'userId', type: 'varchar' })
   userId: string;
 
   @Column({ type: 'varchar', enum: AccessibilityType })

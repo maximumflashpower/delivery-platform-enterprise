@@ -25,7 +25,7 @@ export class SmartContract extends BaseEntity {
   @Column({ name: 'abi', type: 'text', nullable: true })
   abi: Record<string, any> | null;
 
-  @Column({ name: 'creatorUserId', type: 'uuid' })
+  @Column({ name: 'creatorUserId', type: 'varchar' })
   creatorUserId: string;
 
   @Column({ name: 'deployedAt', type: 'datetime', nullable: true })

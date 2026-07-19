@@ -8,7 +8,7 @@ export class IdentitySession extends BaseEntity {
   @JoinColumn({ name: 'user_id' })
   user: IdentityUser;
 
-  @Column({ name: 'user_id', type: 'uuid' })
+  @Column({ name: 'user_id', type: 'varchar' })
   userId: string;
 
   @Column({ type: 'varchar', length: 255 })
@@ -17,16 +17,16 @@ export class IdentitySession extends BaseEntity {
   @Column({ type: 'varchar', length: 100, nullable: true })
   userAgent?: string;
 
-  @Column({ type: 'inet' })
+  @Column({ type: 'varchar' })
   ipAddress: string;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   expiresAt?: Date;
 
   @Column({ type: 'boolean', default: true })
   isActive: boolean;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   revokedAt?: Date;
 
   @Column({ type: 'varchar', length: 50, nullable: true })

@@ -10,7 +10,7 @@ export class Profile extends BaseEntity {
   @JoinColumn({ name: 'userId' })
   user: IdentityUser;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'varchar' })
   userId: string;
 
   @Column({ type: 'varchar', length: 50, default: ProfileType.INDIVIDUAL })

@@ -9,7 +9,7 @@ export class IdentityRecoveryCode extends BaseEntity {
   @JoinColumn({ name: 'user_id' })
   user: IdentityUser;
 
-  @Column({ name: 'user_id', type: 'uuid' })
+  @Column({ name: 'user_id', type: 'varchar' })
   userId: string;
 
   @Column({ type: 'varchar', length: 100 })
@@ -21,9 +21,9 @@ export class IdentityRecoveryCode extends BaseEntity {
   @Column({ type: 'boolean', default: false })
   isUsed: boolean;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   usedAt?: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   expiresAt?: Date;
 }

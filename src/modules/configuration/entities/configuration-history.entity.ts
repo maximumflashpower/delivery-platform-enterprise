@@ -6,7 +6,7 @@ export class ConfigurationHistory extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'configId', type: 'uuid' })
+  @Column({ name: 'configId', type: 'varchar' })
   configId: string;
 
   @Column({ name: 'oldValue', type: 'text', nullable: true })
@@ -15,7 +15,7 @@ export class ConfigurationHistory extends BaseEntity {
   @Column({ name: 'newValue', type: 'text' })
   newValue: string;
 
-  @Column({ name: 'modifiedByUserId', type: 'uuid' })
+  @Column({ name: 'modifiedByUserId', type: 'varchar' })
   modifiedByUserId: string;
 
   @Column({ name: 'changeReason', type: 'text', nullable: true })

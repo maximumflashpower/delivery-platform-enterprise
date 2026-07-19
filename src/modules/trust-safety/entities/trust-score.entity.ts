@@ -9,7 +9,7 @@ export class TrustScore extends BaseEntity {
   @JoinColumn({ name: 'userId' })
   user: IdentityUser;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'varchar' })
   userId: string;
 
   @Column({ type: 'integer', default: 50 })

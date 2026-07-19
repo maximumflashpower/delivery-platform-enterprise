@@ -7,7 +7,7 @@ export class WellnessGoal extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'userId', type: 'uuid' })
+  @Column({ name: 'userId', type: 'varchar' })
   userId: string;
 
   @Column({ name: 'goalName', type: 'varchar', length: '255' })

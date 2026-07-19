@@ -12,13 +12,13 @@ export class ServiceBooking extends BaseEntity {
   @JoinColumn({ name: 'providerId' })
   provider?: ServiceProvider;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   providerId?: string;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   customerId?: string;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   categoryId?: string;
 
   @Column({ type: 'varchar', length: 255 })

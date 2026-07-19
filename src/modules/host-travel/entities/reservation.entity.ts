@@ -12,10 +12,10 @@ export class Reservation extends BaseEntity {
   @JoinColumn({ name: 'listingId' })
   listing: Listing;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'varchar' })
   listingId: string;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   guestId?: string;
 
   @Column({ type: 'date' })

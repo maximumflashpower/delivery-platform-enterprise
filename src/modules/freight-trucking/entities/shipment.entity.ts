@@ -13,7 +13,7 @@ export class Shipment extends BaseEntity {
   @JoinColumn({ name: 'carrierId' })
   carrier?: Carrier;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   carrierId?: string;
 
   @Column({ type: 'varchar', length: 50, default: ShipmentStatus.BOOKED })

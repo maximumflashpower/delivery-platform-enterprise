@@ -9,7 +9,7 @@ export class License extends BaseEntity {
   @JoinColumn({ name: 'driverId' })
   driver: Driver;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'varchar' })
   driverId: string;
 
   @Column({ type: 'varchar', length: 100 })

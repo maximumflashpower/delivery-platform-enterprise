@@ -7,7 +7,7 @@ export class NotificationPreference extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'userId', type: 'uuid', unique: true })
+  @Column({ name: 'userId', type: 'varchar', unique: true })
   userId: string;
 
   @Column({ name: 'channelType', type: 'varchar', enum: NotificationChannel, unique: true })

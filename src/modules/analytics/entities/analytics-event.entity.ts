@@ -7,7 +7,7 @@ export class AnalyticsEvent extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'userId', type: 'uuid', nullable: true })
+  @Column({ name: 'userId', type: 'varchar', nullable: true })
   userId: string | null;
 
   @Column({ name: 'sessionId', type: 'varchar', length: 255, nullable: true })

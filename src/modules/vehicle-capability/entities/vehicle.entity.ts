@@ -13,7 +13,7 @@ export class Vehicle extends BaseEntity {
   @JoinColumn({ name: 'ownerId' })
   owner?: IdentityUser;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   ownerId?: string;
 
   @Column({ type: 'varchar', length: 100 })

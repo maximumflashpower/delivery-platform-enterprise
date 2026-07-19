@@ -6,7 +6,7 @@ export class ExperimentVariant extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'experimentId', type: 'uuid' })
+  @Column({ name: 'experimentId', type: 'varchar' })
   experimentId: string;
 
   @Column({ name: 'variantName', type: 'varchar', length: '100' })

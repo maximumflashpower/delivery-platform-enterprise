@@ -16,7 +16,7 @@ export class RealtimeChannel extends BaseEntity {
   @Column({ name: 'description', type: 'text', nullable: true })
   description: string | null;
 
-  @Column({ name: 'creatorUserId', type: 'uuid', nullable: true })
+  @Column({ name: 'creatorUserId', type: 'varchar', nullable: true })
   creatorUserId: string | null;
 
   @Column({ name: 'participantCount', type: 'int', default: 0 })

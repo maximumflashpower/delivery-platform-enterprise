@@ -42,7 +42,7 @@ export class StoredFile extends BaseEntity {
   @Column({ type: 'varchar', enum: FileStatus, default: FileStatus.UPLOADED })
   status: FileStatus;
 
-  @Column({ name: 'uploadedByUserId', type: 'uuid' })
+  @Column({ name: 'uploadedByUserId', type: 'varchar' })
   uploadedByUserId: string;
 
   @Column({ type: 'text', nullable: true })

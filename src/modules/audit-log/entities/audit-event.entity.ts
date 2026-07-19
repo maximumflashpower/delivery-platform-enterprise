@@ -17,7 +17,7 @@ export class AuditEvent extends BaseEntity {
   @Column({ type: 'varchar', enum: AuditEntityType })
   entityType: AuditEntityType;
 
-  @Column({ name: 'triggerUserId', type: 'uuid', nullable: true })
+  @Column({ name: 'triggerUserId', type: 'varchar', nullable: true })
   triggerUserId: string | null;
 
   @Column({ name: 'webhookUrl', type: 'varchar', length: 500, nullable: true })

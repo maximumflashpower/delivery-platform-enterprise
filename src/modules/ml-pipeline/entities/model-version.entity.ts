@@ -31,7 +31,7 @@ export class ModelVersion extends BaseEntity {
   @Column({ name: 'metrics', type: 'text', nullable: true })
   metrics: Record<string, any> | null;
 
-  @Column({ name: 'trainedByUserId', type: 'uuid', nullable: true })
+  @Column({ name: 'trainedByUserId', type: 'varchar', nullable: true })
   trainedByUserId: string | null;
 
   @Column({ name: 'deployedAt', type: 'datetime', nullable: true })

@@ -10,10 +10,10 @@ export class Notification extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'userId', type: 'uuid' })
+  @Column({ name: 'userId', type: 'varchar' })
   userId: string;
 
-  @Column({ name: 'templateId', type: 'uuid', nullable: true })
+  @Column({ name: 'templateId', type: 'varchar', nullable: true })
   templateId: string | null;
 
   @ManyToOne(() => NotificationTemplate, { nullable: true })

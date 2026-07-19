@@ -8,7 +8,7 @@ export class IdentityDevice extends BaseEntity {
   @JoinColumn({ name: 'user_id' })
   user: IdentityUser;
 
-  @Column({ name: 'user_id', type: 'uuid' })
+  @Column({ name: 'user_id', type: 'varchar' })
   userId: string;
 
   @Column({ type: 'varchar', length: 255 })
@@ -23,6 +23,6 @@ export class IdentityDevice extends BaseEntity {
   @Column({ type: 'boolean', default: true })
   isTrusted: boolean;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   lastUsedAt?: Date;
 }

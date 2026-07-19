@@ -8,14 +8,14 @@ export class MovingRequest extends BaseEntity {
   @Column({ type: 'varchar', length: 100, unique: true })
   requestCode: string;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   customerId?: string;
 
   @ManyToOne(() => Hauler, { onDelete: 'SET NULL' })
   @JoinColumn({ name: 'haulerId' })
   hauler?: Hauler;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   haulerId?: string;
 
   @Column({ type: 'varchar', length: 50, default: RequestStatus.SUBMITTED })

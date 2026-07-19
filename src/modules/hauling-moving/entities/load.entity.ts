@@ -12,7 +12,7 @@ export class Load extends BaseEntity {
   @JoinColumn({ name: 'haulerId' })
   hauler?: Hauler;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   haulerId?: string;
 
   @Column({ type: 'varchar', length: 50, default: LoadStatus.PICKUP_PENDING })

@@ -9,7 +9,7 @@ export class MerchantContract extends BaseEntity {
   @JoinColumn({ name: 'merchantId' })
   merchant: Merchant;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'varchar' })
   merchantId: string;
 
   @Column({ type: 'varchar', length: 100, unique: true })

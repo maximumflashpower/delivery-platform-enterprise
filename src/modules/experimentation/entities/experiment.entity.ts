@@ -26,7 +26,7 @@ export class Experiment extends BaseEntity {
   @Column({ name: 'endDate', type: 'datetime', nullable: true })
   endDate: Date | null;
 
-  @Column({ name: 'createdByUserId', type: 'uuid', nullable: true })
+  @Column({ name: 'createdByUserId', type: 'varchar', nullable: true })
   createdByUserId: string | null;
 
   @Column({ name: 'targetAudience', type: 'text', nullable: true })

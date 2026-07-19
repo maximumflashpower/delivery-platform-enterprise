@@ -10,7 +10,7 @@ export class Listing extends BaseEntity {
   @JoinColumn({ name: 'hostId' })
   host: Host;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'varchar' })
   hostId: string;
 
   @Column({ type: 'varchar', length: 100, unique: true })

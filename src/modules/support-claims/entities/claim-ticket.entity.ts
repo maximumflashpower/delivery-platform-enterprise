@@ -8,13 +8,13 @@ export class ClaimTicket extends BaseEntity {
   @JoinColumn({ name: 'claimId' })
   claim: Claim;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'varchar' })
   claimId: string;
 
   @Column({ type: 'varchar', length: 50, default: 'customer' })
   authorType: string;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   authorId?: string;
 
   @Column({ type: 'text' })

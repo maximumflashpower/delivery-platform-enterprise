@@ -7,7 +7,7 @@ export class RateLimitBucket extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'policyId', type: 'uuid' })
+  @Column({ name: 'policyId', type: 'varchar' })
   policyId: string;
 
   @Column({ name: 'identifier', type: 'varchar', length: 255 })

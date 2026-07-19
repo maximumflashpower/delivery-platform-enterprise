@@ -13,7 +13,7 @@ export class Payout extends BaseEntity {
   @JoinColumn({ name: 'userId' })
   user?: IdentityUser;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   userId?: string;
 
   @Column({ type: 'decimal', precision: 19, scale: 4 })

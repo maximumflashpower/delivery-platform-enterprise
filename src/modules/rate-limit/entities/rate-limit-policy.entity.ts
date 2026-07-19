@@ -25,7 +25,7 @@ export class RateLimitPolicy extends BaseEntity {
   @Column({ name: 'isActive', type: 'boolean', default: true })
   isActive: boolean;
 
-  @Column({ name: 'ownerUserId', type: 'uuid', nullable: true })
+  @Column({ name: 'ownerUserId', type: 'varchar', nullable: true })
   ownerUserId: string | null;
 
   @Column({ name: 'appliesTo', type: 'varchar', length: 100, nullable: true })

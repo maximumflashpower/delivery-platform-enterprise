@@ -3,7 +3,7 @@ import { BaseEntity } from '../../../common/base.entity';
 
 @Entity('domain_search_logs')
 export class SearchLog extends BaseEntity {
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   userId?: string;
 
   @Column({ type: 'varchar', length: 255 })

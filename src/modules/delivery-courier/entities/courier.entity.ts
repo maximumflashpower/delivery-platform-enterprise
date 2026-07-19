@@ -9,7 +9,7 @@ export class Courier extends BaseEntity {
   @JoinColumn({ name: 'userId' })
   user?: IdentityUser;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   userId?: string;
 
   @Column({ type: 'varchar', length: 100, unique: true })

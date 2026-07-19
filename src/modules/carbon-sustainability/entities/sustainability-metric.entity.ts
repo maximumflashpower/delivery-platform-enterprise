@@ -10,7 +10,7 @@ export class SustainabilityMetric extends BaseEntity {
   @Column({ name: 'entityType', type: 'varchar', length: '100' })
   entityType: string;
 
-  @Column({ name: 'entityId', type: 'uuid' })
+  @Column({ name: 'entityId', type: 'varchar' })
   entityId: string;
 
   @Column({ type: 'varchar', enum: SustainabilityMetricType })

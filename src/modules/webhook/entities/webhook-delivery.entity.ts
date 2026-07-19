@@ -6,10 +6,10 @@ export class WebhookDelivery extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'eventId', type: 'uuid' })
+  @Column({ name: 'eventId', type: 'varchar' })
   eventId: string;
 
-  @Column({ name: 'endpointId', type: 'uuid' })
+  @Column({ name: 'endpointId', type: 'varchar' })
   endpointId: string;
 
   @Column({ name: 'requestMethod', type: 'varchar', length: 10, default: 'POST' })

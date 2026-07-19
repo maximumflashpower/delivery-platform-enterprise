@@ -7,7 +7,7 @@ export class RealtimeSession extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'userId', type: 'uuid' })
+  @Column({ name: 'userId', type: 'varchar' })
   userId: string;
 
   @Column({ name: 'connectionId', type: 'varchar', length: '255', unique: true })
@@ -16,7 +16,7 @@ export class RealtimeSession extends BaseEntity {
   @Column({ type: 'varchar', enum: SessionState, default: SessionState.CONNECTED })
   state: SessionState;
 
-  @Column({ name: 'channelId', type: 'uuid', nullable: true })
+  @Column({ name: 'channelId', type: 'varchar', nullable: true })
   channelId: string | null;
 
   @Column({ name: 'ipAddress', type: 'varchar', length: '45', nullable: true })

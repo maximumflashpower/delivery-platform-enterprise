@@ -12,7 +12,7 @@ export class DeliveryBatch extends BaseEntity {
   @JoinColumn({ name: 'courierId' })
   courier?: Courier;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   courierId?: string;
 
   @Column({ type: 'varchar', length: 50, default: BatchStatus.PENDING })

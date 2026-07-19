@@ -22,7 +22,7 @@ export class WebhookEndpoint extends BaseEntity {
   @Column({ name: 'isActive', type: 'boolean', default: true })
   isActive: boolean;
 
-  @Column({ name: 'ownerUserId', type: 'uuid' })
+  @Column({ name: 'ownerUserId', type: 'varchar' })
   ownerUserId: string;
 
   @Column({ name: 'retryMaxAttempts', type: 'int', default: 3 })

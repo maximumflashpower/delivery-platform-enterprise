@@ -7,10 +7,10 @@ export class ChatMessage extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'roomId', type: 'uuid' })
+  @Column({ name: 'roomId', type: 'varchar' })
   roomId: string;
 
-  @Column({ name: 'senderId', type: 'uuid' })
+  @Column({ name: 'senderId', type: 'varchar' })
   senderId: string;
 
   @Column({ type: 'text' })
@@ -22,7 +22,7 @@ export class ChatMessage extends BaseEntity {
   @Column({ name: 'attachments', type: 'text', nullable: true })
   attachments: Record<string, any>[] | null;
 
-  @Column({ name: 'replyToId', type: 'uuid', nullable: true })
+  @Column({ name: 'replyToId', type: 'varchar', nullable: true })
   replyToId: string | null;
 
   @Column({ name: 'editedAt', type: 'datetime', nullable: true })

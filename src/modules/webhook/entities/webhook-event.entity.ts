@@ -8,7 +8,7 @@ export class WebhookEvent extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'endpointId', type: 'uuid' })
+  @Column({ name: 'endpointId', type: 'varchar' })
   endpointId: string;
 
   @Column({ type: 'varchar', enum: WebhookEventType })

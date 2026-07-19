@@ -7,10 +7,10 @@ export class UserProgress extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'userId', type: 'uuid' })
+  @Column({ name: 'userId', type: 'varchar' })
   userId: string;
 
-  @Column({ name: 'achievementId', type: 'uuid' })
+  @Column({ name: 'achievementId', type: 'varchar' })
   achievementId: string;
 
   @Column({ type: 'varchar', enum: ProgressStatus, default: ProgressStatus.NOT_STARTED })

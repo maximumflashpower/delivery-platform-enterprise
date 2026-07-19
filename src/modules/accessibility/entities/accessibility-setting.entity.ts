@@ -6,7 +6,7 @@ export class AccessibilitySetting extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'userId', type: 'uuid' })
+  @Column({ name: 'userId', type: 'varchar' })
   userId: string;
 
   @Column({ name: 'settingKey', type: 'varchar', length: '255' })

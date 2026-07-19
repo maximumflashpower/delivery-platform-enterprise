@@ -7,13 +7,13 @@ export class ComplianceRecord extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'policyId', type: 'uuid' })
+  @Column({ name: 'policyId', type: 'varchar' })
   policyId: string;
 
   @Column({ name: 'entityType', type: 'varchar', length: 100 })
   entityType: string;
 
-  @Column({ name: 'entityId', type: 'uuid' })
+  @Column({ name: 'entityId', type: 'varchar' })
   entityId: string;
 
   @Column({ type: 'varchar', enum: ComplianceStatus, default: ComplianceStatus.PENDING_REVIEW })
@@ -25,7 +25,7 @@ export class ComplianceRecord extends BaseEntity {
   @Column({ name: 'nextReviewDate', type: 'date', nullable: true })
   nextReviewDate: Date | null;
 
-  @Column({ name: 'auditorId', type: 'uuid', nullable: true })
+  @Column({ name: 'auditorId', type: 'varchar', nullable: true })
   auditorId: string | null;
 
   @Column({ name: 'findings', type: 'text', nullable: true })

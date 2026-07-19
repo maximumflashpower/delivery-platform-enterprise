@@ -8,7 +8,7 @@ export class BillOfLading extends BaseEntity {
   @JoinColumn({ name: 'shipmentId' })
   shipment: Shipment;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'varchar' })
   shipmentId: string;
 
   @Column({ type: 'varchar', length: 100, unique: true })

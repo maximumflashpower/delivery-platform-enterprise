@@ -41,7 +41,7 @@ export class Configuration extends BaseEntity {
   @Column({ type: 'varchar', length: 500, nullable: true })
   description: string | null;
 
-  @Column({ name: 'modifiedByUserId', type: 'uuid' })
+  @Column({ name: 'modifiedByUserId', type: 'varchar' })
   modifiedByUserId: string;
 
   @CreateDateColumn({ name: 'createdAt', type: 'datetime' })

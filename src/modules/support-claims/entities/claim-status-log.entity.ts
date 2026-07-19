@@ -8,7 +8,7 @@ export class ClaimStatusLog extends BaseEntity {
   @JoinColumn({ name: 'claimId' })
   claim: Claim;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'varchar' })
   claimId: string;
 
   @Column({ type: 'varchar', length: 50 })
@@ -17,7 +17,7 @@ export class ClaimStatusLog extends BaseEntity {
   @Column({ type: 'varchar', length: 50 })
   newStatus: string;
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   changedByUserId?: string;
 
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })

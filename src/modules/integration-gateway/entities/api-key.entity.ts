@@ -12,7 +12,7 @@ export class ApiKey extends BaseEntity {
   @Column({ name: 'keyPrefix', type: 'varchar', length: 16 })
   keyPrefix: string;
 
-  @Column({ name: 'userId', type: 'uuid' })
+  @Column({ name: 'userId', type: 'varchar' })
   userId: string;
 
   @Column({ name: 'name', type: 'varchar', length: 100 })
