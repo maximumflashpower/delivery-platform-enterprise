@@ -8,7 +8,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
   constructor(private readonly configService: ConfigService) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
-    const dbType = process.env.DB_TYPE || 'sqlite';
+    const dbType = process.env.DB_TYPE || 'sqljs';
     const dbPath = process.env.DB_PATH || path.join(process.cwd(), 'dev.db');
     const isDev = process.env.NODE_ENV === 'development';
 
@@ -28,10 +28,11 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       };
     }
 
-    // SQLite/better-sqlite3 para desarrollo
+    // sql.js para desarrollo Docker (sin módulos nativos)
     return {
-      type: 'better-sqlite3',
+      type: 'sqljs',
       database: dbPath,
+      location: dbPath,
       entities: [path.join(__dirname, '..', '**', '*.entity.{ts,js}')],
       migrations: [path.join(__dirname, '..', 'migrations', '*{ts,js}')],
       autoLoadEntities: true,

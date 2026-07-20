@@ -12,7 +12,7 @@ services:
       - dev-db:/app/data
     environment:
       - NODE_ENV=development
-      - DB_TYPE=sqlite
+      - DB_TYPE=sqljs
       - DB_PATH=/app/data/dev.db
       - NODE_OPTIONS=--require /app/prepolyfill.js
     command: npm run start:dev
