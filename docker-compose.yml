@@ -16,9 +16,6 @@ services:
       - DB_PATH=/app/data/dev.db
     command: npm run start:dev
     restart: unless-stopped
-    profiles:
-      - dev
-      - default
 
   app-prod:
     build: .
