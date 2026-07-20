@@ -87,3 +87,23 @@ VALUES
 ('3112c3d4-0003-4000-8000-000000000003', 'a1b2c3d4-0001-4000-8000-000000000001', '192.168.1.100', 'update', 'configuration', 'rate-limiting', 'Updated rate limit thresholds', datetime('now')),
 ('3112c3d4-0004-4000-8000-000000000004', 'a1b2c3d4-0001-4000-8000-000000000001', '192.168.1.100', 'approve', 'user', 'a1b2c3d4-0002-4000-8000-000000000002', 'Approved driver account verification', datetime('now')),
 ('3112c3d4-0005-4000-8000-000000000005', 'a1b2c3d4-0001-4000-8000-000000000001', '192.168.1.50', 'create', 'system', 'fraud-detection-v3', 'Deployed fraud detection model v3.1.2', datetime('now'));
+
+-- WO-001: Capability Registry Seeds
+INSERT INTO capabilities (id, "capabilityKey", "capabilityName", description, category, status, source, "version", "metadata", "isActive", "isCritical", "ownerDomain", "createdAt", "updatedAt")
+VALUES
+('w1b2c3d4-0001-4000-8000-000000000001', 'auth.jwt', 'JWT Authentication', 'Core JWT-based authentication with refresh tokens', 'authentication', 'active', 'internal', '2.0.0', '{"providers":["local","oauth"]}', 1, 1, 'identity', datetime('now'), datetime('now')),
+('w1b2c3d4-0002-4000-8000-000000000002', 'payment.stripe', 'Stripe Payment Gateway', 'Process payments through Stripe integration', 'payment', 'active', 'external', '1.3.0', '{"webhook_enabled":true}', 1, 1, 'financial', datetime('now'), datetime('now')),
+('w1b2c3d4-0003-4000-8000-000000000003', 'ml.route-optimization', 'Route Optimization Engine', 'AI-powered route optimization for deliveries', 'machine-learning', 'active', 'internal', '2.3.1', '{"framework":"tensorflow","accuracy":0.94}', 1, 1, 'routing', datetime('now'), datetime('now')),
+('w1b2c3d4-0004-4000-8000-000000000004', 'notification.push', 'Push Notifications', 'Multi-platform push notification delivery', 'notification', 'active', 'internal', '1.1.0', '{"providers":["fcm","apns"]}', 1, 0, 'notification', datetime('now'), datetime('now')),
+('w1b2c3d4-0005-4000-8000-000000000005', 'storage.s3', 'S3 Compatible Storage', 'Object storage with S3-compatible API', 'storage', 'active', 'external', '1.0.0', '{"encryption":"aes-256"}', 1, 0, 'file-storage', datetime('now'), datetime('now')),
+('w1b2c3d4-0006-4000-8000-000000000006', 'analytics.realtime', 'Real-time Analytics', 'Stream processing for real-time metrics', 'analytics', 'active', 'internal', '1.2.0', '{"throughput":"10k/s"}', 1, 0, 'analytics', datetime('now'), datetime('now')),
+('w1b2c3d4-0007-4000-8000-000000000007', 'i18n.translations', 'Internationalization Engine', 'Dynamic translation management with RTL support', 'i18n', 'active', 'internal', '1.0.0', '{"languages":10}', 1, 0, 'i18n', datetime('now'), datetime('now')),
+('w1b2c3d4-0008-4000-8000-000000000008', 'biometric.face-id', 'Face ID Verification', 'Biometric face recognition for identity verification', 'security', 'active', 'external', '3.0.0', '{"liveness_detection":true}', 1, 1, 'identity', datetime('now'), datetime('now'));
+
+INSERT INTO source_authorities (id, "authorityKey", "authorityName", description, "authorityType", "verificationStatus", "endpointUrl", "version", "metadata", "isActive", "trustLevel", "createdAt", "updatedAt")
+VALUES
+('sa1b2c3d4-0001-4000-8000-000000000001', 'gov.dmv', 'DMV Records Authority', 'Department of Motor Vehicles official records', 'government', 'verified', 'https://api.dmv.gov/v2', '2.0.0', '{"cert":"SHA-256:abc123"}', 1, 'high', datetime('now'), datetime('now')),
+('sa1b2c3d4-0002-4000-8000-000000000002', 'gov.ssa', 'Social Security Administration', 'SSA identity verification endpoint', 'government', 'verified', 'https://api.ssa.gov/verify', '1.5.0', '{"cert":"SHA-256:def456"}', 1, 'high', datetime('now'), datetime('now')),
+('sa1b2c3d4-0003-4000-8000-000000000003', 'stripe.api', 'Stripe Payment Authority', 'Official Stripe payment processing API', 'commercial', 'verified', 'https://api.stripe.com/v1', '2024-06-20', '{"cert":"SHA-256:ghi789"}', 1, 'high', datetime('now'), datetime('now')),
+('sa1b2c3d4-0004-4000-8000-000000000004', 'twilio.api', 'Twilio Communications', 'SMS and voice communication provider', 'commercial', 'verified', 'https://api.twilio.com/2010-04-01', '1.0.0', '{"cert":"SHA-256:jkl012"}', 1, 'medium', datetime('now'), datetime('now')),
+('sa1b2c3d4-0005-4000-8000-000000000005', 'internal.identity', 'Internal Identity Provider', 'Self-hosted identity verification service', 'internal', 'verified', 'https://identity.internal.delivery.com/v1', '2.0.0', '{"self_signed":false}', 1, 'high', datetime('now'), datetime('now'));
