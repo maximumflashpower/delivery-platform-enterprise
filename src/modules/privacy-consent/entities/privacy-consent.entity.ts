@@ -54,7 +54,7 @@ export class PrivacyConsent {
   version: string;
 
   @Column({ type: 'text', nullable: true })
-  withdrawal_reason: string;
+  withdrawal_reason: string | null;
 
   @Column({ default: true })
   is_active: boolean;

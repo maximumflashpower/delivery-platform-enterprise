@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, ParseUUIDPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, ParseUUIDPipe, Query } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { RankingEngineService, RankInput } from '../services/ranking-engine.service';
 import { RankingModel, RankingStrategy, ModelStatus } from '../entities/ranking-model.entity';
