@@ -12,7 +12,7 @@
 | WO | Nombre | Módulo(s) Principal(es) | Módulo(s) Secundario(s) | Estado |
 |---|---|---|---|---|
 | WO-001 | Capability Registry y Source Authority | `developer-platform`, `configuration` | `governance` | ⬜ Pendiente |
-| WO-002 | Gates de Release y Dueños de Dominio | `feature-flag`, `governance` | `configuration` | ⬜ Pendiente |
+| WO-002 | Gates de Release y Dueños de Dominio | `feature-flag`, `governance` | `configuration` | ✅ Implementado |
 | WO-003 | Registro de Daños, Riesgos y Excepciones | `trust-safety`, `audit` | `support-claims` | ⬜ Pendiente |
 | WO-004 | Autenticación, Sesiones y Recuperación | `auth`, `identity` | — | ✅ Implementado |
 | WO-005 | Capa de Datos y Consentimiento Dinámico | `privacy-consent`, `identity` | `configuration` | ⬜ Pendiente |
