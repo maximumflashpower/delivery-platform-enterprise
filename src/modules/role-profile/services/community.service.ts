@@ -58,10 +58,4 @@ export class CommunityService {
     community.member_count = Math.max(0, community.member_count - 1);
     return this.repo.save(community);
   }
-
-  async getMembers(id: string, limit = 100): Promise<import('../entities/community-membership.entity').CommunityMembership[]> {
-    const { CommunityMembershipService } = require('../services/community-membership.service');
-    const service = new CommunityMembershipService(null, null); // Will be injected properly in module
-    return service.findByCommunity(id, limit);
-  }
 }
