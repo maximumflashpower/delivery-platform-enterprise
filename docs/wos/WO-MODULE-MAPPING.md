@@ -20,7 +20,7 @@
 | WO-007 | Controles de Usuario y Explicabilidad | `identity`, `governance` | `audit` | ⬜ Pendiente |
 | WO-008 | Editor Universal y Publicación Multi-formato | `file-storage` | `storage`, `notification` | ⬜ Pendiente |
 | WO-009 | Versionado, Colaboración y Derechos Básicos | `file-storage`, `storage` | `governance` | ⬜ Pendiente |
-| WO-010 | Estructura de Comunidad y Roles | `role-profile`, `identity` | `governance` | ⬜ Pendiente |
+| WO-010 | Estructura de Comunidad y Roles | `role-profile`, `identity` | `governance` | ✅ Implementado |
 | WO-011 | Votación, Asambleas y Salud Comunitaria | `governance` | `chat`, `realtime` | ⬜ Pendiente |
 | WO-012 | Cola de Moderación y Códigos de Razón | `trust-safety` | `audit`, `support-claims` | ⬜ Pendiente |
 | WO-013 | Evidencia, Apelaciones y Centro para Víctimas | `support-claims`, `trust-safety` | `file-storage`, `audit` | ⬜ Pendiente |
