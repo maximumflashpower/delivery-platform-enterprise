@@ -15,7 +15,7 @@
 | WO-002 | Gates de Release y Dueños de Dominio | `feature-flag`, `governance` | `configuration` | ✅ Implementado |
 | WO-003 | Registro de Daños, Riesgos y Excepciones | `trust-safety`, `audit` | `support-claims` | ✅ Implementado |
 | WO-004 | Autenticación, Sesiones y Recuperación | `auth`, `identity` | — | ✅ Implementado |
-| WO-005 | Capa de Datos y Consentimiento Dinámico | `privacy-consent`, `identity` | `configuration` | ⬜ Pendiente |
+| WO-005 | Capa de Datos y Consentimiento Dinámico | `privacy-consent`, `identity` | `configuration` | ✅ Implementado |
 | WO-006 | Motor de Interés y Ranking Híbrido | `search`, `analytics` | `ml-pipeline` | ⬜ Pendiente |
 | WO-007 | Controles de Usuario y Explicabilidad | `identity`, `governance` | `audit` | ⬜ Pendiente |
 | WO-008 | Editor Universal y Publicación Multi-formato | `file-storage` | `storage`, `notification` | ⬜ Pendiente |
