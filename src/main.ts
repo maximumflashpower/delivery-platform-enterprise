@@ -1,9 +1,8 @@
+import * as crypto from 'crypto';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { WinstonLoggerService } from './config/winston.config';
-import * as crypto from 'crypto';
 
 // Polyfill para Node 18 si crypto global no existe
 if (typeof global.crypto === 'undefined') {
@@ -17,14 +16,6 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.enableCors();
-  
-  // Logger setup (si existe)
-  try {
-    const logger = app.get(WinstonLoggerService);
-    app.useLogger(logger);
-  } catch {
-    // Logger opcional
-  }
   
   // Swagger setup
   const config = new DocumentBuilder()
