@@ -1,33 +1,31 @@
-# ===== Stage 1: Build =====
 FROM node:18-alpine AS builder
 
 WORKDIR /app
 
+# Install Python and build tools for native modules
+RUN apk add --no-cache python3 make g++
+
 COPY package*.json ./
-RUN npm ci
+
+# Use legacy-peer-deps to resolve peer dependency conflicts
+RUN npm install --legacy-peer-deps
 
 COPY . .
+
 RUN npm run build
 
-# ===== Stage 2: Production =====
+# Production stage
 FROM node:18-alpine AS production
-
-LABEL org.opencontainers.image.title="delivery-platform-enterprise"
-LABEL org.opencontainers.image.description="Enterprise Multi-Domain Delivery Platform"
 
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci --only=production && npm cache clean --force
+RUN npm ci --only=production --legacy-peer-deps
 
 COPY --from=builder /app/dist ./dist
 
-ENV NODE_ENV=production
-ENV APP_PORT=3000
+USER node
 
 EXPOSE 3000
-
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/api/health || exit 1
 
 CMD ["node", "dist/main.js"]
