@@ -40,7 +40,7 @@ export class PrivacyConsentService {
 
     consent.status = ConsentStatus.WITHDRAWN;
     consent.withdrawn_at = new Date();
-    consent.withdrawal_reason = reason;
+    consent.withdrawal_reason = reason ?? null;
     consent.is_active = false;
 
     return this.repo.save(consent);
