@@ -4,7 +4,7 @@ import { CommunityMembershipService } from '../services/community-membership.ser
 import { CommunityMembership, MembershipStatus } from '../entities/community-membership.entity';
 
 @ApiTags('community-memberships')
-@Controller('api/role-profile/memberships')
+@Controller('role-profile/memberships')
 export class CommunityMembershipController {
   constructor(private readonly service: CommunityMembershipService) {}
 

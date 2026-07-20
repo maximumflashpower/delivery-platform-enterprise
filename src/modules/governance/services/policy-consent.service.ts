@@ -10,51 +10,51 @@ export class PolicyConsentService {
     private readonly repo: Repository<PolicyConsent>,
   ) {}
 
-  async record(user_id: string, policy_id: string, version: string, action: ConsentAction, consentedBy?: string): Promise<PolicyConsent> {
+  async record(userId: string, policyId: string, version: string, action: ConsentAction, consentedBy?: string): Promise<PolicyConsent> {
     const consent = this.repo.create({
-      user_id,
-      policy_id,
+      userId,
+      policyId,
       version,
       action,
       agreed_at: new Date(),
-      consentedBy
+      consentedBy: consentedBy || null
     });
     return this.repo.save(consent);
   }
 
-  async withdraw(user_id: string, policy_id: string, reason?: string): Promise<PolicyConsent> {
+  async withdraw(userId: string, policyId: string, reason?: string): Promise<PolicyConsent> {
     const consent = await this.repo.findOne({
-      where: { user_id, policy_id },
+      where: { userId, policyId },
       order: { agreed_at: 'DESC' }
     });
 
-    if (!consent) throw new NotFoundException(`Consent for policy ${policy_id} not found`);
+    if (!consent) throw new NotFoundException(`Consent for policy ${policyId} not found`);
 
     consent.action = ConsentAction.WITHDRAWN;
     consent.withdrawn_at = new Date();
-    consent.withdrawal_reason = reason;
+    consent.withdrawal_reason = reason || null;
 
     return this.repo.save(consent);
   }
 
-  async findByUser(user_id: string): Promise<PolicyConsent[]> {
-    return this.repo.find({ where: { user_id }, order: { agreed_at: 'DESC' } });
+  async findByUser(userId: string): Promise<PolicyConsent[]> {
+    return this.repo.find({ where: { userId }, order: { agreed_at: 'DESC' } });
   }
 
-  async findByPolicy(policy_id: string): Promise<PolicyConsent[]> {
-    return this.repo.find({ where: { policy_id }, order: { agreed_at: 'DESC' } });
+  async findByPolicy(policyId: string): Promise<PolicyConsent[]> {
+    return this.repo.find({ where: { policyId }, order: { agreed_at: 'DESC' } });
   }
 
-  async hasActiveConsent(user_id: string, policy_id: string): Promise<boolean> {
+  async hasActiveConsent(userId: string, policyId: string): Promise<boolean> {
     const consent = await this.repo.findOne({
-      where: { user_id, policy_id, action: ConsentAction.AGREED }
+      where: { userId, policyId, action: ConsentAction.AGREED }
     });
     return !!consent;
   }
 
-  async getLastConsentVersion(user_id: string, policy_id: string): Promise<string | null> {
+  async getLastConsentVersion(userId: string, policyId: string): Promise<string | null> {
     const consent = await this.repo.findOne({
-      where: { user_id, policy_id },
+      where: { userId, policyId },
       order: { agreed_at: 'DESC' }
     });
     return consent ? consent.version : null;

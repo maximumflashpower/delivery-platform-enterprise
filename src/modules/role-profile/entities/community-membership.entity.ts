@@ -37,25 +37,25 @@ export class CommunityMembership {
   status: MembershipStatus;
 
   @Column({ type: 'varchar', length: 50, nullable: true })
-  join_reason: JoinReason;
+  join_reason: JoinReason | null;
 
   @Column('uuid', { name: 'approved_by', nullable: true })
-  approvedBy: string;
+  approvedBy: string | null;
 
   @Column({ type: 'text', nullable: true })
-  approved_comments: string;
+  approved_comments: string | null;
 
   @Column({ type: 'datetime', nullable: true })
-  joined_at: Date;
+  joined_at: Date | null;
 
   @Column({ type: 'datetime', nullable: true })
-  left_at: Date;
+  left_at: Date | null;
 
   @Column({ type: 'datetime', nullable: true })
-  suspended_until: Date;
+  suspended_until: Date | null;
 
   @Column({ type: 'text', nullable: true })
-  suspension_reason: string;
+  suspension_reason: string | null;
 
   @CreateDateColumn({ type: 'datetime', name: 'created_at' })
   createdAt: Date;

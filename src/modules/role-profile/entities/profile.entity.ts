@@ -31,46 +31,46 @@ export class Profile {
   verification_level: ProfileVerificationLevel;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  display_name: string;
+  display_name: string | null;
 
   @Column({ type: 'text', nullable: true })
-  bio: string;
+  bio: string | null;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  avatar_url: string;
+  avatar_url: string | null;
 
   @Column({ type: 'text', nullable: true })
-  skills: string;
+  skills: string | null;
 
   @Column({ type: 'text', nullable: true })
-  interests: string;
+  interests: string | null;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
-  location: string;
+  location: string | null;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  website_url: string;
+  website_url: string | null;
 
   @Column({ type: 'text', nullable: true })
-  social_links: string;
+  social_links: string | null;
 
   @Column({ type: 'text', nullable: true })
-  achievements: string;
+  achievements: string | null;
 
   @Column({ type: 'text', nullable: true })
-  preferences: string;
+  preferences: string | null;
 
-  @Column({ default: true })
+  @Column({ default: false })
   is_complete: boolean;
 
   @Column({ default: true })
   is_active: boolean;
 
   @Column({ type: 'datetime', nullable: true })
-  verified_at: Date;
+  verified_at: Date | null;
 
   @Column({ type: 'datetime', nullable: true })
-  last_activity_at: Date;
+  last_activity_at: Date | null;
 
   @CreateDateColumn({ type: 'datetime', name: 'created_at' })
   createdAt: Date;

@@ -4,7 +4,7 @@ import { ProfileService } from '../services/profile.service';
 import { Profile, ProfileVisibility, ProfileVerificationLevel } from '../entities/profile.entity';
 
 @ApiTags('profiles')
-@Controller('api/role-profile/profiles')
+@Controller('role-profile/profiles')
 export class ProfileController {
   constructor(private readonly service: ProfileService) {}
 

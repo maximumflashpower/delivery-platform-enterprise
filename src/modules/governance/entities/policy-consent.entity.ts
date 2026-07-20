@@ -30,16 +30,16 @@ export class PolicyConsent {
   agreed_at: Date;
 
   @Column({ type: 'datetime', nullable: true })
-  withdrawn_at: Date;
+  withdrawn_at: Date | null;
 
   @Column({ type: 'text', nullable: true })
-  withdrawal_reason: string;
+  withdrawal_reason: string | null;
 
   @Column('uuid', { name: 'consented_by', nullable: true })
-  consentedBy: string;
+  consentedBy: string | null;
 
   @Column({ type: 'text', nullable: true })
-  metadata: string;
+  metadata: string | null;
 
   @CreateDateColumn({ type: 'datetime', name: 'created_at' })
   createdAt: Date;

@@ -31,7 +31,6 @@ export class ProfileService {
     const profile = await this.getOrCreate(userId);
     profile.verification_level = level;
     profile.verified_at = new Date();
-    profile.consentedBy = verifiedBy;
     return this.repo.save(profile);
   }
 
@@ -58,7 +57,7 @@ export class ProfileService {
   async getPublicProfiles(limit = 50): Promise<Profile[]> {
     return this.repo.find({
       where: { visibility: ProfileVisibility.PUBLIC, is_active: true },
-      select: ['id', 'display_name', 'bio', 'avatar_url', 'skills', 'interests', 'location'],
+      select: ['id', 'userId', 'display_name', 'bio', 'avatar_url', 'skills', 'interests', 'location'],
       take: limit
     });
   }

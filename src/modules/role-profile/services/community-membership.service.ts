@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CommunityMembership, MembershipStatus } from '../entities/community-membership.entity';
+import { CommunityMembership, MembershipStatus, JoinReason } from '../entities/community-membership.entity';
 
 @Injectable()
 export class CommunityMembershipService {
@@ -16,7 +16,7 @@ export class CommunityMembershipService {
       userId,
       role_id: roleId,
       status: MembershipStatus.PENDING,
-      join_reason: reason || undefined
+      join_reason: (reason as JoinReason) || null
     });
     return this.repo.save(membership);
   }
@@ -30,7 +30,7 @@ export class CommunityMembershipService {
 
     membership.status = MembershipStatus.APPROVED;
     membership.approvedBy = approverId;
-    membership.approved_comments = comments;
+    membership.approved_comments = comments || null;
     membership.joined_at = new Date();
 
     return this.repo.save(membership);
