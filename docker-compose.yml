@@ -14,7 +14,7 @@ services:
       - NODE_ENV=development
       - DB_TYPE=sqlite
       - DB_PATH=/app/data/dev.db
-    command: npm run start:dev
+    command: node --require ./prepolyfill.js ./node_modules/.bin/nest start --watch
     restart: unless-stopped
 
   app-prod:

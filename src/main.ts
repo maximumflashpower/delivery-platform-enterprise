@@ -1,14 +1,7 @@
-import * as crypto from 'crypto';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-
-// Polyfill para Node 18 si crypto global no existe
-if (typeof global.crypto === 'undefined') {
-  // @ts-ignore
-  global.crypto = crypto.webcrypto;
-}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,7 +10,6 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.enableCors();
   
-  // Swagger setup
   const config = new DocumentBuilder()
     .setTitle('Delivery Platform API')
     .setDescription('Multi-Domain Mobility & Logistics System API')
