@@ -1,35 +1,40 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { GovernancePolicy } from './entities/governance-policy.entity';
-import { ComplianceRecord } from './entities/compliance-record.entity';
-import { DomainOwner } from './entities/domain-owner.entity';
-import { PolicyConsent } from './entities/policy-consent.entity';
-import { GovernancePolicyController } from './controllers/governance-policy.controller';
-import { DomainOwnerController } from './controllers/domain-owner.controller';
-import { PolicyConsentController } from './controllers/policy-consent.controller';
-import { GovernancePolicyService } from './services/governance-policy.service';
-import { DomainOwnerService } from './services/domain-owner.service';
-import { PolicyConsentService } from './services/policy-consent.service';
+import { Assembly } from './entities/assembly.entity';
+import { Proposal } from './entities/proposal.entity';
+import { Vote } from './entities/vote.entity';
+import { Ballot } from './entities/ballot.entity';
+import { CommunityHealthMetric } from './entities/community-health-metric.entity';
+import { AssemblyService } from './services/assembly.service';
+import { ProposalService } from './services/proposal.service';
+import { VoteService } from './services/vote.service';
+import { CommunityHealthService } from './services/community-health.service';
+import { AssemblyController } from './controllers/assembly.controller';
+import { ProposalController } from './controllers/proposal.controller';
+import { VoteController } from './controllers/vote.controller';
+import { CommunityHealthController } from './controllers/community-health.controller';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      GovernancePolicy,
-      ComplianceRecord,
-      DomainOwner,
-      PolicyConsent,
-    ]),
+    TypeOrmModule.forFeature([Assembly, Proposal, Vote, Ballot, CommunityHealthMetric]),
   ],
   controllers: [
-    GovernancePolicyController,
-    DomainOwnerController,
-    PolicyConsentController,
+    AssemblyController,
+    ProposalController,
+    VoteController,
+    CommunityHealthController,
   ],
   providers: [
-    GovernancePolicyService,
-    DomainOwnerService,
-    PolicyConsentService,
+    AssemblyService,
+    ProposalService,
+    VoteService,
+    CommunityHealthService,
   ],
-  exports: [PolicyConsentService],
+  exports: [
+    AssemblyService,
+    ProposalService,
+    VoteService,
+    CommunityHealthService,
+  ],
 })
 export class GovernanceModule {}
