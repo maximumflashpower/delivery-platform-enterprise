@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException, ForbiddenException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, IsNull } from 'typeorm';
 import { Script } from '../entities/script.entity';
 import { CreateScriptDto, UpdateScriptDto } from '../dto/create-script.dto';
 
@@ -40,7 +40,7 @@ export class ScriptService {
 
   async findById(id: string): Promise<Script> {
     const script = await this.scriptRepo.findOne({
-      where: { id, deletedAt: null },
+      where: { id, deletedAt: IsNull() },
       relations: ['executions', 'templates'],
     });
 
