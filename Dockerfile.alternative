@@ -1,0 +1,24 @@
+FROM node:18-alpine AS production
+
+WORKDIR /app
+
+LABEL org.opencontainers.image.title="delivery-platform-enterprise"
+LABEL org.opencontainers.image.description="Enterprise Multi-Domain Delivery Platform"
+
+# Install Python for node-gyp during native module builds
+RUN apk add --no-cache python3 make g++
+
+COPY package*.json ./
+
+# Force rebuild of native modules for alpine compatibility
+RUN npm install --legacy-peer-deps
+
+COPY . .
+
+RUN npm run build
+
+USER node
+
+EXPOSE 3000
+
+CMD ["node", "dist/main.js"]
