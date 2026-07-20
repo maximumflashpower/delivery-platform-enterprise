@@ -31,13 +31,13 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
     // sql.js para desarrollo Docker (sin módulos nativos)
     return {
       type: 'sqljs',
-      database: dbPath,
       location: dbPath,
+      autoSave: true,
       entities: [path.join(__dirname, '..', '**', '*.entity.{ts,js}')],
       migrations: [path.join(__dirname, '..', 'migrations', '*{ts,js}')],
       autoLoadEntities: true,
       synchronize: isDev,
       logging: false,
-    } as TypeOrmModuleOptions;
+    } as unknown as TypeOrmModuleOptions;
   }
 }
