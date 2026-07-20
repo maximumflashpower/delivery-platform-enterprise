@@ -15,8 +15,9 @@ jobs:
         with:
           node-version: 18
       - run: npm ci --legacy-peer-deps
+      - run: npm run lint --if-present
       - run: npm run build
-      - name: Run tests (skip if no tests)
+      - name: Run tests
         run: npm test -- --passWithNoTests || true
       - name: Verify build
         run: ls -la dist/
@@ -26,10 +27,8 @@ jobs:
     needs: lint-and-test
     steps:
       - uses: actions/checkout@v4
-      
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      
       - name: Build Docker image
         uses: docker/build-push-action@v5
         with:
@@ -37,9 +36,3 @@ jobs:
           file: ./Dockerfile
           push: false
           tags: delivery-platform-enterprise:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      - name: Verify build succeeded
-        run: |
-          echo "Docker build completed successfully"
