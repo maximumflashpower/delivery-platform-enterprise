@@ -12,7 +12,7 @@ export class LanguageController {
   @PublicRoute()
   @Get()
   findAll(@Query('isActive') isActive?: string): Promise<Language[]> {
-    return this.languageService.findAll(isActive === 'true');
+    return this.languageService.findAll(isActive === undefined ? undefined : isActive === 'true');
   }
 
   @Get(':id')

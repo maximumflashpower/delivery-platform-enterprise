@@ -13,7 +13,7 @@ export class GovernancePolicyController {
   @PublicRoute()
   @Get()
   findAll(@Query('type') type?: string, @Query('isActive') isActive?: string): Promise<GovernancePolicy[]> {
-    return this.policyService.findAll(type, isActive === 'true');
+    return this.policyService.findAll(type, isActive === undefined ? undefined : isActive === 'true');
   }
 
   @PublicRoute()
