@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, LessThan, MoreThan } from 'typeorm';
 import { ScriptTemplate } from '../entities/script-template.entity';
 import { CreateScriptTemplateDto } from '../dto/create-script-template.dto';
 
@@ -66,9 +66,9 @@ export class ScriptTemplateService {
     const now = new Date();
     return this.templateRepo.find({
       where: [
-        { isActive: true, scheduledStart: lessThan(now) },
-        { isActive: true, scheduledEnd: moreThan(now) },
-      ],
+        { isActive: true, scheduledStart: LessThan(now) },
+        { isActive: true, scheduledEnd: MoreThan(now) },
+      ] as any,
     });
   }
 }

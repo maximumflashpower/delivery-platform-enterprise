@@ -58,13 +58,12 @@ export class ScriptVariableService {
 
     if (variable.validationRule) {
       try {
-        // In production, use safer validation
         const regex = new RegExp(variable.validationRule);
         if (!regex.test(inputValue)) {
           return { valid: false, error: 'Validation rule mismatch' };
         }
       } catch {
-        return { valid: true, error: null };
+        return { valid: true };
       }
     }
 

@@ -15,11 +15,11 @@ export class ScriptExecutionService {
   ) {}
 
   async execute(dto: ExecuteScriptDto): Promise<ScriptExecution> {
-    let script: Script;
+    let script: Script | null = null;
 
     if (dto.scriptId) {
       script = await this.scriptRepo.findOne({
-        where: { id: dto.scriptId, deletedAt: null },
+        where: { id: dto.scriptId, deletedAt: null } as any,
       });
       if (!script) throw new NotFoundException(`Script ${dto.scriptId} not found`);
 
@@ -31,14 +31,13 @@ export class ScriptExecutionService {
         throw new BadRequestException(`Script is ${script.status}, cannot execute`);
       }
     } else if (dto.sourceCode) {
-      // Inline execution (sandboxed)
       script = null;
     } else {
       throw new BadRequestException('Either scriptId or sourceCode required');
     }
 
     const execution = this.executionRepo.create({
-      scriptId: script?.id,
+      scriptId: script?.id || null,
       triggeredByUserId: dto.userId,
       triggerType: dto.triggerType || 'manual',
       inputParameters: dto.inputParameters ? JSON.stringify(dto.inputParameters) : null,
@@ -46,10 +45,8 @@ export class ScriptExecutionService {
       startedAt: new Date(),
     });
 
-    // Save initially (running state)
     await this.executionRepo.save(execution);
 
-    // Simulate execution (in production, use VM2/sandbox)
     try {
       await this.simulateExecution(execution, script, dto);
     } catch (err) {
@@ -66,11 +63,9 @@ export class ScriptExecutionService {
 
   private async simulateExecution(
     execution: ScriptExecution,
-    script: Script,
+    script: Script | null,
     dto: ExecuteScriptDto,
   ): Promise<void> {
-    // Placeholder for actual execution engine
-    // Would use vm2, isol-vm, or WASM sandbox
     const result = {
       success: true,
       message: 'Execution simulated',
@@ -80,7 +75,7 @@ export class ScriptExecutionService {
     execution.status = 'completed';
     execution.outputResult = JSON.stringify(result);
     execution.completedAt = new Date();
-    execution.executionTimeMs = Math.floor(Math.random() * 1000) + 100; // Simulated timing
+    execution.executionTimeMs = Math.floor(Math.random() * 1000) + 100;
     execution.logs = JSON.stringify([{ timestamp: new Date().toISOString(), level: 'info', message: 'Execution completed' }]);
 
     await this.executionRepo.save(execution);

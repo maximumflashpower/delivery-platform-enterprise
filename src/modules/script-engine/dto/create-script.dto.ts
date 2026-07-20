@@ -1,31 +1,5 @@
-import { IsString, IsNotEmpty, IsOptional, IsBoolean, IsInt, Min, Max, IsEnum, ValidateNested } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsBoolean, IsInt, Min, Max, IsEnum } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-
-export class ParameterDefinition {
-  @ApiProperty()
-  @IsString()
-  name: string;
-
-  @ApiProperty()
-  @IsString()
-  type: string;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsString()
-  description?: string;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsBoolean()
-  required?: boolean;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsString()
-  defaultValue?: string;
-}
 
 export class CreateScriptDto {
   @ApiProperty({ description: 'Script name' })
@@ -83,13 +57,12 @@ export class CreateScriptDto {
   @IsOptional()
   isEnabled?: boolean;
 
-  @ApiPropertyOptional({ description: 'Parameters schema as JSON' })
-  @ValidateNested({ each: true })
-  @Type(() => ParameterDefinition)
+  @ApiPropertyOptional({ description: 'Parameters schema as JSON string' })
+  @IsString()
   @IsOptional()
-  parameters?: ParameterDefinition[];
+  parameters?: string;
 
-  @ApiPropertyOptional({ description: 'Metadata as JSON' })
+  @ApiPropertyOptional({ description: 'Metadata as JSON string' })
   @IsString()
   @IsOptional()
   metadata?: string;

@@ -94,14 +94,12 @@ export class ScriptService {
   }
 
   async validateSyntax(sourceCode: string, language: string): Promise<{ valid: boolean; errors: string[] }> {
-    // Basic syntax validation (would use AST parser in production)
     const errors: string[] = [];
 
     if (!sourceCode || sourceCode.trim().length === 0) {
       errors.push('Empty source code');
     }
 
-    // Check for balanced braces (JavaScript/TypeScript)
     if (['javascript', 'typescript'].includes(language)) {
       const openBraces = (sourceCode.match(/\{/g) || []).length;
       const closeBraces = (sourceCode.match(/\}/g) || []).length;
