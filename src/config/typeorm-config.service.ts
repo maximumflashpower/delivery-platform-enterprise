@@ -1,26 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+import * as path from 'path';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
-  constructor(private configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
-    const isDev = this.configService.get<string>('NODE_ENV') !== 'production';
+    const dbType = process.env.DB_TYPE || 'sqlite';
+    const dbPath = process.env.DB_PATH || path.join(process.cwd(), 'dev.db');
+    const isDev = process.env.NODE_ENV === 'development';
 
+    if (dbType === 'postgres') {
+      return {
+        type: 'postgres',
+        host: process.env.DB_HOST || 'localhost',
+        port: parseInt(process.env.DB_PORT || '5432'),
+        username: process.env.DB_USERNAME || 'postgres',
+        password: process.env.DB_PASSWORD || 'postgres',
+        database: process.env.DB_DATABASE || 'delivery_platform',
+        entities: [path.join(__dirname, '..', '**', '*.entity.{ts,js}')],
+        migrations: [path.join(__dirname, '..', 'migrations', '*{ts,js}')],
+        autoLoadEntities: true,
+        synchronize: false,
+        logging: false,
+      };
+    }
+
+    // SQLite/better-sqlite3 para desarrollo
     return {
-      type: this.configService.get<'better-sqlite3' | 'postgres'>('TYPEORM_CONNECTION', 'better-sqlite3'),
-      database: this.configService.get<string>('TYPEORM_DATABASE', 'dev.db'),
-      host: this.configService.get<string>('TYPEORM_HOST'),
-      port: this.configService.get<number>('TYPEORM_PORT', 5432),
-      username: this.configService.get<string>('TYPEORM_USERNAME'),
-      password: this.configService.get<string>('TYPEORM_PASSWORD'),
-      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-      migrations: [__dirname + '/../migrations/*{.ts,.js}'],
-      migrationsRun: false,
-      synchronize: isDev, // Solo en desarrollo, false en producción
-      logging: isDev ? ['error', 'schema'] : ['error'],
-    };
+      type: 'better-sqlite3',
+      database: dbPath,
+      entities: [path.join(__dirname, '..', '**', '*.entity.{ts,js}')],
+      migrations: [path.join(__dirname, '..', 'migrations', '*{ts,js}')],
+      autoLoadEntities: true,
+      synchronize: isDev,
+      logging: false,
+    } as TypeOrmModuleOptions;
   }
 }
