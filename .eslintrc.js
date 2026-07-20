@@ -23,6 +23,14 @@ module.exports = {
     'test/**',
     'src/seeds/**',
   ],
+  overrides: [
+    {
+      files: ['src/config/winston.config.ts'],
+      rules: {
+        '@typescript-eslint/no-require-imports': 'off',
+      },
+    },
+  ],
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-empty-function': 'off',
