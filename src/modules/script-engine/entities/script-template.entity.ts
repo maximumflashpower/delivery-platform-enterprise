@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { Script } from './script.entity';
 
 @Entity('script_templates')
@@ -9,7 +9,8 @@ export class ScriptTemplate {
   @Column('uuid')
   scriptId: string;
 
-  @ManyToOne(() => Script, script => script.templates, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Script, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'scriptId' })
   script: Script;
 
   @Column({ length: 255 })
@@ -22,7 +23,7 @@ export class ScriptTemplate {
   defaultInputValues: string;
 
   @Column({ length: 100, default: 'standard' })
-  environment: 'standard' | 'secure' | 'sandbox' | 'elevated';
+  environment: string;
 
   @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   scheduledStart: Date;

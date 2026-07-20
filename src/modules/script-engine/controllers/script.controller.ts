@@ -1,7 +1,8 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { ScriptService } from '../services/script.service';
-import { CreateScriptDto, UpdateScriptDto } from '../dto/create-script.dto';
+import { CreateScriptDto } from '../dto/create-script.dto'
+import { UpdateScriptDto } from '../dto/update-script.dto';
 import { Script } from '../entities/script.entity';
 
 @ApiTags('Script Engine - Scripts')

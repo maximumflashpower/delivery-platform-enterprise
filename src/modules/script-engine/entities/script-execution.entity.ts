@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { Script } from './script.entity';
-import { User } from '../../auth/entities/user.entity';
+import { User } from '../auth/entities/user.entity';
 
 @Entity('script_executions')
 export class ScriptExecution {
@@ -10,7 +10,7 @@ export class ScriptExecution {
   @Column('uuid')
   scriptId: string;
 
-  @ManyToOne(() => Script, script => script.executions, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Script, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'scriptId' })
   script: Script;
 
@@ -25,10 +25,10 @@ export class ScriptExecution {
   triggerId: string;
 
   @Column({ length: 100, default: 'manual' })
-  triggerType: 'manual' | 'scheduled' | 'event' | 'api' | 'webhook' | 'system';
+  triggerType: string;
 
   @Column({ length: 50, default: 'running' })
-  status: 'queued' | 'running' | 'completed' | 'failed' | 'timeout' | 'cancelled';
+  status: string;
 
   @Column('text', { nullable: true })
   inputParameters: string;

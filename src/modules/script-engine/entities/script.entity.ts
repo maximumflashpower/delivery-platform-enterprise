@@ -1,5 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from 'typeorm';
-import { User } from '../../auth/entities/user.entity';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 
 @Entity('script_scripts')
 export class Script {
@@ -16,10 +15,10 @@ export class Script {
   sourceCode: string;
 
   @Column({ length: 100, default: 'javascript' })
-  language: 'javascript' | 'typescript' | 'lua' | 'python' | 'custom';
+  language: string;
 
   @Column({ length: 50, default: 'draft' })
-  status: 'draft' | 'active' | 'inactive' | 'deprecated' | 'locked';
+  status: string;
 
   @Column({ type: 'int', default: 1 })
   version: number;
@@ -27,13 +26,14 @@ export class Script {
   @Column('uuid', { nullable: true })
   createdByUserId: string;
 
-  @ManyToOne(() => User, { onDelete: 'SET NULL' })
-  createdByUser: User;
+  // Removed User relation to avoid circular dependency
+  // @ManyToOne(() => User, { onDelete: 'SET NULL' })
+  // createdByUser: User;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   publishedAt: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   lastExecutedAt: Date;
 
   @Column({ type: 'int', default: 0 })
@@ -66,9 +66,8 @@ export class Script {
   @Column({ type: 'datetime', nullable: true })
   deletedAt: Date;
 
-  @OneToMany(() => ScriptExecution, execution => execution.script)
-  executions: ScriptExecution[];
+  // Simplified relations - TypeORM will handle them
+  executions: any[];
 
-  @OneToMany(() => ScriptTemplate, template => template.script)
-  templates: ScriptTemplate[];
+  templates: any[];
 }

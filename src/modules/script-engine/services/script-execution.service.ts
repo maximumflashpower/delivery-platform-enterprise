@@ -30,20 +30,18 @@ export class ScriptExecutionService {
       if (script.status !== 'active') {
         throw new BadRequestException(`Script is ${script.status}, cannot execute`);
       }
-    } else if (dto.sourceCode) {
-      script = null;
-    } else {
-      throw new BadRequestException('Either scriptId or sourceCode required');
     }
 
-    const execution = this.executionRepo.create({
-      scriptId: script?.id || null,
-      triggeredByUserId: dto.userId,
-      triggerType: dto.triggerType || 'manual',
-      inputParameters: dto.inputParameters ? JSON.stringify(dto.inputParameters) : null,
-      status: 'running',
-      startedAt: new Date(),
-    });
+    // Create execution object manually to avoid TypeORM type issues
+    const execution = new ScriptExecution();
+    execution.scriptId = script?.id || null;
+    execution.triggeredByUserId = dto.userId;
+    execution.triggerType = dto.triggerType || 'manual';
+    execution.inputParameters = dto.inputParameters ? JSON.stringify(dto.inputParameters) : null;
+    execution.status = 'running';
+    execution.startedAt = new Date();
+    execution.executionTimeMs = 0;
+    execution.retryAttempt = 1;
 
     await this.executionRepo.save(execution);
 

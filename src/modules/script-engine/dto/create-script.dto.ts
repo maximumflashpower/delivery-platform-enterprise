@@ -20,14 +20,14 @@ export class CreateScriptDto {
   @ApiPropertyOptional({ enum: ['javascript', 'typescript', 'lua', 'python', 'custom'], default: 'javascript' })
   @IsEnum(['javascript', 'typescript', 'lua', 'python', 'custom'])
   @IsOptional()
-  language?: 'javascript' | 'typescript' | 'lua' | 'python' | 'custom';
+  language?: string;
 
   @ApiPropertyOptional({ enum: ['draft', 'active', 'inactive', 'deprecated', 'locked'], default: 'draft' })
   @IsEnum(['draft', 'active', 'inactive', 'deprecated', 'locked'])
   @IsOptional()
-  status?: 'draft' | 'active' | 'inactive' | 'deprecated' | 'locked';
+  status?: string;
 
-  @ApiPropertyOptional({ description: 'Created by user ID', example: 'a1b2c3d4-...' })
+  @ApiPropertyOptional({ description: 'Created by user ID' })
   @IsString()
   @IsOptional()
   createdByUserId?: string;

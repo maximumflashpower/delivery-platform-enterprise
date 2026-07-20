@@ -2,7 +2,8 @@ import { Injectable, NotFoundException, BadRequestException, ForbiddenException 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, IsNull } from 'typeorm';
 import { Script } from '../entities/script.entity';
-import { CreateScriptDto, UpdateScriptDto } from '../dto/create-script.dto';
+import { CreateScriptDto } from '../dto/create-script.dto'
+import { UpdateScriptDto } from '../dto/update-script.dto';
 
 @Injectable()
 export class ScriptService {
