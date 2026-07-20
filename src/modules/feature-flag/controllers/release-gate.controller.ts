@@ -4,7 +4,7 @@ import { ReleaseGateService } from '../services/release-gate.service';
 import { ReleaseGate } from '../entities/release-gate.entity';
 
 @ApiTags('release-gates')
-@Controller('api/feature-flag/release-gates')
+@Controller('feature-flag/release-gates')
 export class ReleaseGateController {
   constructor(private readonly releaseGateService: ReleaseGateService) {}
 

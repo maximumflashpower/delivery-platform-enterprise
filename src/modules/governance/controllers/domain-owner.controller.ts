@@ -4,7 +4,7 @@ import { DomainOwnerService } from '../services/domain-owner.service';
 import { DomainOwner } from '../entities/domain-owner.entity';
 
 @ApiTags('domain-owners')
-@Controller('api/governance/domain-owners')
+@Controller('governance/domain-owners')
 export class DomainOwnerController {
   constructor(private readonly domainOwnerService: DomainOwnerService) {}
 
