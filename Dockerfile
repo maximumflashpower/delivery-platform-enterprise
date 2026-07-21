@@ -1,7 +1,7 @@
 # ============================================
-# Stage 1: Build (instala todo, compila, luego prune dev deps)
+# Stage 1: Build
 # ============================================
-FROM node:20-alpine AS builder
+FROM node:20-bookworm AS builder
 
 WORKDIR /app
 
@@ -15,9 +15,9 @@ RUN npm run build
 RUN npm prune --omit=dev
 
 # ============================================
-# Stage 2: Production (solo copia, sin npm install)
+# Stage 2: Production
 # ============================================
-FROM node:20-alpine AS production
+FROM node:20-bookworm-slim AS production
 
 WORKDIR /app
 
