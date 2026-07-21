@@ -19,7 +19,7 @@ export class UserControlService {
     const control = new UserControl();
     control.userId = dto.userId;
     control.controlType = dto.controlType;
-    control.scope = dto.scope || 'opt-in';
+    control.scope = (dto.scope as any) || 'opt-in';
     control.isEnabled = dto.isEnabled ?? false;
     control.description = dto.description || '';
     control.conditions = dto.conditions || '';

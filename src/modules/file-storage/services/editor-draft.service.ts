@@ -12,7 +12,8 @@ export class EditorDraftService {
   ) {}
 
   async create(dto: CreateFileEditorDraftDto): Promise<FileEditorDraft> {
-    const draft = this.draftRepo.create(dto);
+    const draft = new FileEditorDraft();
+    Object.assign(draft, dto);
     draft.version = 1;
     draft.autoSaveAt = new Date();
     return this.draftRepo.save(draft);

@@ -22,7 +22,7 @@ export class ExplainabilityService {
     record.outputData = dto.outputData || '';
     record.confidenceScore = dto.confidenceScore || 0;
     record.modelVersion = dto.modelVersion || '';
-    record.status = dto.status || 'generated';
+    record.status = (dto.status as any) || 'generated';
     return this.repo.save(record);
   }
 
