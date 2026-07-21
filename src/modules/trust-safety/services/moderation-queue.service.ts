@@ -29,7 +29,7 @@ export class ModerationQueueService {
   async getQueue(status?: string, limit: number = 50): Promise<ModerationQueueItem[]> {
     if (status) {
       return this.repo.find({
-        where: { status },
+        where: { status: status as any },
         order: { priority: 'DESC', createdAt: 'ASC' },
         take: limit,
       });

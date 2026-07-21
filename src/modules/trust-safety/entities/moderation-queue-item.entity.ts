@@ -15,7 +15,7 @@ export class ModerationQueueItem {
   reportedByUserId: string;
 
   @Column('uuid', { nullable: true })
-  flaggedUserId: string;
+  flaggedUserId: string | null;
 
   @Column({ length: 100 })
   reasonCode: string;
@@ -30,13 +30,13 @@ export class ModerationQueueItem {
   status: 'pending' | 'in_review' | 'approved' | 'rejected' | 'removed' | 'escalated';
 
   @Column('uuid', { nullable: true })
-  moderatorId: string;
+  moderatorId: string | null;
 
   @Column({ type: 'datetime', nullable: true })
   reviewedAt: Date;
 
   @Column('text', { nullable: true })
-  moderatorNotes: string;
+  moderatorNotes: string | null;
 
   @Column({ length: 50, nullable: true })
   actionTaken: 'none' | 'warning' | 'content_removed' | 'user_banned' | 'suspended' | 'reported_authorities';

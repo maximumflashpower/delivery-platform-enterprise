@@ -21,22 +21,22 @@ export class VictimSupportCase {
   status: 'open' | 'assigned' | 'in_progress' | 'resolved' | 'closed';
 
   @Column('uuid', { nullable: true })
-  assignedSupportAgent: string;
+  assignedSupportAgent: string | null;
 
   @Column('text', { nullable: true })
-  safetyPlan: string;
+  safetyPlan: string | null;
 
   @Column('text', { nullable: true })
-  evidenceReferences: string;
+  evidenceReferences: string | null;
 
   @Column('text', { nullable: true })
-  externalActions: string;
+  externalActions: string | null;
 
   @Column({ type: 'datetime', nullable: true })
   closedAt: Date;
 
   @Column('text', { nullable: true })
-  closureReason: string;
+  closureReason: string | null;
 
   @CreateDateColumn()
   createdAt: Date;

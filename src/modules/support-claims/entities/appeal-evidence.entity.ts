@@ -12,7 +12,7 @@ export class AppealEvidence {
   uploadedByUserId: string;
 
   @Column('uuid', { nullable: true })
-  fileId: string;
+  fileId: string | null;
 
   @Column({ length: 100 })
   evidenceType: 'screenshot' | 'document' | 'message_log' | 'witness_statement' | 'other';
@@ -27,7 +27,7 @@ export class AppealEvidence {
   verifiedAt: Date;
 
   @Column('uuid', { nullable: true })
-  verifiedBy: string;
+  verifiedBy: string | null;
 
   @CreateDateColumn()
   createdAt: Date;

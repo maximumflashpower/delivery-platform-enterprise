@@ -24,19 +24,19 @@ export class Appeal {
   status: 'submitted' | 'under_review' | 'accepted' | 'rejected' | 'withdrawn';
 
   @Column('text', { nullable: true })
-  additionalEvidence: string;
+  additionalEvidence: string | null;
 
   @Column('uuid', { nullable: true })
-  reviewerId: string;
+  reviewerId: string | null;
 
   @Column({ type: 'datetime', nullable: true })
   reviewedAt: Date;
 
   @Column('text', { nullable: true })
-  reviewerDecision: string;
+  reviewerDecision: string | null;
 
   @Column('text', { nullable: true })
-  outcomeExplanation: string;
+  outcomeExplanation: string | null;
 
   @Column({ type: 'datetime', nullable: true })
   resolvedAt: Date;
