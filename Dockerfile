@@ -1,5 +1,5 @@
 # ============================================
-# Stage 1: Build - mar 21 jul 2026 18:38:56 EDT
+# Stage 1: Build
 # ============================================
 FROM node:20-bookworm AS builder
 
@@ -18,16 +18,16 @@ COPY . .
 RUN npm run build
 
 # ============================================
-# Stage 2: Production
+# Stage 2: Production (copiar todo del builder)
 # ============================================
 FROM node:20-bookworm-slim AS production
 
 WORKDIR /app
 
+# Copy compiled app + node_modules from builder
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
-
-RUN npm install --omit=dev --legacy-peer-deps && npm cache clean --force
 
 ENV NODE_ENV=production
 ENV PORT=3000
