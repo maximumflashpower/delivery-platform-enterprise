@@ -1,20 +1,24 @@
--- WO-011: Governance Seeds (Voting, Assemblies, Community Health)
+-- WO-011: Governance Seeds (Assemblies, Proposals, Ballots, Votes, Health Metrics)
 
-INSERT INTO governance_assemblies (id, title, description, scheduled_start, scheduled_end, status, type, community_id, allows_remote_voting, requires_quorum, quorum_percentage) VALUES
-('a1b2c3d4-e5f6-7890-abcd-ef1234567890', 'Annual General Assembly 2026', 'Annual community assembly to discuss platform direction and elect representatives', '2026-08-01 10:00:00', '2026-08-01 16:00:00', 'scheduled', 'general', 'c001', true, true, 50),
-('a1b2c3d4-e5f6-7890-abcd-ef1234567891', 'Emergency Budget Meeting', 'Emergency assembly to approve Q3 budget amendments', '2026-07-25 14:00:00', '2026-07-25 17:00:00', 'scheduled', 'budget', 'c001', true, false, 0);
+INSERT INTO assemblies (id, "title", "description", "status", "scheduledAt", "createdAt", "updatedAt") VALUES
+('asm-001-4000-8000-000000000001', 'Asamblea General Q3 2026', 'Asamblea trimestral para decisiones de plataforma', 'scheduled', datetime('now','+7 days'), datetime('now','-10 days'), datetime('now','-10 days')),
+('asm-002-4000-8000-000000000002', 'Votación Política de Privacidad', 'Aprobación de nueva política de privacidad', 'active', datetime('now','-1 days'), datetime('now','-5 days'), datetime('now','-1 days'));
 
-INSERT INTO governance_proposals (id, title, description, category, status, assembly_id, submitted_by, voting_start_date, voting_end_date) VALUES
-('p001', 'Increase Platform Fee Cap', 'Propose increasing maximum platform fee from 15% to 18% for premium services', 'policy', 'active', 'a1b2c3d4-e5f6-7890-abcd-ef1234567890', 'u001', '2026-07-20 00:00:00', '2026-07-30 23:59:59'),
-('p002', 'New Verification Badge System', 'Implement tiered verification badges based on community contributions', 'structural', 'pending', 'a1b2c3d4-e5f6-7890-abcd-ef1234567890', 'u002', '2026-07-22 00:00:00', '2026-08-05 23:59:59');
+INSERT INTO proposals (id, "assemblyId", "title", "description", "status", "proposedBy", "createdAt", "updatedAt") VALUES
+('prp-001-4000-8000-000000000001', 'asm-001-4000-8000-000000000001', 'Incrementar tarifa de entrega', 'Proponer incremento de $2 a $2.50 por entrega', 'under_review', 'a1b2c3d4-0001-4000-8000-000000000001', datetime('now','-8 days'), datetime('now','-8 days')),
+('prp-002-4000-8000-000000000002', 'asm-002-4000-8000-000000000002', 'Nueva Política de Datos', 'Actualizar política de datos de usuarios', 'approved', 'a1b2c3d4-0002-4000-8000-000000000002', datetime('now','-4 days'), datetime('now','-1 days'));
 
-INSERT INTO governance_ballots (id, assembly_id, name, method, min_choices, max_choices, is_active, opens_at, closes_at) VALUES
-('b001', 'a1b2c3d4-e5f6-7890-abcd-ef1234567890', 'AGM 2026 Ballot', 'majority', 1, 1, true, '2026-07-20 00:00:00', '2026-08-01 16:00:00');
+INSERT INTO ballots (id, "assemblyId", "title", "description", "options", "status", "openingAt", "closingAt", "results", "createdAt") VALUES
+('blt-001-4000-8000-000000000001', 'asm-002-4000-8000-000000000002', 'Aprobación Política de Datos', 'Votar aprobación de nueva política', '["approve","reject","abstain"]', 'closed', datetime('now','-3 days'), datetime('now','-1 days'), '{"approve":156,"reject":23,"abstain":8}', datetime('now','-3 days')),
+('blt-002-4000-8000-000000000002', 'asm-001-4000-8000-000000000001', 'Incremento de Tarifa', 'Votar sobre el incremento propuesto', '["yes","no","abstain"]', 'open', datetime('now','+7 days'), datetime('now','+14 days'), '{}', datetime('now','-2 days'));
 
-INSERT INTO governance_votes (id, user_id, proposal_id, choice, weight, rationale, voted_at) VALUES
-('v001', 'u001', 'p001', 'yes', 1.5, 'Supports sustainable growth of the platform', '2026-07-20 10:30:00'),
-('v002', 'u002', 'p001', 'no', 1.0, 'Concerned about impact on small merchants', '2026-07-20 11:15:00'),
-('v003', 'u003', 'p001', 'yes', 1.0, 'Agree with the proposal', '2026-07-20 12:00:00');
+INSERT INTO votes (id, "ballotId", "userId", "choice", "votedAt", "createdAt", "updatedAt") VALUES
+('vot-001-4000-8000-000000000001', 'blt-001-4000-8000-000000000001', 'a1b2c3d4-0001-4000-8000-000000000001', 'approve', datetime('now','-2 days'), datetime('now','-2 days'), datetime('now','-2 days')),
+('vot-002-4000-8000-000000000002', 'blt-001-4000-8000-000000000001', 'a1b2c3d4-0002-4000-8000-000000000002', 'reject', datetime('now','-2 days'), datetime('now','-2 days'), datetime('now','-2 days')),
+('vot-003-4000-8000-000000000003', 'blt-001-4000-8000-000000000001', 'a1b2c3d4-0003-4000-8000-000000000003', 'approve', datetime('now','-1 days'), datetime('now','-1 days'), datetime('now','-1 days'));
 
-INSERT INTO governance_community_health_metrics (id, community_id, recorded_at, total_members, active_members, participation_rate, open_proposals, approved_proposals, trust_score) VALUES
-('h001', 'c001', '2026-07-20 00:00:00', 1250, 450, 36.0, 3, 12, 85.5);
+INSERT INTO community_health_metrics (id, "metricName", "metricValue", "metricUnit", "recordedAt", "createdAt", "updatedAt") VALUES
+('chm-001-4000-8000-000000000001', 'participation_rate', 72.5, 'percentage', datetime('now','-1 days'), datetime('now','-1 days'), datetime('now','-1 days')),
+('chm-002-4000-8000-000000000002', 'proposal_approval_rate', 85.0, 'percentage', datetime('now','-1 days'), datetime('now','-1 days'), datetime('now','-1 days')),
+('chm-003-4000-8000-000000000003', 'active_members', 1240, 'count', datetime('now','-1 days'), datetime('now','-1 days'), datetime('now','-1 days')),
+('chm-004-4000-8000-000000000004', 'avg_vote_turnout', 68.3, 'percentage', datetime('now','-1 days'), datetime('now','-1 days'), datetime('now','-1 days'));
