@@ -5,6 +5,12 @@ FROM node:20-bookworm AS builder
 
 WORKDIR /app
 
+# Install build tools needed for native modules
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3 \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
 
@@ -18,11 +24,9 @@ FROM node:20-bookworm-slim AS production
 
 WORKDIR /app
 
-# Copy everything except node_modules first
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package*.json ./
 
-# Install only production deps in final stage (cleaner than copying node_modules)
 RUN npm install --omit=dev --legacy-peer-deps && npm cache clean --force
 
 ENV NODE_ENV=production
