@@ -14,6 +14,7 @@ import { SearchModule } from './modules/search/search.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { ScriptEngineModule } from './modules/script-engine/script-engine.module';
 import { IdentityModule } from './modules/identity/identity.module';
+import { IdentityModule } from './modules/identity/identity.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { IdentityModule } from './modules/identity/identity.module';
     SearchModule,
     AnalyticsModule,
     ScriptEngineModule,
+    IdentityModule,
     IdentityModule,
   ],
   providers: [
