@@ -1,24 +1,21 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, In } from 'typeorm';
+import { Repository, Not, In } from 'typeorm';
 import { Appeal } from '../entities/appeal.entity';
 import { CreateAppealDto } from '../dto/create-appeal.dto';
 import { UpdateAppealStatusDto } from '../dto/update-appeal-status.dto';
-
 @Injectable()
 export class AppealService {
   constructor(
     @InjectRepository(Appeal)
     private readonly repo: Repository<Appeal>,
   ) {}
-
   async create(dto: CreateAppealDto): Promise<Appeal> {
     // Check if appeal already exists for this claim
     const existing = await this.repo.findOne({
       where: { claimId: dto.claimId, userId: dto.userId, status: Not(In(['withdrawn'])) }
     });
     if (existing) throw new BadRequestException('An active appeal already exists for this claim');
-
     const appeal = new Appeal();
     appeal.claimId = dto.claimId;
     appeal.userId = dto.userId;
@@ -29,27 +26,23 @@ export class AppealService {
     appeal.status = 'submitted';
     return this.repo.save(appeal);
   }
-
   async findByClaim(claimId: string): Promise<Appeal[]> {
     return this.repo.find({
       where: { claimId },
       order: { createdAt: 'DESC' },
     });
   }
-
   async findByUser(userId: string): Promise<Appeal[]> {
     return this.repo.find({
       where: { userId },
       order: { createdAt: 'DESC' },
     });
   }
-
   async findById(id: string): Promise<Appeal> {
     const appeal = await this.repo.findOne({ where: { id } });
     if (!appeal) throw new NotFoundException(`Appeal ${id} not found`);
     return appeal;
   }
-
   async updateStatus(id: string, dto: UpdateAppealStatusDto): Promise<Appeal> {
     const appeal = await this.findById(id);
     
@@ -68,7 +61,6 @@ export class AppealService {
     appeal.updatedAt = new Date();
     return this.repo.save(appeal);
   }
-
   async withdraw(id: string, userId: string): Promise<Appeal> {
     const appeal = await this.findById(id);
     if (appeal.userId !== userId) {
@@ -81,7 +73,6 @@ export class AppealService {
     appeal.updatedAt = new Date();
     return this.repo.save(appeal);
   }
-
   async incrementVersion(id: string, additionalEvidence: string): Promise<Appeal> {
     const appeal = await this.findById(id);
     appeal.version += 1;

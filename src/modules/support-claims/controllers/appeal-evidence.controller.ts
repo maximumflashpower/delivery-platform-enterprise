@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Param, Query, Patch } from '@nestjs/common';
+import { ApiQuery } from '@nestjs/swagger';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AppealEvidenceService } from '../services/appeal-evidence.service';
 import { CreateAppealEvidenceDto } from '../dto/create-appeal-evidence.dto';
