@@ -26,7 +26,7 @@ import { FinancialLedgerModule } from './modules/financial-ledger/financial-ledg
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService): Promise<TypeOrmModuleOptions> => ({
-        type: 'sqlite',
+        type: 'better-sqlite3',
         database: configService.get<string>('DATABASE_PATH') || './dev.db',
         entities: [__dirname + '/**/*.entity.{ts,js}'],
         synchronize: true,
