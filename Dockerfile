@@ -1,11 +1,8 @@
-# ============================================
 # Stage 1: Build
-# ============================================
 FROM node:20-bookworm AS builder
 
 WORKDIR /app
 
-# Install build tools needed for native modules
 RUN apt-get update && apt-get install -y \
     build-essential \
     python3 \
@@ -17,14 +14,11 @@ RUN npm install --legacy-peer-deps
 COPY . .
 RUN npm run build
 
-# ============================================
-# Stage 2: Production (copiar todo del builder)
-# ============================================
+# Stage 2: Production
 FROM node:20-bookworm-slim AS production
 
 WORKDIR /app
 
-# Copy compiled app + node_modules from builder
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
