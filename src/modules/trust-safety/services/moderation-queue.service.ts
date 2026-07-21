@@ -75,7 +75,7 @@ export class ModerationQueueService {
     });
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const total_today = await this.repo.count({ where: { createdAt: { gte: today } } });
+    const total_today = await this.repo.count({ where: { createdAt: new Date(today) } });
     return { pending, in_review, resolved: resolved, total_today };
   }
 }

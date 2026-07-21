@@ -13,6 +13,7 @@ import { PrivacyConsentModule } from './modules/privacy-consent/privacy-consent.
 import { SearchModule } from './modules/search/search.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { ScriptEngineModule } from './modules/script-engine/script-engine.module';
+import { SupportClaimsModule } from './modules/support-claims/support-claims.module';
 import { IdentityModule } from './modules/identity/identity.module';
 
 @Module({
@@ -52,6 +53,7 @@ import { IdentityModule } from './modules/identity/identity.module';
     SearchModule,
     AnalyticsModule,
     ScriptEngineModule,
+    SupportClaimsModule,
     IdentityModule,
   ],
   providers: [
