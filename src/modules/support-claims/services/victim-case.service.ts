@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In } from 'typeorm';
 import { VictimSupportCase } from '../entities/victim-support-case.entity';
@@ -92,7 +92,7 @@ export class VictimCaseService {
     const assigned = await this.repo.count({ where: { status: 'assigned' } });
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const resolved_today = await this.repo.count({ where: { status: 'resolved', closedAt: { gte: today } } });
+    const resolved_today = await this.repo.count({ where: { status: 'resolved',  } });
     return { open, urgent, assigned, resolved_today };
   }
 }
