@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Delete, Query, Param} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { AssemblyService } from '../services/assembly.service';
-import { CreateAssemblyDto, UpdateAssemblyDto } from '../dto/create-assembly.dto';
+import { CreateAssemblyDto } from '../dto/create-assembly.dto'
+import { UpdateAssemblyDto } from '../dto/update-assembly.dto';
 import { Assembly } from '../entities/assembly.entity';
 
 @ApiTags('Governance - Assemblies')

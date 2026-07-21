@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, Unique } from 'typeorm';
 import { Proposal } from './proposal.entity';
-import { User } from '../../auth/entities/user.entity';
+import { Ballot } from './ballot.entity';
 
 @Entity('governance_votes')
 @Unique(['proposalId', 'userId', 'ballotId'])
@@ -11,9 +11,6 @@ export class Vote {
   @Column('uuid')
   userId: string;
 
-  @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  user: User;
-
   @Column('uuid')
   proposalId: string;
 
@@ -21,7 +18,10 @@ export class Vote {
   proposal: Proposal;
 
   @Column('uuid', { nullable: true })
-  ballotId: string;
+  ballotId: string | null;
+
+  @ManyToOne(() => Ballot, ballot => ballot.votes, { onDelete: 'SET NULL' })
+  ballot: Ballot;
 
   @Column({ type: 'boolean', default: true })
   isValid: boolean;
@@ -29,11 +29,8 @@ export class Vote {
   @Column({ type: 'decimal', precision: 3, scale: 2, default: 1 })
   weight: number;
 
-  @Column({ length: 20, default: 'yes' })
-  choice: 'yes' | 'no' | 'abstain' | 'blank';
-
-  @Column('text', { nullable: true })
-  rationale: string;
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  choice: string | null;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   votedAt: Date;

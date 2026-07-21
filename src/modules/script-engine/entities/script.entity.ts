@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 
 @Entity('script_scripts')
 export class Script {
@@ -25,10 +25,6 @@ export class Script {
 
   @Column('uuid', { nullable: true })
   createdByUserId: string;
-
-  // Removed User relation to avoid circular dependency
-  // @ManyToOne(() => User, { onDelete: 'SET NULL' })
-  // createdByUser: User;
 
   @Column({ type: 'datetime', nullable: true })
   publishedAt: Date;
@@ -66,8 +62,6 @@ export class Script {
   @Column({ type: 'datetime', nullable: true })
   deletedAt: Date;
 
-  // Simplified relations - TypeORM will handle them
   executions: any[];
-
   templates: any[];
 }

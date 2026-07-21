@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Delete, Query, Param} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { ProposalService } from '../services/proposal.service';
-import { CreateProposalDto, UpdateProposalDto } from '../dto/create-proposal.dto';
+import { CreateProposalDto } from '../dto/create-proposal.dto'
+import { UpdateProposalDto } from '../dto/update-proposal.dto';
 import { Proposal } from '../entities/proposal.entity';
 
 @ApiTags('Governance - Proposals')

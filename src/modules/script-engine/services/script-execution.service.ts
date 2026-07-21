@@ -32,12 +32,11 @@ export class ScriptExecutionService {
       }
     }
 
-    // Create execution object manually to avoid TypeORM type issues
     const execution = new ScriptExecution();
-    execution.scriptId = script?.id || null;
-    execution.triggeredByUserId = dto.userId;
+    execution.scriptId = script?.id || '';  // Empty string, not null
+    execution.triggeredByUserId = dto.userId || '';
     execution.triggerType = dto.triggerType || 'manual';
-    execution.inputParameters = dto.inputParameters ? JSON.stringify(dto.inputParameters) : null;
+    execution.inputParameters = dto.inputParameters ? JSON.stringify(dto.inputParameters) : '';
     execution.status = 'running';
     execution.startedAt = new Date();
     execution.executionTimeMs = 0;
@@ -87,7 +86,7 @@ export class ScriptExecutionService {
   async getById(id: string): Promise<ScriptExecution> {
     const execution = await this.executionRepo.findOne({
       where: { id },
-      relations: ['script', 'triggeredByUser'],
+      relations: ['script'],
     });
 
     if (!execution) throw new NotFoundException(`Execution ${id} not found`);

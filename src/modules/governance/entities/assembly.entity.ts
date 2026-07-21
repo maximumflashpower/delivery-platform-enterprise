@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToMany } from 'typeorm';
-import { User } from '../../auth/entities/user.entity';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToMany, OneToMany } from 'typeorm';
+import { Proposal } from './proposal.entity';
 
 @Entity('governance_assemblies')
 export class Assembly {
@@ -42,12 +42,16 @@ export class Assembly {
   @Column({ type: 'decimal', precision: 5, scale: 2, default: 50 })
   quorumPercentage: number;
 
+  @Column('uuid', { nullable: true })
+  createdByUserId: string;
+
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToMany(() => User, user => user.assemblies)
-  participants: User[];
+  @OneToMany(() => Proposal, proposal => proposal.assembly)
+  proposals: Proposal[];
+  participants: any[];
 }

@@ -1,47 +1,71 @@
-import { IsString, IsUUID, IsNumber, IsOptional, Min, Max, IsDate } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsUUID, IsNumber, IsOptional, Min, Max, IsDate, IsBoolean } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateCommunityHealthMetricDto {
-  @ApiProperty({ description: 'Community ID' })
+  @ApiProperty()
+  @IsString()
+  metricName: string;
+
+  @ApiPropertyOptional()
   @IsUUID()
-  @IsNotEmpty()
-  communityId: string;
+  @IsOptional()
+  communityId?: string;
 
-  @ApiProperty({ description: 'Total members', default: 0 })
+  @ApiProperty()
+  @IsNumber()
+  @Min(0)
+  value: number;
+
+  @ApiPropertyOptional()
   @IsNumber()
   @Min(0)
   @IsOptional()
-  totalMembers?: number;
+  baseline?: number;
 
-  @ApiProperty({ description: 'Active members', default: 0 })
-  @IsNumber()
-  @Min(0)
-  @IsOptional()
-  activeMembers?: number;
-
-  @ApiProperty({ description: 'Participation rate (%)', default: 0 })
-  @IsNumber()
-  @Min(0)
-  @Max(100)
-  @IsOptional()
-  participationRate?: number;
-
-  @ApiProperty({ description: 'Open proposals', default: 0 })
-  @IsNumber()
-  @Min(0)
-  @IsOptional()
-  openProposals?: number;
-
-  @ApiProperty({ description: 'Approved proposals', default: 0 })
-  @IsNumber()
-  @Min(0)
-  @IsOptional()
-  approvedProposals?: number;
-
-  @ApiProperty({ description: 'Trust score', default: 100 })
+  @ApiPropertyOptional()
   @IsNumber()
   @Min(0)
   @Max(100)
   @IsOptional()
-  trustScore?: number;
+  percentage?: number;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  @Min(0)
+  @IsOptional()
+  score?: number;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  @Min(0)
+  @IsOptional()
+  target?: number;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  @Min(0)
+  @IsOptional()
+  current?: number;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  @Min(0)
+  @Max(100)
+  @IsOptional()
+  threshold?: number;
+
+  @ApiPropertyOptional()
+  @IsDate()
+  @IsOptional()
+  recordedAt?: Date;
+
+  @ApiPropertyOptional()
+  @IsBoolean()
+  @IsOptional()
+  isCritical?: boolean;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  notes?: string;
 }

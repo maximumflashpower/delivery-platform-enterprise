@@ -2,7 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Proposal } from '../entities/proposal.entity';
-import { CreateProposalDto, UpdateProposalDto } from '../dto/create-proposal.dto';
+import { CreateProposalDto } from '../dto/create-proposal.dto'
+import { UpdateProposalDto } from '../dto/update-proposal.dto';
 
 @Injectable()
 export class ProposalService {
@@ -58,7 +59,7 @@ export class ProposalService {
 
   async closeVoting(id: string, results: { approved: number; rejected: number; abstained: number }): Promise<Proposal> {
     const proposal = await this.findOne(id);
-    proposal.status = 'closed';
+    proposal.status = 'approved';
     proposal.outcome = JSON.stringify(results);
     
     const total = results.approved + results.rejected + results.abstained;

@@ -1,6 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { Script } from './script.entity';
-import { User } from '../auth/entities/user.entity';
 
 @Entity('script_executions')
 export class ScriptExecution {
@@ -16,10 +15,6 @@ export class ScriptExecution {
 
   @Column('uuid', { nullable: true })
   triggeredByUserId: string;
-
-  @ManyToOne(() => User, { onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'triggeredByUserId' })
-  triggeredByUser: User;
 
   @Column('uuid', { nullable: true })
   triggerId: string;
