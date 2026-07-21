@@ -21,10 +21,10 @@ export class FileRights {
   licenseUrl: string;
 
   @Column({ type: 'datetime', nullable: true })
-  validFrom: Date;
+  validFrom: Date | null;
 
   @Column({ type: 'datetime', nullable: true })
-  validUntil: Date;
+  validUntil: Date | null;
 
   @Column('text', { nullable: true })
   usageRestrictions: string;
