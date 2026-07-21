@@ -1,21 +1,19 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { IdentityUser } from './entities/identity-user.entity';
-import { IdentitySession } from './entities/identity-session.entity';
-import { IdentityDevice } from './entities/identity-device.entity';
-import { IdentityRecoveryCode } from './entities/identity-recovery.entity';
-import { IdentityVerification } from './entities/identity-verification.entity';
+import { UserControl } from './entities/user-control.entity';
+import { ExplainabilityRecord } from './entities/explainability-record.entity';
+import { ControlAuditLog } from './entities/control-audit-log.entity';
+import { UserControlService } from './services/user-control.service';
+import { ExplainabilityService } from './services/explainability.service';
+import { UserControlController } from './controllers/user-control.controller';
+import { ExplainabilityController } from './controllers/explainability.controller';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      IdentityUser,
-      IdentitySession,
-      IdentityDevice,
-      IdentityRecoveryCode,
-      IdentityVerification,
-    ]),
+    TypeOrmModule.forFeature([UserControl, ExplainabilityRecord, ControlAuditLog]),
   ],
-  exports: [TypeOrmModule],
+  controllers: [UserControlController, ExplainabilityController],
+  providers: [UserControlService, ExplainabilityService],
+  exports: [UserControlService, ExplainabilityService],
 })
 export class IdentityModule {}
