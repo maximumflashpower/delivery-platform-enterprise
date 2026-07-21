@@ -4,7 +4,7 @@ import { DataProcessingService } from '../services/data-processing.service';
 import { DataProcessingRecord } from '../entities/data-processing-record.entity';
 
 @ApiTags('data-processing')
-@Controller('api/privacy-consent/data-processing')
+@Controller('privacy-consent/data-processing')
 export class DataProcessingController {
   constructor(private readonly service: DataProcessingService) {}
 

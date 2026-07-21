@@ -4,7 +4,7 @@ import { FileVersionService } from '../services/file-version.service';
 import { CreateFileVersionDto } from '../dto/create-file-version.dto';
 
 @ApiTags('File Storage - Versions')
-@Controller('api/file-storage/versions')
+@Controller('file-storage/versions')
 export class FileVersionController {
   constructor(private readonly service: FileVersionService) {}
 

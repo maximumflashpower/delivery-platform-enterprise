@@ -4,7 +4,7 @@ import { PrivacyConsentService } from '../services/privacy-consent.service';
 import { PrivacyConsent, ConsentType, ConsentStatus } from '../entities/privacy-consent.entity';
 
 @ApiTags('privacy-consents')
-@Controller('api/privacy-consent/consents')
+@Controller('privacy-consent/consents')
 export class PrivacyConsentController {
   constructor(private readonly service: PrivacyConsentService) {}
 

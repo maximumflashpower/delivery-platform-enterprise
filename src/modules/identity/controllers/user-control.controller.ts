@@ -6,7 +6,7 @@ import { UpdateUserControlDto } from '../dto/update-user-control.dto';
 import { UserControl } from '../entities/user-control.entity';
 
 @ApiTags('Identity - User Controls')
-@Controller('api/identity/controls')
+@Controller('identity/controls')
 export class UserControlController {
   constructor(private readonly service: UserControlService) {}
 

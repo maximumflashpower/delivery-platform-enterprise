@@ -5,7 +5,7 @@ import { CreateAppealDto } from '../dto/create-appeal.dto';
 import { UpdateAppealStatusDto } from '../dto/update-appeal-status.dto';
 
 @ApiTags('Support Claims - Appeals')
-@Controller('api/support-claims/appeals')
+@Controller('support-claims/appeals')
 export class AppealController {
   constructor(private readonly service: AppealService) {}
 

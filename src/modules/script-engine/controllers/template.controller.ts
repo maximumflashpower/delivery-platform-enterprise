@@ -5,7 +5,7 @@ import { CreateScriptTemplateDto } from '../dto/create-script-template.dto';
 import { ScriptTemplate } from '../entities/script-template.entity';
 
 @ApiTags('Script Engine - Templates')
-@Controller('api/script-engine/templates')
+@Controller('script-engine/templates')
 export class TemplateController {
   constructor(private readonly templateService: ScriptTemplateService) {}
 

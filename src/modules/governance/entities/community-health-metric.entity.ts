@@ -9,7 +9,7 @@ export class CommunityHealthMetric {
   @Column('uuid')
   communityId: string;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   recordedAt: Date;
 
   @Column({ type: 'int', default: 0 })

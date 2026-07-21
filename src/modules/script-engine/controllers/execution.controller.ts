@@ -5,7 +5,7 @@ import { ExecuteScriptDto } from '../dto/execute-script.dto';
 import { ScriptExecution } from '../entities/script-execution.entity';
 
 @ApiTags('Script Engine - Executions')
-@Controller('api/script-engine/executions')
+@Controller('script-engine/executions')
 export class ExecutionController {
   constructor(private readonly executionService: ScriptExecutionService) {}
 

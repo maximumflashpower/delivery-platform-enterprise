@@ -5,7 +5,7 @@ import { CreateExplainabilityDto } from '../dto/create-explainability.dto';
 import { ExplainabilityRecord } from '../entities/explainability-record.entity';
 
 @ApiTags('Identity - Explainability')
-@Controller('api/identity/explainability')
+@Controller('identity/explainability')
 export class ExplainabilityController {
   constructor(private readonly service: ExplainabilityService) {}
 

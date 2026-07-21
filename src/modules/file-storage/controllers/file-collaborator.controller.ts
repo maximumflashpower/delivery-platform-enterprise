@@ -4,7 +4,7 @@ import { FileCollaboratorService } from '../services/file-collaborator.service';
 import { CreateFileCollaboratorDto } from '../dto/create-file-collaborator.dto';
 
 @ApiTags('File Storage - Collaborators')
-@Controller('api/file-storage/collaborators')
+@Controller('file-storage/collaborators')
 export class FileCollaboratorController {
   constructor(private readonly service: FileCollaboratorService) {}
 

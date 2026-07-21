@@ -4,7 +4,7 @@ import { UserDataRequestService } from '../services/user-data-request.service';
 import { UserDataRequest, RequestType } from '../entities/user-data-request.entity';
 
 @ApiTags('user-data-requests')
-@Controller('api/privacy-consent/requests')
+@Controller('privacy-consent/requests')
 export class UserDataRequestController {
   constructor(private readonly service: UserDataRequestService) {}
 

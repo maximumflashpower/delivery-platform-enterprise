@@ -4,7 +4,7 @@ import { BallotService } from '../services/ballot.service';
 import { Ballot } from '../entities/ballot.entity';
 
 @ApiTags('Governance - Ballots')
-@Controller('api/governance/ballots')
+@Controller('governance/ballots')
 export class BallotController {
   constructor(private readonly service: BallotService) {}
 

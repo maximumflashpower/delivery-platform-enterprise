@@ -5,7 +5,7 @@ import { CreateCommunityHealthMetricDto } from '../dto/create-community-health-m
 import { CommunityHealthMetric } from '../entities/community-health-metric.entity';
 
 @ApiTags('Governance - Community Health')
-@Controller('api/governance/health')
+@Controller('governance/health')
 export class CommunityHealthController {
   constructor(private readonly healthService: CommunityHealthService) {}
 

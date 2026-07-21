@@ -5,7 +5,7 @@ import { AppealEvidenceService } from '../services/appeal-evidence.service';
 import { CreateAppealEvidenceDto } from '../dto/create-appeal-evidence.dto';
 
 @ApiTags('Support Claims - Appeal Evidence')
-@Controller('api/support-claims/appeals/evidence')
+@Controller('support-claims/appeals/evidence')
 export class AppealEvidenceController {
   constructor(private readonly service: AppealEvidenceService) {}
 

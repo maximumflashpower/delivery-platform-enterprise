@@ -4,7 +4,7 @@ import { VoteService } from '../services/vote.service';
 import { Vote } from '../entities/vote.entity';
 
 @ApiTags('Governance - Votes')
-@Controller('api/governance/votes')
+@Controller('governance/votes')
 export class VoteController {
   constructor(private readonly voteService: VoteService) {}
 

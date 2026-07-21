@@ -4,7 +4,7 @@ import { ScriptService } from '../services/script.service';
 import { Script } from '../entities/script.entity';
 
 @ApiTags('Script Engine - Editor')
-@Controller('api/script-engine/editor')
+@Controller('script-engine/editor')
 export class ScriptEditorController {
   constructor(private readonly scriptService: ScriptService) {}
 

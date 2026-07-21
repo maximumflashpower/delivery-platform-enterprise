@@ -12,16 +12,16 @@ export class Assembly {
   @Column('text', { nullable: true })
   description: string;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'datetime' })
   scheduledStart: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   scheduledEnd: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   actualStart: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   actualEnd: Date;
 
   @Column({ length: 50, default: 'draft' })

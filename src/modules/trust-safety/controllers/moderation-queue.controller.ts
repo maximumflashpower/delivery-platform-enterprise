@@ -5,7 +5,7 @@ import { ReportContentDto } from '../dto/report-content.dto';
 import { UpdateModerationStatusDto } from '../dto/update-moderation-status.dto';
 
 @ApiTags('Trust & Safety - Moderation Queue')
-@Controller('api/trust-safety/moderation')
+@Controller('trust-safety/moderation')
 export class ModerationQueueController {
   constructor(private readonly service: ModerationQueueService) {}
 

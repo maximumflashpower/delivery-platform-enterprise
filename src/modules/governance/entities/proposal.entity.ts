@@ -37,13 +37,13 @@ export class Proposal {
   @Column({ length: 255, nullable: true })
   submittedBy: string;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   submissionDeadline: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   votingStartDate: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   votingEndDate: Date;
 
   @Column('text', { nullable: true })

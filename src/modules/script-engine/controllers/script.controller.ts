@@ -6,7 +6,7 @@ import { UpdateScriptDto } from '../dto/update-script.dto';
 import { Script } from '../entities/script.entity';
 
 @ApiTags('Script Engine - Scripts')
-@Controller('api/script-engine/scripts')
+@Controller('script-engine/scripts')
 export class ScriptController {
   constructor(private readonly scriptService: ScriptService) {}
 

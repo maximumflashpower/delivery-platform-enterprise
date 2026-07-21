@@ -15,6 +15,7 @@ import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { ScriptEngineModule } from './modules/script-engine/script-engine.module';
 import { SupportClaimsModule } from './modules/support-claims/support-claims.module';
 import { IdentityModule } from './modules/identity/identity.module';
+import { FinancialLedgerModule } from './modules/financial-ledger/financial-ledger.module';
 
 @Module({
   imports: [
@@ -26,8 +27,8 @@ import { IdentityModule } from './modules/identity/identity.module';
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService): Promise<TypeOrmModuleOptions> => ({
         type: 'sqlite',
-        database: configService.get<string>('DATABASE_PATH') || 'data/dev.db',
-        entities: [__dirname + '/../**/*.entity.{ts,js}'],
+        database: configService.get<string>('DATABASE_PATH') || './dev.db',
+        entities: [__dirname + '/**/*.entity.{ts,js}'],
         synchronize: true,
         logging: false,
       }),
@@ -55,6 +56,7 @@ import { IdentityModule } from './modules/identity/identity.module';
     ScriptEngineModule,
     SupportClaimsModule,
     IdentityModule,
+    FinancialLedgerModule,
   ],
   providers: [
     {

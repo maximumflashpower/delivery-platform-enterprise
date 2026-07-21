@@ -1,5 +1,15 @@
 node_modules
 dist
 *.db
-*.log
+*.db-journal
 .git
+.env
+.env.local
+.env.production
+.vscode
+.idea
+coverage
+logs
+*.log
+*.md
+docker-compose.yml

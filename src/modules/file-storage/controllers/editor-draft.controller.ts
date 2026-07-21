@@ -5,7 +5,7 @@ import { CreateFileEditorDraftDto } from '../dto/create-file-editor-draft.dto';
 import { FileEditorDraft } from '../entities/file-editor-draft.entity';
 
 @ApiTags('File Storage - Editor Drafts')
-@Controller('api/file-storage/editor/drafts')
+@Controller('file-storage/editor/drafts')
 export class EditorDraftController {
   constructor(private readonly service: EditorDraftService) {}
 

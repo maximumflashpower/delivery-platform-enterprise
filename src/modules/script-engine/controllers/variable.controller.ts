@@ -5,7 +5,7 @@ import { CreateScriptVariableDto } from '../dto/create-script-variable.dto';
 import { ScriptVariable } from '../entities/script-variable.entity';
 
 @ApiTags('Script Engine - Variables')
-@Controller('api/script-engine/variables')
+@Controller('script-engine/variables')
 export class VariableController {
   constructor(private readonly variableService: ScriptVariableService) {}
 

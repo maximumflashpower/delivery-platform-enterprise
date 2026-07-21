@@ -4,7 +4,7 @@ import { VictimCaseService } from '../services/victim-case.service';
 import { CreateVictimCaseDto } from '../dto/create-victim-case.dto';
 
 @ApiTags('Support Claims - Victim Cases')
-@Controller('api/support-claims/victim-cases')
+@Controller('support-claims/victim-cases')
 export class VictimCaseController {
   constructor(private readonly service: VictimCaseService) {}
 

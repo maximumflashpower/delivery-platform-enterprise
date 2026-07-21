@@ -28,10 +28,10 @@ export class Ballot {
   @Column({ default: true })
   isActive: boolean;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   opensAt: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   closesAt: Date;
 
   @Column({ type: 'int', default: 0 })

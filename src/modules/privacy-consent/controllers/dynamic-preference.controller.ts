@@ -4,7 +4,7 @@ import { DynamicPreferenceService } from '../services/dynamic-preference.service
 import { DynamicPreference } from '../entities/dynamic-preference.entity';
 
 @ApiTags('dynamic-preferences')
-@Controller('api/privacy-consent/preferences')
+@Controller('privacy-consent/preferences')
 export class DynamicPreferenceController {
   constructor(private readonly service: DynamicPreferenceService) {}
 

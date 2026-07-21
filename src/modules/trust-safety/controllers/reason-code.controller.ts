@@ -4,7 +4,7 @@ import { ReasonCodeService } from '../services/reason-code.service';
 import { CreateReasonCodeDto } from '../dto/create-reason-code.dto';
 
 @ApiTags('Trust & Safety - Reason Codes')
-@Controller('api/trust-safety/reasons')
+@Controller('trust-safety/reasons')
 export class ReasonCodeController {
   constructor(private readonly service: ReasonCodeService) {}
 

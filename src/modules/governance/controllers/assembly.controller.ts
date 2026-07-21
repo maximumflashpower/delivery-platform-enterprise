@@ -6,7 +6,7 @@ import { UpdateAssemblyDto } from '../dto/update-assembly.dto';
 import { Assembly } from '../entities/assembly.entity';
 
 @ApiTags('Governance - Assemblies')
-@Controller('api/governance/assemblies')
+@Controller('governance/assemblies')
 export class AssemblyController {
   constructor(private readonly assemblyService: AssemblyService) {}
 

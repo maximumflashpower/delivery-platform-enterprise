@@ -1,35 +1,43 @@
 # Dependencies
 node_modules/
 
-# Build
+# Build outputs
 dist/
+build/
+*.tsbuildinfo
 
-# Database
+# Database files
 *.db
 *.db-journal
-
-# Environment
 .env
 .env.local
+.env.production
 
 # IDE
 .vscode/
 .idea/
-
-# Temp
-*.backup
-*.backup2
-*.fixed
-temp-*.txt
-*.sh.bak
+*.swp
+*.swo
+*~
 
 # OS
 .DS_Store
 Thumbs.db
 
 # Logs
+logs/
 *.log
 npm-debug.log*
 
-# Logs
-logs/
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.backup
+*.fixed
+
+# Coverage
+coverage/
+
+# Proton specific
+.proton/

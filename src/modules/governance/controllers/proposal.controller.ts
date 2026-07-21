@@ -6,7 +6,7 @@ import { UpdateProposalDto } from '../dto/update-proposal.dto';
 import { Proposal } from '../entities/proposal.entity';
 
 @ApiTags('Governance - Proposals')
-@Controller('api/governance/proposals')
+@Controller('governance/proposals')
 export class ProposalController {
   constructor(private readonly proposalService: ProposalService) {}
 

@@ -32,10 +32,10 @@ export class Vote {
   @Column({ type: 'varchar', length: 50, nullable: true })
   choice: string | null;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   votedAt: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   revokedAt: Date;
 
   @CreateDateColumn()

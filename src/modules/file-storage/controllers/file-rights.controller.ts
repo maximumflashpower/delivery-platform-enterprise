@@ -4,7 +4,7 @@ import { FileRightsService } from '../services/file-rights.service';
 import { CreateFileRightsDto } from '../dto/create-file-rights.dto';
 
 @ApiTags('File Storage - Rights')
-@Controller('api/file-storage/rights')
+@Controller('file-storage/rights')
 export class FileRightsController {
   constructor(private readonly service: FileRightsService) {}
 
