@@ -27,7 +27,7 @@ export class UserControl {
   effectiveFrom: Date;
 
   @Column({ type: 'datetime', nullable: true })
-  effectiveUntil: Date;
+  effectiveUntil: Date | null;
 
   @Column({ type: 'datetime', nullable: true })
   lastModifiedAt: Date;
