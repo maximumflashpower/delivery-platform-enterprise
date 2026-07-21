@@ -53,7 +53,6 @@ import { IdentityModule } from './modules/identity/identity.module';
     AnalyticsModule,
     ScriptEngineModule,
     IdentityModule,
-    IdentityModule,
   ],
   providers: [
     {

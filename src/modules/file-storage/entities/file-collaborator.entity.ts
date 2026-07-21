@@ -18,7 +18,7 @@ export class FileCollaborator {
   isActive: boolean;
 
   @Column('uuid', { nullable: true })
-  invitedBy: string;
+  invitedBy: string | null;
 
   @Column({ type: 'datetime', nullable: true })
   acceptedAt: Date;
