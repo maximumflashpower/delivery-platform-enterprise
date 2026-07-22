@@ -1,3 +1,4 @@
+import { AdControlModule } from './modules/ad-control/ad-control.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
@@ -61,6 +62,7 @@ import { FinancialLedgerModule } from './modules/financial-ledger/financial-ledg
     AuditModule,
     PayoutModule,
     FinancialLedgerModule,
+    AdControlModule,
   ],
   providers: [
     {
