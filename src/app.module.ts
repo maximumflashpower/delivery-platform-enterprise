@@ -23,6 +23,7 @@ import { RoleProfileModule } from './modules/role-profile/role-profile.module';
 import { FeatureFlagModule } from './modules/feature-flag/feature-flag.module';
 import { TrustSafetyModule } from './modules/trust-safety/trust-safety.module';
 import { PrivacyConsentModule } from './modules/privacy-consent/privacy-consent.module';
+import { DsarPortalModule } from './modules/dsar-portal/dsar-portal.module';
 import { SearchModule } from './modules/search/search.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { ScriptEngineModule } from './modules/script-engine/script-engine.module';
@@ -66,6 +67,7 @@ import { FinancialLedgerModule } from './modules/financial-ledger/financial-ledg
     FeatureFlagModule,
     TrustSafetyModule,
     PrivacyConsentModule,
+    DsarPortalModule,
     SearchModule,
     AnalyticsModule,
     ScriptEngineModule,
