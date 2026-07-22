@@ -54,7 +54,7 @@ export class DsarRequest {
   @Column({ type: 'boolean', default: false })
   identityVerified: boolean;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   verifiedAt: Date;
 
   @Column({ type: 'uuid', nullable: true })
@@ -63,10 +63,10 @@ export class DsarRequest {
   @Column({ type: 'text', nullable: true })
   rejectionReason: string;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   dueDate: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   completedAt: Date;
 
   @Column({ type: 'jsonb', nullable: true })

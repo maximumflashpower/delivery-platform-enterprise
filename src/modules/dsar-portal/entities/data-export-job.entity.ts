@@ -66,10 +66,10 @@ export class DataExportJob {
   @Column({ type: 'text', nullable: true })
   errorMessage: string;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   generatedAt: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   expiresAt: Date;
 
   @CreateDateColumn()

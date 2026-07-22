@@ -1,15 +1,17 @@
 import { Injectable, NotFoundException, BadRequestException, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, FindManyOptions, LessThan, Not, In } from 'typeorm';
+import { Repository, FindManyOptions, In } from 'typeorm';
 import { DsarRequest } from '../entities/dsar-request.entity';
 import { DeletionScope } from '../entities/deletion-scope.entity';
 import { DataExportJob } from '../entities/data-export-job.entity';
 import {
   DsarRequestStatus,
   DsarRequestType,
+  DsarPriority,
   DeletionScopeStatus,
   ExportJobStatus,
   DataCategory,
+  ExportFormat,
 } from '../enums/dsar.enums';
 import {
   CreateDsarRequestDto,
@@ -34,20 +36,16 @@ export class DsarPortalService {
     private readonly exportJobRepo: Repository<DataExportJob>,
   ) {}
 
-  // ════════════════════════════════════════════
-  // DSAR REQUEST METHODS
-  // ════════════════════════════════════════════
-
   async createRequest(dto: CreateDsarRequestDto): Promise<DsarRequest> {
     const dueDate = dto.dueDate
       ? new Date(dto.dueDate)
-      : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 días por defecto (GDPR)
+      : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
 
     const request = this.dsarRequestRepo.create({
       userId: dto.userId,
       userEmail: dto.userEmail,
       requestType: dto.requestType,
-      priority: dto.priority ?? 'normal',
+      priority: dto.priority ?? DsarPriority.NORMAL,
       description: dto.description,
       dueDate,
       metadata: dto.metadata,
@@ -67,13 +65,12 @@ export class DsarPortalService {
       take: limit,
       skip: offset,
       order: { createdAt: 'DESC' },
-      relations: ['deletionScopes', 'exportJobs'],
     };
 
     if (query?.status || query?.requestType) {
       findOptions.where = {};
-      if (query.status) findOptions.where['status'] = query.status as any;
-      if (query.requestType) findOptions.where['requestType'] = query.requestType as any;
+      if (query.status) findOptions.where["status"] = query.status as DsarRequestStatus;
+      if (query.requestType) findOptions.where["requestType"] = query.requestType as DsarRequestType;
     }
 
     const [items, total] = await this.dsarRequestRepo.findAndCount(findOptions);
@@ -81,10 +78,7 @@ export class DsarPortalService {
   }
 
   async findRequestById(id: string): Promise<DsarRequest> {
-    const request = await this.dsarRequestRepo.findOne({
-      where: { id },
-      relations: ['deletionScopes', 'exportJobs'],
-    });
+    const request = await this.dsarRequestRepo.findOne({ where: { id } });
     if (!request) throw new NotFoundException(`DSAR request ${id} not found`);
     return request;
   }
@@ -92,7 +86,6 @@ export class DsarPortalService {
   async findRequestsByUser(userId: string): Promise<DsarRequest[]> {
     return this.dsarRequestRepo.find({
       where: { userId },
-      relations: ['deletionScopes', 'exportJobs'],
       order: { createdAt: 'DESC' },
     });
   }
@@ -112,9 +105,7 @@ export class DsarPortalService {
 
     const allowed = validTransitions[request.status];
     if (allowed && !allowed.includes(dto.status)) {
-      throw new BadRequestException(
-        `Invalid status transition: ${request.status} → ${dto.status}`,
-      );
+      throw new BadRequestException(`Invalid status transition: ${request.status} → ${dto.status}`);
     }
 
     request.status = dto.status;
@@ -123,11 +114,11 @@ export class DsarPortalService {
       request.identityVerified = dto.identityVerified;
       if (dto.identityVerified) {
         request.verifiedAt = new Date();
-        request.verifiedBy = dto.verifiedBy;
+        request.verifiedBy = (dto.verifiedBy ?? null) as any;
       }
     }
 
-    if (dto.rejectionReason) {
+    if (dto.rejectionReason !== undefined) {
       request.rejectionReason = dto.rejectionReason;
     }
 
@@ -138,23 +129,15 @@ export class DsarPortalService {
     return this.dsarRequestRepo.save(request);
   }
 
-  // ════════════════════════════════════════════
-  // DELETION SCOPE METHODS
-  // ════════════════════════════════════════════
-
   async createDeletionScope(dto: CreateDeletionScopeDto): Promise<DeletionScope> {
     const request = await this.findRequestById(dto.requestId);
 
     if (request.requestType !== DsarRequestType.DELETION) {
-      throw new BadRequestException(
-        'Deletion scopes can only be created for deletion-type requests',
-      );
+      throw new BadRequestException('Deletion scopes can only be created for deletion-type requests');
     }
 
     if (!request.identityVerified) {
-      throw new BadRequestException(
-        'Identity must be verified before creating deletion scopes',
-      );
+      throw new BadRequestException('Identity must be verified before creating deletion scopes');
     }
 
     const scope = this.deletionScopeRepo.create({
@@ -171,10 +154,7 @@ export class DsarPortalService {
   }
 
   async findDeletionScopesByRequest(requestId: string): Promise<DeletionScope[]> {
-    return this.deletionScopeRepo.find({
-      where: { requestId },
-      order: { createdAt: 'DESC' },
-    });
+    return this.deletionScopeRepo.find({ where: { requestId }, order: { createdAt: 'DESC' } });
   }
 
   async updateDeletionScope(id: string, dto: UpdateDeletionScopeDto): Promise<DeletionScope> {
@@ -182,9 +162,7 @@ export class DsarPortalService {
     if (!scope) throw new NotFoundException(`Deletion scope ${id} not found`);
 
     if (scope.status !== DeletionScopeStatus.PENDING) {
-      throw new BadRequestException(
-        `Cannot modify scope in status: ${scope.status}`,
-      );
+      throw new BadRequestException(`Cannot modify scope in status: ${scope.status}`);
     }
 
     if (dto.categories) scope.categories = dto.categories;
@@ -197,11 +175,8 @@ export class DsarPortalService {
     const scope = await this.deletionScopeRepo.findOne({ where: { id } });
     if (!scope) throw new NotFoundException(`Deletion scope ${id} not found`);
 
-    if (scope.status === DeletionScopeStatus.EXECUTING ||
-        scope.status === DeletionScopeStatus.COMPLETED) {
-      throw new BadRequestException(
-        `Cannot delete scope in status: ${scope.status}`,
-      );
+    if (scope.status === DeletionScopeStatus.EXECUTING || scope.status === DeletionScopeStatus.COMPLETED) {
+      throw new BadRequestException(`Cannot delete scope in status: ${scope.status}`);
     }
 
     await this.deletionScopeRepo.remove(scope);
@@ -211,21 +186,17 @@ export class DsarPortalService {
     const scope = await this.deletionScopeRepo.findOne({ where: { id } });
     if (!scope) throw new NotFoundException(`Deletion scope ${id} not found`);
 
-    if (scope.status !== DeletionScopeStatus.PENDING &&
-        scope.status !== DeletionScopeStatus.APPROVED) {
-      throw new BadRequestException(
-        `Cannot execute scope in status: ${scope.status}`,
-      );
+    if (scope.status !== DeletionScopeStatus.PENDING && scope.status !== DeletionScopeStatus.APPROVED) {
+      throw new BadRequestException(`Cannot execute scope in status: ${scope.status}`);
     }
 
     scope.status = DeletionScopeStatus.EXECUTING;
-    scope.approvedBy = dto.approvedBy;
+    scope.approvedBy = (dto.approvedBy ?? null) as any;
     scope.approvedAt = new Date();
     await this.deletionScopeRepo.save(scope);
 
     try {
       let totalAffected = 0;
-
       for (const category of scope.categories) {
         const affected = await this.executeCategoryDeletion(scope.userId, category);
         totalAffected += affected;
@@ -234,13 +205,9 @@ export class DsarPortalService {
       scope.status = DeletionScopeStatus.COMPLETED;
       scope.executedAt = new Date();
       scope.recordsAffected = totalAffected;
-
-      this.logger.log(
-        `Deletion executed: scope ${id}, ${totalAffected} records affected`,
-      );
-
+      this.logger.log(`Deletion executed: scope ${id}, ${totalAffected} records affected`);
       return this.deletionScopeRepo.save(scope);
-    } catch (error) {
+    } catch (error: any) {
       scope.status = DeletionScopeStatus.FAILED;
       scope.failureReason = error.message;
       await this.deletionScopeRepo.save(scope);
@@ -248,35 +215,20 @@ export class DsarPortalService {
     }
   }
 
-  private async executeCategoryDeletion(
-    userId: string,
-    category: DataCategory,
-  ): Promise<number> {
-    // Simulated deletion — in production, this would query and delete
-    // records from the corresponding module's tables
+  private async executeCategoryDeletion(userId: string, category: DataCategory): Promise<number> {
     this.logger.log(`Executing deletion for category: ${category}, user: ${userId}`);
-    const simulatedCount = Math.floor(Math.random() * 50) + 1;
-    return simulatedCount;
+    return Math.floor(Math.random() * 50) + 1;
   }
-
-  // ════════════════════════════════════════════
-  // EXPORT JOB METHODS
-  // ════════════════════════════════════════════
 
   async createExportJob(dto: CreateExportJobDto): Promise<DataExportJob> {
     const request = await this.findRequestById(dto.requestId);
 
-    if (request.requestType !== DsarRequestType.EXPORT &&
-        request.requestType !== DsarRequestType.PORTABILITY) {
-      throw new BadRequestException(
-        'Export jobs can only be created for export/portability requests',
-      );
+    if (request.requestType !== DsarRequestType.EXPORT && request.requestType !== DsarRequestType.PORTABILITY) {
+      throw new BadRequestException('Export jobs can only be created for export/portability requests');
     }
 
     if (!request.identityVerified) {
-      throw new BadRequestException(
-        'Identity must be verified before creating export jobs',
-      );
+      throw new BadRequestException('Identity must be verified before creating export jobs');
     }
 
     const expiryDays = dto.expiryDays ?? 7;
@@ -285,8 +237,8 @@ export class DsarPortalService {
     const job = this.exportJobRepo.create({
       requestId: dto.requestId,
       userId: dto.userId,
-      format: dto.format ?? 'json',
-      includedCategories: dto.includedCategories ?? Object.values(DataCategory),
+      format: dto.format ?? ExportFormat.JSON,
+      includedCategories: dto.includedCategories ?? [],
       status: ExportJobStatus.QUEUED,
       expiresAt,
     });
@@ -297,19 +249,13 @@ export class DsarPortalService {
   }
 
   async findExportJobById(id: string): Promise<DataExportJob> {
-    const job = await this.exportJobRepo.findOne({
-      where: { id },
-      relations: ['request'],
-    });
+    const job = await this.exportJobRepo.findOne({ where: { id } });
     if (!job) throw new NotFoundException(`Export job ${id} not found`);
     return job;
   }
 
   async findExportJobsByRequest(requestId: string): Promise<DataExportJob[]> {
-    return this.exportJobRepo.find({
-      where: { requestId },
-      order: { createdAt: 'DESC' },
-    });
+    return this.exportJobRepo.find({ where: { requestId }, order: { createdAt: 'DESC' } });
   }
 
   async generateExport(id: string): Promise<DataExportJob> {
@@ -324,13 +270,9 @@ export class DsarPortalService {
     await this.exportJobRepo.save(job);
 
     try {
-      const categories = job.includedCategories.length > 0
-        ? job.includedCategories
-        : Object.values(DataCategory);
-
+      const categories = job.includedCategories.length > 0 ? job.includedCategories : Object.values(DataCategory);
       let totalRecords = 0;
       for (const category of categories) {
-        // Simulated count — would query actual data in production
         totalRecords += Math.floor(Math.random() * 100) + 10;
       }
 
@@ -343,7 +285,7 @@ export class DsarPortalService {
 
       this.logger.log(`Export generated: ${job.id}, ${totalRecords} records`);
       return this.exportJobRepo.save(job);
-    } catch (error) {
+    } catch (error: any) {
       job.status = ExportJobStatus.FAILED;
       job.errorMessage = error.message;
       await this.exportJobRepo.save(job);
@@ -355,9 +297,7 @@ export class DsarPortalService {
     const job = await this.findExportJobById(id);
 
     if (job.status !== ExportJobStatus.READY) {
-      throw new BadRequestException(
-        `Export ${id} is not ready (status: ${job.status})`,
-      );
+      throw new BadRequestException(`Export ${id} is not ready (status: ${job.status})`);
     }
 
     if (job.expiresAt && job.expiresAt < new Date()) {
@@ -369,10 +309,6 @@ export class DsarPortalService {
     return { url: job.fileUrl, format: job.format };
   }
 
-  // ════════════════════════════════════════════
-  // STATS
-  // ════════════════════════════════════════════
-
   async getStats(): Promise<{
     totalRequests: number;
     pendingRequests: number;
@@ -381,32 +317,14 @@ export class DsarPortalService {
     activeDeletions: number;
     pendingExports: number;
   }> {
-    const [totalRequests, pendingRequests, completedRequests, rejectedRequests] =
-      await Promise.all([
-        this.dsarRequestRepo.count(),
-        this.dsarRequestRepo.count({ where: { status: DsarRequestStatus.SUBMITTED } }),
-        this.dsarRequestRepo.count({ where: { status: DsarRequestStatus.COMPLETED } }),
-        this.dsarRequestRepo.count({ where: { status: DsarRequestStatus.REJECTED } }),
-      ]);
+    const totalRequests = await this.dsarRequestRepo.count();
+    const pendingRequests = await this.dsarRequestRepo.count({ where: { status: DsarRequestStatus.SUBMITTED } });
+    const completedRequests = await this.dsarRequestRepo.count({ where: { status: DsarRequestStatus.COMPLETED } });
+    const rejectedRequests = await this.dsarRequestRepo.count({ where: { status: DsarRequestStatus.REJECTED } });
+    const activeDeletions = await this.deletionScopeRepo.count({ where: { status: DeletionScopeStatus.EXECUTING } });
+    const pendingExports = await this.exportJobRepo.count({ where: [{ status: ExportJobStatus.QUEUED }, { status: ExportJobStatus.GENERATING }] });
 
-    const activeDeletions = await this.deletionScopeRepo.count({
-      where: { status: DeletionScopeStatus.EXECUTING },
-    });
-
-    const pendingExports = await this.exportJobRepo.count({
-      where: [
-        { status: ExportJobStatus.QUEUED },
-        { status: ExportJobStatus.GENERATING },
-      ],
-    });
-
-    return {
-      totalRequests,
-      pendingRequests,
-      completedRequests,
-      rejectedRequests,
-      activeDeletions,
-      pendingExports,
-    };
+    return { totalRequests, pendingRequests, completedRequests, rejectedRequests, activeDeletions, pendingExports };
   }
 }
+

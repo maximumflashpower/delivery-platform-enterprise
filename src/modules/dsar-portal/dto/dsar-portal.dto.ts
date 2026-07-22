@@ -49,7 +49,7 @@ export class CreateDsarRequestDto {
   @IsDateString()
   dueDate?: string;
 
-  @ApiPropertyOptional({ type: 'object' })
+  @ApiPropertyOptional({ type: 'object', additionalProperties: true })
   @IsOptional()
   metadata?: Record<string, any>;
 }

@@ -50,10 +50,10 @@ export class DeletionScope {
   @Column({ type: 'uuid', nullable: true })
   approvedBy: string;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   approvedAt: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   executedAt: Date;
 
   @Column({ type: 'int', default: 0 })
