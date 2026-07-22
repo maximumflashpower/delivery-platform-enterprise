@@ -25,6 +25,7 @@ import { TrustSafetyModule } from './modules/trust-safety/trust-safety.module';
 import { PrivacyConsentModule } from './modules/privacy-consent/privacy-consent.module';
 import { DsarPortalModule } from './modules/dsar-portal/dsar-portal.module';
 import { InferencePanelModule } from './modules/inference-panel/inference-panel.module';
+import { ConsentManagementModule } from './modules/consent-management/consent-management.module';
 import { SearchModule } from './modules/search/search.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { ScriptEngineModule } from './modules/script-engine/script-engine.module';
@@ -70,6 +71,7 @@ import { FinancialLedgerModule } from './modules/financial-ledger/financial-ledg
     PrivacyConsentModule,
     DsarPortalModule,
     InferencePanelModule,
+    ConsentManagementModule,
     SearchModule,
     AnalyticsModule,
     ScriptEngineModule,
