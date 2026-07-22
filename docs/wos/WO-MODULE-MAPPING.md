@@ -31,7 +31,7 @@
 | WO-018 | Control de Usuario sobre Anuncios | `privacy-consent`, `configuration` | `governance` | ✅ Implementado |
 | WO-019 | Portal DSAR y Borrado Selectivo | `dsar-portal` | `privacy-consent`, `identity`, `audit` | ✅ Implementado |
 | WO-020 | Panel de Inferencias y Presupuesto de Privacidad | `ml-pipeline`, `analytics` | `privacy-consent` | ✅ Implementado |
-| WO-021 | Modos Sensoriales y Lectura Fácil | `accessibility`, `i18n` | `localization` | ⬜ Pendiente |
+| WO-021 | Modos Sensoriales y Lectura Fácil | `accessibility`, `i18n` | `localization` | ✅ Implementado |
 | WO-022 | Recuperación post-conflicto y Bienestar | `wellness` | `chat`, `notification` | ✅ Implementado |
 | WO-023 | Seguridad de API, Scraping y Partners | `rate-limit`, `integration-gateway`, `webhook` | `audit` | ✅ Implementado |
 | WO-024 | Integración MVP y Plan de Degradación | `developer-platform`, `configuration` | `analytics-observability` | ⬜ Pendiente |
