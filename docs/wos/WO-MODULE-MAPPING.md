@@ -43,7 +43,7 @@
 | WO | Nombre | Módulo(s) Principal(es) | Módulo(s) Secundario(s) | Estado |
 |---|---|---|---|---|
 | WO-025 | Registro de Modelos y Agentes de IA | `ml-pipeline` | `governance`, `audit` | ✅ Implementado |
-| WO-026 | Red-Team Continuo de IA Generativa | `ml-pipeline`, `trust-safety` | `analytics` | ⬜ Pendiente |
+| WO-026 | Red-Team Continuo de IA Generativa | `red-team`, `ml-pipeline` | `trust-safety`, `analytics` | ✅ Implementado |
 | WO-027 | Panel de Apelación de Decisiones IA | `support-claims`, `ml-pipeline` | `audit`, `governance` | ⬜ Pendiente |
 | WO-028 | Marcado de Contenido Sintético por Nivel | `ml-pipeline`, `governance` | `trust-safety` | ⬜ Pendiente |
 | WO-029 | Control de Uso de Voz/Imagen en Modelos | `privacy-consent`, `biometric-security` | `ml-pipeline` | ⬜ Pendiente |
