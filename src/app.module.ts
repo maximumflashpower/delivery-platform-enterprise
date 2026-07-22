@@ -27,6 +27,8 @@ import { DsarPortalModule } from './modules/dsar-portal/dsar-portal.module';
 import { InferencePanelModule } from './modules/inference-panel/inference-panel.module';
 import { ConsentManagementModule } from './modules/consent-management/consent-management.module';
 import { DeveloperPlatformModule } from './modules/developer-platform/developer-platform.module';
+import { ConfigurationModule } from './modules/configuration/configuration.module';
+import { AnalyticsObservabilityModule } from './modules/analytics-observability/analytics-observability.module';
 import { SearchModule } from './modules/search/search.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { ScriptEngineModule } from './modules/script-engine/script-engine.module';
@@ -74,6 +76,8 @@ import { FinancialLedgerModule } from './modules/financial-ledger/financial-ledg
     InferencePanelModule,
     ConsentManagementModule,
     DeveloperPlatformModule,
+    ConfigurationModule,
+    AnalyticsObservabilityModule,
     SearchModule,
     AnalyticsModule,
     ScriptEngineModule,
