@@ -17,18 +17,18 @@
 | WO-004 | Autenticación, Sesiones y Recuperación | `auth`, `identity` | — | ✅ Implementado |
 | WO-005 | Capa de Datos y Consentimiento Dinámico | `privacy-consent`, `identity` | `configuration` | ✅ Implementado |
 | WO-006 | Motor de Interés y Ranking Híbrido | `search`, `analytics` | `ml-pipeline` | ✅ Implementado |
-| WO-007 | Controles de Usuario y Explicabilidad | `identity`, `governance` | `audit` | ⬜ Pendiente |
-| WO-008 | Editor Universal y Publicación Multi-formato | `file-storage` | `storage`, `notification` | ⬜ Pendiente |
-| WO-009 | Versionado, Colaboración y Derechos Básicos | `file-storage`, `storage` | `governance` | ⬜ Pendiente |
+| WO-007 | Controles de Usuario y Explicabilidad | `identity`, `governance` | `audit` | ✅ Implementado |
+| WO-008 | Editor Universal y Publicación Multi-formato | `file-storage` | `storage`, `notification` | ✅ Implementado |
+| WO-009 | Versionado, Colaboración y Derechos Básicos | `file-storage`, `storage` | `governance` | ✅ Implementado |
 | WO-010 | Estructura de Comunidad y Roles | `role-profile`, `identity` | `governance` | ✅ Implementado |
-| WO-011 | Votación, Asambleas y Salud Comunitaria | `governance` | `chat`, `realtime` | ⬜ Pendiente |
-| WO-012 | Cola de Moderación y Códigos de Razón | `trust-safety` | `audit`, `support-claims` | ⬜ Pendiente |
-| WO-013 | Evidencia, Apelaciones y Centro para Víctimas | `support-claims`, `trust-safety` | `file-storage`, `audit` | ⬜ Pendiente |
+| WO-011 | Votación, Asambleas y Salud Comunitaria | `governance` | `chat`, `realtime` | ✅ Implementado |
+| WO-012 | Cola de Moderación y Códigos de Razón | `trust-safety` | `audit`, `support-claims` | ✅ Implementado |
+| WO-013 | Evidencia, Apelaciones y Centro para Víctimas | `support-claims`, `trust-safety` | `file-storage`, `audit` | ✅ Implementado |
 | WO-014 | Mensajería Segura y Filtros Básicos | `chat`, `realtime` | `trust-safety` | ✅ Implementado |
-| WO-015 | Dashboard de Ingresos y Simulador de Payout | `financial-ledger`, `payout` | `analytics` | ⬜ Pendiente |
-| WO-016 | Split por Colaboración y Riesgo de Sponsor | `financial-ledger`, `payout` | `smart-contract` | ⬜ Pendiente |
-| WO-017 | Transparencia Publicitaria y Registro de Patrocinios | `audit`, `governance` | `financial-ledger` | ⬜ Pendiente |
-| WO-018 | Control de Usuario sobre Anuncios | `privacy-consent`, `configuration` | `governance` | ⬜ Pendiente |
+| WO-015 | Dashboard de Ingresos y Simulador de Payout | `financial-ledger`, `payout` | `analytics` | ✅ Implementado |
+| WO-016 | Split por Colaboración y Riesgo de Sponsor | `financial-ledger`, `payout` | `smart-contract` | ✅ Implementado |
+| WO-017 | Transparencia Publicitaria y Registro de Patrocinios | `audit`, `governance` | `financial-ledger` | ✅ Implementado |
+| WO-018 | Control de Usuario sobre Anuncios | `privacy-consent`, `configuration` | `governance` | ✅ Implementado |
 | WO-019 | Portal DSAR y Borrado Selectivo | `privacy-consent`, `identity` | `audit` | ⬜ Pendiente |
 | WO-020 | Panel de Inferencias y Presupuesto de Privacidad | `ml-pipeline`, `analytics` | `privacy-consent` | ⬜ Pendiente |
 | WO-021 | Modos Sensoriales y Lectura Fácil | `accessibility`, `i18n` | `localization` | ⬜ Pendiente |
