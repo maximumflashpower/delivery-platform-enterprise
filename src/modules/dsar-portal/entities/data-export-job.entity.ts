@@ -30,22 +30,17 @@ export class DataExportJob {
   userId: string;
 
   @Column({
-    type: 'enum',
+    type: 'varchar',
     enum: ExportFormat,
     default: ExportFormat.JSON,
   })
   format: ExportFormat;
 
-  @Column({
-    type: 'enum',
-    enum: DataCategory,
-    array: true,
-    default: [],
-  })
+  @Column({ type: 'simple-array', nullable: true })
   includedCategories: DataCategory[];
 
   @Column({
-    type: 'enum',
+    type: 'varchar',
     enum: ExportJobStatus,
     default: ExportJobStatus.QUEUED,
   })

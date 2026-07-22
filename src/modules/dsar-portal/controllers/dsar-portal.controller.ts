@@ -25,7 +25,7 @@ import {
 
 @ApiTags('DSAR Portal')
 @ApiBearerAuth()
-@Controller('api/dsar-portal')
+@Controller('dsar-portal')
 export class DsarPortalController {
   constructor(private readonly service: DsarPortalService) {}
 

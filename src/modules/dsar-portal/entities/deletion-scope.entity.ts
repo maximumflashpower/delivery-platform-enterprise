@@ -29,16 +29,11 @@ export class DeletionScope {
   @Column({ type: 'uuid' })
   userId: string;
 
-  @Column({
-    type: 'enum',
-    enum: DataCategory,
-    array: true,
-    default: [DataCategory.PROFILE],
-  })
+  @Column({ type: 'simple-array', nullable: true })
   categories: DataCategory[];
 
   @Column({
-    type: 'enum',
+    type: 'varchar',
     enum: DeletionScopeStatus,
     default: DeletionScopeStatus.PENDING,
   })
@@ -62,7 +57,7 @@ export class DeletionScope {
   @Column({ type: 'text', nullable: true })
   failureReason: string;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'json', nullable: true })
   rollbackData: Record<string, any>;
 
   @CreateDateColumn()

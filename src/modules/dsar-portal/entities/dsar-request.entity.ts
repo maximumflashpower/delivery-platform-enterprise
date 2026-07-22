@@ -28,21 +28,21 @@ export class DsarRequest {
   userEmail: string;
 
   @Column({
-    type: 'enum',
+    type: 'varchar',
     enum: DsarRequestType,
     default: DsarRequestType.ACCESS,
   })
   requestType: DsarRequestType;
 
   @Column({
-    type: 'enum',
+    type: 'varchar',
     enum: DsarRequestStatus,
     default: DsarRequestStatus.SUBMITTED,
   })
   status: DsarRequestStatus;
 
   @Column({
-    type: 'enum',
+    type: 'varchar',
     enum: DsarPriority,
     default: DsarPriority.NORMAL,
   })
@@ -69,7 +69,7 @@ export class DsarRequest {
   @Column({ type: 'datetime', nullable: true })
   completedAt: Date;
 
-  @Column({ type: 'jsonb', nullable: true })
+  @Column({ type: 'json', nullable: true })
   metadata: Record<string, any>;
 
   @CreateDateColumn()
