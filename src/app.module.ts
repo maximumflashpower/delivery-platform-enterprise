@@ -15,6 +15,7 @@ import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { ScriptEngineModule } from './modules/script-engine/script-engine.module';
 import { SupportClaimsModule } from './modules/support-claims/support-claims.module';
 import { IdentityModule } from './modules/identity/identity.module';
+import { AuditModule } from './modules/audit/audit.module';
 import { PayoutModule } from './modules/payout/payout.module';
 import { FinancialLedgerModule } from './modules/financial-ledger/financial-ledger.module';
 
@@ -57,6 +58,7 @@ import { FinancialLedgerModule } from './modules/financial-ledger/financial-ledg
     ScriptEngineModule,
     SupportClaimsModule,
     IdentityModule,
+    AuditModule,
     PayoutModule,
     FinancialLedgerModule,
   ],
