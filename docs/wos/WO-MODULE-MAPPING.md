@@ -45,7 +45,7 @@
 | WO-025 | Registro de Modelos y Agentes de IA | `ml-pipeline` | `governance`, `audit` | ✅ Implementado |
 | WO-026 | Red-Team Continuo de IA Generativa | `red-team`, `ml-pipeline` | `trust-safety`, `analytics` | ✅ Implementado |
 | WO-027 | Panel de Apelación de Decisiones IA | `support-claims`, `ml-pipeline` | `audit`, `governance` | ⬜ Pendiente |
-| WO-028 | Marcado de Contenido Sintético por Nivel | `ml-pipeline`, `governance` | `trust-safety` | ⬜ Pendiente |
+| WO-028 | Synthetic Content Marking by Level | ✅ Implementado | +15 (ml-pipeline + governance) |
 | WO-029 | Control de Uso de Voz/Imagen en Modelos | `privacy-consent`, `biometric-security` | `ml-pipeline` | ⬜ Pendiente |
 | WO-030 | Pruebas de Seguridad de Agentes con Herramientas | `trust-safety`, `biometric-security` | `ml-pipeline` | ⬜ Pendiente |
 | WO-031 | Firewall de Contexto para Agentes IA | `trust-safety`, `rate-limit` | `ml-pipeline` | ⬜ Pendiente |
