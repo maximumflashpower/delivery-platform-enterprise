@@ -96,8 +96,6 @@ import { FinancialLedgerModule } from './modules/financial-ledger/financial-ledg
     GamificationModule,
     I18nModule,
     MLPipelineModule,
-    PrivacyConsentModule,
-    BiometricSecurityModule,
     NotificationModule,
     RealtimeModule,
     SchedulingModule,

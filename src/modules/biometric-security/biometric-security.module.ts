@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { BiometricTemplate } from './entities/biometric-template.entity';
-import { BiometricVerification } from './entities/biometric-verification.entity';
-import { BiometricTemplateService } from './services/biometric-template.service';
-import { BiometricTemplateController } from './controllers/biometric-template.controller';
+import { BiometricUsageLog } from './entities/biometric-usage-log.entity';
+import { BiometricDataCatalog } from './entities/biometric-data-catalog.entity';
+import { BiometricVerificationService } from './services/biometric-verification.service';
+import { BiometricVerificationController } from './controllers/biometric-verification.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([BiometricTemplate, BiometricVerification])],
-  controllers: [BiometricTemplateController],
-  providers: [BiometricTemplateService],
-  exports: [TypeOrmModule],
+  imports: [TypeOrmModule.forFeature([BiometricUsageLog, BiometricDataCatalog])],
+  controllers: [BiometricVerificationController],
+  providers: [BiometricVerificationService],
+  exports: [TypeOrmModule, BiometricVerificationService],
 })
 export class BiometricSecurityModule {}
