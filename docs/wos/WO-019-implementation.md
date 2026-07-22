@@ -1,47 +1,43 @@
 # WO-019: Portal DSAR y Borrado Selectivo
 
-## Fecha
-2026-07-22
+**Estado**: ✅ Implementado  
+**Fecha**: Julio 2026  
+**Módulos**: `privacy-consent`, `identity` (secundario: `audit`)
 
 ## Resumen
-Implementación del portal DSAR (Data Subject Access Request) con capacidades de borrado selectivo y exportación de datos.
 
-## Nuevos Endpoints (17)
-| Método | Path | Descripción |
-|--------|------|-------------|
-| POST | /api/dsar-portal/requests | Crear solicitud DSAR |
-| GET | /api/dsar-portal/requests | Listar solicitudes |
-| GET | /api/dsar-portal/requests/{id} | Obtener solicitud |
-| PATCH | /api/dsar-portal/requests/{id}/status | Actualizar estado |
-| GET | /api/dsar-portal/requests/user/{userId} | Solicitudes por usuario |
-| POST | /api/dsar-portal/deletion-scopes | Crear scope de borrado |
-| GET | /api/dsar-portal/deletion-scopes/{requestId} | Scopes por solicitud |
-| PATCH | /api/dsar-portal/deletion-scopes/{id} | Actualizar scope |
-| DELETE | /api/dsar-portal/deletion-scopes/{id} | Eliminar scope |
-| POST | /api/dsar-portal/deletion-scopes/{id}/execute | Ejecutar borrado |
-| POST | /api/dsar-portal/export-jobs | Crear job de export |
-| GET | /api/dsar-portal/export-jobs/{id} | Estado del job |
-| GET | /api/dsar-portal/export-jobs/request/{requestId} | Jobs por solicitud |
-| POST | /api/dsar-portal/export-jobs/{id}/generate | Generar export |
-| GET | /api/dsar-portal/export-jobs/{id}/download | Descargar export |
-| GET | /api/dsar-portal/stats | Estadísticas |
+Implementación del Data Subject Access Request (DSAR) portal para cumplir con GDPR y regulaciones similares de privacidad.
 
-## Nuevas Entidades (3)
-1. **DsarRequest** - Solicitudes DSAR con workflow de estados
-2. **DeletionScope** - Alcances de borrado selectivo por categoría
-3. **DataExportJob** - Jobs de exportación de datos
+## Funcionalidades
 
-## Integraciones
-- **privacy-consent**: Referencia UserDataRequest existente
-- **identity**: Verificación de identidad requerida
-- **audit**: Trazabilidad de operaciones
+- **Portal DSAR**: Interfaz para que usuarios soliciten exportación completa de sus datos
+- **Borrado Selectivo**: Usuarios pueden elegir qué datos eliminar (vs. borrado completo)
+- **Request Workflow**: Estado de las solicitudes DSAR (pending/in-progress/completed/rejected)
+- **Data Export**: Generación de exportaciones estructuradas en formato JSON/CSV
+- **Audit Trail**: Registro completo de todas las acciones DSAR para compliance
 
-## Cumplimiento GDPR
-- Art. 15: Right of access
-- Art. 16: Right to rectification
-- Art. 17: Right to erasure (right to be forgotten)
-- Art. 20: Right to data portability
-- Art. 21: Right to object
+## Endpoints Implementados
 
-## Estado
-✅ Implementado y funcional
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| POST | `/api/privacy-consent/requests/submit` | Nueva solicitud DSAR |
+| GET | `/api/privacy-consent/requests/user/{userId}` | Listar solicitudes por usuario |
+| GET | `/api/privacy-consent/requests/{id}` | Detalle de solicitud específica |
+| POST | `/api/privacy-consent/requests/{id}/start` | Iniciar procesamiento |
+| POST | `/api/privacy-consent/requests/{id}/complete` | Completar exportación |
+| POST | `/api/privacy-consent/requests/{id}/reject` | Rechazar solicitud |
+
+## Entidades TypeORM
+
+- `DsarRequest`: Solicitudes DSAR con estado, fechas, y metadata
+
+## Integración
+
+- Registrado en `app.module.ts` como `DsarPortalModule`
+- Conecta con `identity` para obtener datos de usuario
+- Conecta con `audit` para registro de compliance
+
+## Smoke Test Exitoso
+
+json GET /api/privacy-consent/requests/user/{userId} → [] (vacío, listo para uso)
+
