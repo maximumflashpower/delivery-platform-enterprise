@@ -1,4 +1,16 @@
 import { AdControlModule } from './modules/ad-control/ad-control.module';
+import { AccessibilityModule } from './modules/accessibility/accessibility.module';
+import { BiometricSecurityModule } from './modules/biometric-security/biometric-security.module';
+import { CarbonSustainabilityModule } from './modules/carbon-sustainability/carbon-sustainability.module';
+import { ExperimentationModule } from './modules/experimentation/experimentation.module';
+import { GamificationModule } from './modules/gamification/gamification.module';
+import { I18nModule } from './modules/i18n/i18n.module';
+import { MLPipelineModule } from './modules/ml-pipeline/ml-pipeline.module';
+import { NotificationModule } from './modules/notification/notification.module';
+import { RealtimeModule } from './modules/realtime/realtime.module';
+import { SchedulingModule } from './modules/scheduling/scheduling.module';
+import { SmartContractModule } from './modules/smart-contract/smart-contract.module';
+import { WellnessModule } from './modules/wellness/wellness.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
@@ -63,6 +75,18 @@ import { FinancialLedgerModule } from './modules/financial-ledger/financial-ledg
     PayoutModule,
     FinancialLedgerModule,
     AdControlModule,
+    AccessibilityModule,
+    BiometricSecurityModule,
+    CarbonSustainabilityModule,
+    ExperimentationModule,
+    GamificationModule,
+    I18nModule,
+    MLPipelineModule,
+    NotificationModule,
+    RealtimeModule,
+    SchedulingModule,
+    SmartContractModule,
+    WellnessModule,
   ],
   providers: [
     {
