@@ -47,7 +47,7 @@
 | WO-027 | IA Decision Appeal Panel | ✅ Implementado | +8 (ia-appeals en support-claims) |
 | WO-028 | Synthetic Content Marking by Level | ✅ Implementado | +15 (ml-pipeline + governance) |
 | WO-029 | Biometric Voice/Image Usage Control | ✅ Implementado | +13 (privacy-consent + biometric-security) |
-| WO-030 | Pruebas de Seguridad de Agentes con Herramientas | `trust-safety`, `biometric-security` | `ml-pipeline` | ⬜ Pendiente |
+| WO-030 | Agent Tool Security Testing | ✅ Implementado | +16 (trust-safety) |
 | WO-031 | Firewall de Contexto para Agentes IA | `trust-safety`, `rate-limit` | `ml-pipeline` | ⬜ Pendiente |
 | WO-032 | Modo IA Sin Memoria por Defecto | `ml-pipeline`, `privacy-consent` | `configuration` | ⬜ Pendiente |
 | WO-033 | Centro de Riesgo Sistémico de la Plataforma | `trust-safety`, `analytics-observability` | `audit` | ⬜ Pendiente |
