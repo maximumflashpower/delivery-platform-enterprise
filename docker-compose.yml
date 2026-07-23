@@ -1,40 +1,52 @@
-
 services:
   app:
     build:
       context: .
       target: production
-    container_name: delivery-platform
     ports:
       - "3000:3000"
+    volumes:
+      - app-data:/app/data
     environment:
       - NODE_ENV=production
       - PORT=3000
-      - DATABASE_PATH=/app/data/prod.db
-      - THROTTLER_TTL=60000
-      - THROTTLER_LIMIT=100
-    volumes:
-      - app-data:/app/data
+      - DB_TYPE=sqlite
+      - DB_PATH=/app/data/dev.db
+      - CORS_ENABLED=true
+      - SWAGGER_ENABLED=true
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api', (r) => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
 
-  app-dev:
-    build:
-      context: .
-      target: builder
-    container_name: delivery-platform-dev
+  postgres:
+    image: postgres:16-alpine
     ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=development
-      - PORT=3000
-      - DATABASE_PATH=./dev.db
-      - THROTTLER_TTL=60000
-      - THROTTLER_LIMIT=100
+      - "5432:5432"
     volumes:
-      - .:/app
-      - /app/node_modules
-    command: npm run start:dev
-    profiles: ["dev"]
+      - pg-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=delivery_platform
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres_dev_2026
+    restart: unless-stopped
+    profiles:
+      - production
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    profiles:
+      - production
 
 volumes:
   app-data:
+  pg-data:
+  redis-data:
