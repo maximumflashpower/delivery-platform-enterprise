@@ -39,6 +39,7 @@ import { IdentityModule } from './modules/identity/identity.module';
 import { AuditModule } from './modules/audit/audit.module';
 import { PayoutModule } from './modules/payout/payout.module';
 import { FinancialLedgerModule } from './modules/financial-ledger/financial-ledger.module';
+import { AgentSandboxModule } from './modules/agent-sandbox/agent-sandbox.module';
 
 @Module({
   imports: [
@@ -103,6 +104,7 @@ import { FinancialLedgerModule } from './modules/financial-ledger/financial-ledg
     SchedulingModule,
     SmartContractModule,
     WellnessModule,
+    AgentSandboxModule,
   ],
   providers: [
     {
