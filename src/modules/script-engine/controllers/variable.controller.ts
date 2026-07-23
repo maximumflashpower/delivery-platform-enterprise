@@ -17,15 +17,18 @@ export class VariableController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'List variables for a script' })
-  @ApiParam({ name: 'scriptId', required: true })
+  @ApiOperation({ summary: 'List variables (optionally filtered by scriptId)' })
+  @ApiQuery({ name: 'scriptId', required: false })
   @ApiQuery({ name: 'includeSecrets', required: false })
   @ApiResponse({ status: 200, description: 'List of variables', type: [ScriptVariable] })
-  async findByScript(
-    @Query('scriptId') scriptId: string,
+  async findAll(
+    @Query('scriptId') scriptId?: string,
     @Query('includeSecrets') includeSecrets?: string,
   ): Promise<ScriptVariable[]> {
-    return this.variableService.findByScript(scriptId, includeSecrets === 'true');
+    if (scriptId) {
+      return this.variableService.findByScript(scriptId, includeSecrets === 'true');
+    }
+    return this.variableService.findAll();
   }
 
   @Get(':id')

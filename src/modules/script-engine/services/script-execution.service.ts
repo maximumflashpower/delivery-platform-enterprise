@@ -58,6 +58,12 @@ export class ScriptExecutionService {
     return execution;
   }
 
+  async findAll(limit?: number): Promise<ScriptExecution[]> {
+    const findOptions: any = { order: { createdAt: 'DESC' } };
+    if (limit) findOptions.take = limit;
+    return this.executionRepo.find(findOptions);
+  }
+
   private async simulateExecution(
     execution: ScriptExecution,
     script: Script | null,

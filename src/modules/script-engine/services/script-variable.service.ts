@@ -16,6 +16,10 @@ export class ScriptVariableService {
     return this.varRepo.save(variable);
   }
 
+  async findAll(): Promise<ScriptVariable[]> {
+    return this.varRepo.find({ order: { createdAt: 'DESC' } });
+  }
+
   async findByScript(scriptId: string, includeSecrets?: boolean): Promise<ScriptVariable[]> {
     const query = this.varRepo.createQueryBuilder('variable')
       .where('variable.scriptId = :scriptId', { scriptId });

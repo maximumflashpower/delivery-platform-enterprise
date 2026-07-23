@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { ScriptExecutionService } from '../services/script-execution.service';
 import { ExecuteScriptDto } from '../dto/execute-script.dto';
 import { ScriptExecution } from '../entities/script-execution.entity';
@@ -14,6 +14,13 @@ export class ExecutionController {
   @ApiResponse({ status: 201, description: 'Execution started', type: ScriptExecution })
   async execute(@Body() dto: ExecuteScriptDto): Promise<ScriptExecution> {
     return this.executionService.execute(dto);
+  }
+
+  @Get()
+  @ApiOperation({ summary: 'List all executions' })
+  @ApiQuery({ name: 'limit', required: false })
+  async findAll(@Query('limit') limit?: string): Promise<ScriptExecution[]> {
+    return this.executionService.findAll(limit ? parseInt(limit) : undefined);
   }
 
   @Get(':id')

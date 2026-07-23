@@ -42,7 +42,7 @@ export class ScriptService {
   async findById(id: string): Promise<Script> {
     const script = await this.scriptRepo.findOne({
       where: { id, deletedAt: IsNull() },
-      relations: ['executions', 'templates'],
+      
     });
 
     if (!script) throw new NotFoundException(`Script ${id} not found`);
