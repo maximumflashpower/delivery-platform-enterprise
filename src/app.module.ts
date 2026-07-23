@@ -22,6 +22,7 @@ import { GovernanceModule } from './modules/governance/governance.module';
 import { RoleProfileModule } from './modules/role-profile/role-profile.module';
 import { FeatureFlagModule } from './modules/feature-flag/feature-flag.module';
 import { TrustSafetyModule } from './modules/trust-safety/trust-safety.module';
+import { RateLimitModule } from './modules/rate-limit/rate-limit.module';
 import { PrivacyConsentModule } from './modules/privacy-consent/privacy-consent.module';
 import { DsarPortalModule } from './modules/dsar-portal/dsar-portal.module';
 import { InferencePanelModule } from './modules/inference-panel/inference-panel.module';
@@ -72,6 +73,7 @@ import { FinancialLedgerModule } from './modules/financial-ledger/financial-ledg
     RoleProfileModule,
     FeatureFlagModule,
     TrustSafetyModule,
+    RateLimitModule,
     PrivacyConsentModule,
     DsarPortalModule,
     InferencePanelModule,

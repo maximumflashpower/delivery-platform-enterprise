@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { RateLimitPolicy } from './entities/rate-limit-policy.entity';
-import { RateLimitBucket } from './entities/rate-limit-bucket.entity';
-import { RateLimitPolicyService } from './services/rate-limit-policy.service';
-import { RateLimitPolicyController } from './controllers/rate-limit-policy.controller';
+import { RateLimitConfig } from './entities/rate-limit-config.entity';
+import { RateLimitUsage } from './entities/rate-limit-usage.entity';
+import { CircuitBreakerState } from './entities/circuit-breaker-state.entity';
+import { RateLimitService } from './services/rate-limit.service';
+import { RateLimitController } from './controllers/rate-limit.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([RateLimitPolicy, RateLimitBucket])],
-  controllers: [RateLimitPolicyController],
-  providers: [RateLimitPolicyService],
-  exports: [TypeOrmModule],
+  imports: [TypeOrmModule.forFeature([RateLimitConfig, RateLimitUsage, CircuitBreakerState])],
+  controllers: [RateLimitController],
+  providers: [RateLimitService],
+  exports: [TypeOrmModule, RateLimitService],
 })
 export class RateLimitModule {}
