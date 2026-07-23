@@ -40,6 +40,7 @@ import { AuditModule } from './modules/audit/audit.module';
 import { PayoutModule } from './modules/payout/payout.module';
 import { FinancialLedgerModule } from './modules/financial-ledger/financial-ledger.module';
 import { AgentSandboxModule } from './modules/agent-sandbox/agent-sandbox.module';
+import { CodeAnalysisEngineModule } from './modules/code-analysis-engine/code-analysis-engine.module';
 
 @Module({
   imports: [
@@ -105,6 +106,7 @@ import { AgentSandboxModule } from './modules/agent-sandbox/agent-sandbox.module
     SmartContractModule,
     WellnessModule,
     AgentSandboxModule,
+    CodeAnalysisEngineModule,
   ],
   providers: [
     {

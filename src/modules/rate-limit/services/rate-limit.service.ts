@@ -334,14 +334,14 @@ export class RateLimitService {
       usage.windowStart = windowStart;
     }
 
-    usage.requestCount += 1;
-    usage.tokenCount += dto.tokensUsed;
-    usage.costAmount = Number(usage.costAmount) + Number(dto.costAmount || 0);
+    usage.requestCount = (usage.requestCount || 0) + 1;
+    usage.tokenCount = (usage.tokenCount || 0) + dto.tokensUsed;
+    usage.costAmount = parseFloat((Number(usage.costAmount || 0) + Number(dto.costAmount || 0)).toFixed(6));
     if (!dto.success) usage.rejectedCount += 1;
 
     if (dto.responseTimeMs !== undefined && dto.responseTimeMs !== null) {
       const currentAvg = usage.avgResponseTimeMs || 0;
-      const totalCount = usage.requestCount;
+      const totalCount = usage.requestCount || 1;
       usage.avgResponseTimeMs = ((currentAvg * (totalCount - 1)) + dto.responseTimeMs) / totalCount;
     }
 
