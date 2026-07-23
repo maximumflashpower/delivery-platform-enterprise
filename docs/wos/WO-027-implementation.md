@@ -1,57 +1,50 @@
 # WO-027: Panel de Apelación de Decisiones IA
 
+**Estado**: ✅ Implementado
+**Fecha**: Julio 2026
+**Módulos**: `support-claims` (extensión), `ml-pipeline` (secundario: `audit`, `governance`)
+
 ## Resumen
-Implementación del módulo de apelación de decisiones automatizadas tomadas por IA, permitiendo revisión humana, escalado a junta y estadísticas.
 
-## Módulos Afectados
-- **Principal:** support-claims
-- **Sub-módulo:** ia-decision-appeal
+Sistema de apelación para decisiones automatizadas por IA, permitiendo revisión humana de decisiones de moderación de contenido, evaluación de riesgos, violaciones de política y flags de seguridad.
 
-## Archivos Creados
-| Archivo | Descripción |
-|---------|-------------|
-| `entities/ia-decision-appeal.entity.ts` | Entidad con campos de decisión IA, review humano y escalado |
-| `dto/ia-decision-appeal.dto.ts` | DTOs: CreateIaDecisionAppeal, HumanReview, EscalateToBoard |
-| `services/ia-decision-appeal.service.ts` | Servicio con CRUD, review, escalate y stats |
-| `controllers/ia-decision-appeal.controller.ts` | Controller con 8 endpoints |
+## Funcionalidades
 
-## Archivos Modificados
-- `support-claims.module.ts` — Registrada entidad, servicio y controller
+### IA Decision Appeals
+- **Creación**: Vinculada a appealId existente, con modelo y decisión IA
+- **Decision Types**: content_moderation, risk_assessment, policy_violation, safety_flag
+- **Lifecycle**: pending_review → under_human_review → upheld/overturned/escalated
+- **AI Context**: modelName, modelId, aiReasoning, confidenceScore
 
-## Endpoints (+8)
-| Método | Ruta | Descripción |
-|--------|------|-------------|
-| GET | `/api/support-claims/ia-appeals` | Listar todas las apelaciones IA |
-| GET | `/api/support-claims/ia-appeals/stats` | Estadísticas de apelaciones |
-| GET | `/api/support-claims/ia-appeals/{id}` | Detalle de apelación por ID |
-| GET | `/api/support-claims/ia-appeals/by-appeal/{appealId}` | Buscar por appeal ID |
-| GET | `/api/support-claims/ia-appeals/by-decision/{decisionId}` | Buscar por decisión IA |
-| POST | `/api/support-claims/ia-appeals` | Crear apelación de decisión IA |
-| POST | `/api/support-claims/ia-appeals/{id}/start-review` | Iniciar revisión humana |
-| POST | `/api/support-claims/ia-appeals/{id}/complete-review` | Completar review con decisión |
-| POST | `/api/support-claims/ia-appeals/{id}/escalate` | Escalar a junta revisora |
+### Human Review Workflow
+- **Start Review**: Asigna reviewer, cambia estado a under_human_review
+- **Complete Review**: Decisión final: uphold, overturn, request_more_info
+- **Escalate**: Escalada a board con urgency level (low/medium/high/critical)
 
-## Entity: ia_decision_appeals
-Campos principales:
-- `appealId` (UUID) — Referencia al appeal principal
-- `decisionId` (UUID, nullable) — Referencia a la decisión IA
-- `modelName`, `modelId` — Identificación del modelo
-- `decisionType` — content_moderation | risk_assessment | policy_violation | safety_flag
-- `confidenceScore` (float, 0-1) — Confianza del modelo
-- `aiReasoning` (text, nullable) — Razonamiento del modelo
-- `reviewStatus` — pending_review | under_human_review | upheld | overturned | escalated
-- `humanReviewerId`, `humanReviewNotes`, `reviewedAt` — Datos de revisión humana
-- `requiresBoardReview`, `escalatedAt` — Escalado a junta
+### Statistics Dashboard
+- Total/pending/under_review/upheld/overturned/escalated
+- Requires board review count
+- Average confidence score
 
-## Smoke Tests
-1. ✅ Stats (vacío inicial)
-2. ✅ Crear apelación con UUID válido
-3. ✅ Completar review humana (overturn)
-4. ✅ Stats post-test (1 apelación, 1 overturned, avg confidence 0.92)
+## Endpoints (8)
 
-## Dependencias
-- TypeORM (Repository pattern)
-- class-validator (@IsUUID, @IsNumber, @IsString, @IsObject)
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/support-claims/ia-appeals` | GET | List all IA appeals |
+| `/api/support-claims/ia-appeals/stats` | GET | Statistics dashboard |
+| `/api/support-claims/ia-appeals/{id}` | GET | Get appeal by ID |
+| `/api/support-claims/ia-appeals/by-appeal/{appealId}` | GET | Find by appeal ID |
+| `/api/support-claims/ia-appeals/by-decision/{decisionId}` | GET | Find by decision ID |
+| `/api/support-claims/ia-appeals` | POST | Create IA appeal |
+| `/api/support-claims/ia-appeals/{id}/start-review` | POST | Start human review |
+| `/api/support-claims/ia-appeals/{id}/complete-review` | POST | Complete review |
+| `/api/support-claims/ia-appeals/{id}/escalate` | POST | Escalate to board |
 
-## Fecha de Implementación
-2026-07-22
+## Smoke Tests ✅
+- Stats inicial: ✅ zeros
+- Create appeal: ✅ id returned, pending_review
+- List all: ✅ 1 appeal
+- By appeal ID: ✅ 1 found
+- Start review: ✅ under_human_review
+- Complete review: ✅ overturned
+- Stats final: ✅ total=1, overturned=1, avgConfidence=0.92
