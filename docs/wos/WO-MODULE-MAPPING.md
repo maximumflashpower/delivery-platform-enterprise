@@ -49,7 +49,7 @@
 | WO-029 | Biometric Voice/Image Usage Control | ✅ Implementado | +13 (privacy-consent + biometric-security) |
 | WO-030 | Agent Tool Security Testing | ✅ Implementado | +16 (trust-safety) |
 | WO-031 | Context Firewall for AI Agents | ✅ Implementado | +12 (trust-safety) |
-| WO-032 | Modo IA Sin Memoria por Defecto | `ml-pipeline`, `privacy-consent` | `configuration` | ⬜ Pendiente |
+| WO-032 | Agent Rate Limiting & Circuit Breaker | ✅ Implementado | +12 (rate-limit) |
 | WO-033 | Centro de Riesgo Sistémico de la Plataforma | `trust-safety`, `analytics-observability` | `audit` | ⬜ Pendiente |
 | WO-034 | Simulador de Abuso por Función | `analytics`, `trust-safety` | `ml-pipeline` | ⬜ Pendiente |
 | WO-035 | Protocolo de Preservación de Evidencia Grave | `audit`, `file-storage` | `support-claims` | ⬜ Pendiente |
