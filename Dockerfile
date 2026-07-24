@@ -1,7 +1,14 @@
 # ════════════════════════════════════════════════
-# Stage 1: Build
+# Stage 1: Build (compila TS + dependencias nativas)
 # ════════════════════════════════════════════════
 FROM node:20-slim AS builder
+
+# Instalar build tools para better-sqlite3
+RUN apt-get update && apt-get install -y \
+    python3 \
+    make \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -13,8 +20,11 @@ COPY . .
 
 RUN npm run build
 
+# Prune dev dependencies para producción
+RUN npm prune --omit=dev
+
 # ════════════════════════════════════════════════
-# Stage 2: Production
+# Stage 2: Production (sin recompilar nada)
 # ════════════════════════════════════════════════
 FROM node:20-slim AS production
 
@@ -23,10 +33,9 @@ WORKDIR /app
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
+# Copiar package.json + node_modules ya compilados del builder
 COPY package*.json ./
-
-RUN npm ci --omit=dev --legacy-peer-deps && npm cache clean --force
-
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 
 VOLUME ["/app/data"]
