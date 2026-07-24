@@ -51,7 +51,7 @@
 | WO-031 | Context Firewall for AI Agents | ✅ Implementado | +12 (trust-safety) |
 | WO-032 | Agent Rate Limiting & Circuit Breaker | ✅ Implementado | +12 (rate-limit) |
 | WO-033 | Centro de Riesgo Sistémico de la Plataforma | `analytics-observability`, `trust-safety` (sec) | `audit` | ✅ Implementado |
-| WO-034 | Simulador de Abuso por Función | `analytics`, `trust-safety` | `ml-pipeline` | ⬜ Pendiente |
+| WO-034 | Simulador de Abuso por Función | `analytics-observability`, `trust-safety` | `ml-pipeline` | ✅ Implementado |
 | WO-035 | Protocolo de Preservación de Evidencia Grave | `audit`, `file-storage` | `support-claims` | ⬜ Pendiente |
 | WO-036 | Escrow de Patrocinios por Hitos | `financial-ledger`, `smart-contract` | `payout` | ⬜ Pendiente |
 | WO-037 | Mercado de Servicios de Producción Creativa | `local-services`, `merchant-b2b` | `file-storage` | ⬜ Pendiente |
