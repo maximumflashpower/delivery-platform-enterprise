@@ -1,5 +1,5 @@
 # ════════════════════════════════════════════════
-# Stage 1: Build (compila TS + dependencias nativas)
+# Stage 1: Build
 # ════════════════════════════════════════════════
 FROM node:20-slim AS builder
 
@@ -20,11 +20,8 @@ COPY . .
 
 RUN npm run build
 
-# Prune dev dependencies para producción
-RUN npm prune --omit=dev
-
 # ════════════════════════════════════════════════
-# Stage 2: Production (sin recompilar nada)
+# Stage 2: Production
 # ════════════════════════════════════════════════
 FROM node:20-slim AS production
 
@@ -33,9 +30,13 @@ WORKDIR /app
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-# Copiar package.json + node_modules ya compilados del builder
+# Copiar SOLO package.json primero
 COPY package*.json ./
+
+# Copiar node_modules del builder (YA COMPILADO)
 COPY --from=builder /app/node_modules ./node_modules
+
+# Copiar código compilado
 COPY --from=builder /app/dist ./dist
 
 VOLUME ["/app/data"]
