@@ -54,7 +54,7 @@
 | WO-034 | Simulador de Abuso por Función | `analytics-observability`, `trust-safety` | `ml-pipeline` | ✅ Implementado |
 | WO-035 | Protocolo de Preservación de Evidencia Grave | `audit`, `file-storage` | `support-claims` | ✅ Implementado |
 | WO-036 | Escrow de Patrocinios por Hitos | `financial-ledger`, `smart-contract` | `payout` | ✅ Implementado |
-| WO-037 | Mercado de Servicios de Producción Creativa | `local-services`, `merchant-b2b` | `file-storage` | ⬜ Pendiente |
+| WO-037 | Mercado de Servicios de Producción Creativa | `local-services`, `merchant-b2b` | `file-storage` | ✅ Implementado |
 | WO-038 | Gestor de Facturas y Cumplimiento para Sponsors | `financial-ledger`, `merchant-b2b` | `audit` | ⬜ Pendiente |
 | WO-039 | Calculadora de Costo Real de Producción | `financial-ledger`, `analytics` | `merchant-b2b` | ⬜ Pendiente |
 | WO-040 | Seguro/Protección de Ingresos con Partner | `financial-ledger`, `payout` | `smart-contract` | ⬜ Pendiente |

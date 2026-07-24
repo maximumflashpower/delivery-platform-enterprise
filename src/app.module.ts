@@ -1,4 +1,6 @@
 import { AdControlModule } from './modules/ad-control/ad-control.module';
+import { LocalServicesModule } from './modules/local-services/local-services.module';
+import { MerchantB2bModule } from './modules/merchant-b2b/merchant-b2b.module';
 import { AccessibilityModule } from './modules/accessibility/accessibility.module';
 import { BiometricSecurityModule } from './modules/biometric-security/biometric-security.module';
 import { CarbonSustainabilityModule } from './modules/carbon-sustainability/carbon-sustainability.module';
@@ -107,6 +109,8 @@ import { CodeAnalysisEngineModule } from './modules/code-analysis-engine/code-an
     WellnessModule,
     AgentSandboxModule,
     CodeAnalysisEngineModule,
+    LocalServicesModule,
+    MerchantB2bModule,
   ],
   providers: [
     {
