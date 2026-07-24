@@ -1,5 +1,4 @@
-import { IsString, IsUUID, IsNumber, IsOptional, IsEnum, IsDate, IsBoolean, IsDecimal, Min, Max, ArrayMinSize, ValidateNested } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsString, IsUUID, IsNumber, IsOptional, IsEnum, IsBoolean, IsDecimal, Min, Max } from 'class-validator';
 import { CostCalculationStatus, CostCategory } from '../entities/production-cost-calculation.entity';
 
 export class CreateProductionCostCalculationDto {
@@ -32,8 +31,9 @@ export class CreateProductionCostCalculationDto {
 }
 
 export class CreateCostLineItemDto {
+  @IsOptional()
   @IsUUID()
-  calculationId: string;
+  calculationId?: string;
 
   @IsString()
   itemName: string;
@@ -45,7 +45,7 @@ export class CreateCostLineItemDto {
   @IsEnum(CostCategory)
   category: CostCategory;
 
-  @IsDecimal()
+  @IsNumber()
   @Min(0)
   unitCost: number;
 
@@ -54,13 +54,13 @@ export class CreateCostLineItemDto {
   quantity: number;
 
   @IsOptional()
-  @IsDecimal()
+  @IsNumber()
   @Min(0)
   @Max(100)
   discountPercent?: number;
 
   @IsOptional()
-  @IsDecimal()
+  @IsNumber()
   @Min(0)
   taxPercent?: number;
 
